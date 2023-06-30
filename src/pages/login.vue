@@ -32,32 +32,44 @@ const errors = ref({
 })
 
 const refVForm = ref()
-const email = ref('admin@demo.com')
-const password = ref('admin')
+const email = ref('')
+const password = ref('')
+const errmessage = ref();
 const rememberMe = ref(false)
 
 const login = () => {
-  axios.post('/auth/login', {
+  axios.post('api/account/EmailLogin', {
     email: email.value,
     password: password.value,
   }).then(r => {
-    const { accessToken, userData, userAbilities } = r.data
-
-    localStorage.setItem('userAbilities', JSON.stringify(userAbilities))
+   const userAbilities= [
+      {
+        action: 'manage',
+        subject: 'all',
+      },
+    ]
+    const { code,message} = r.data
+    localStorage.setItem('userAbilities', JSON.stringify(userAbilities[0]))
     ability.update(userAbilities)
-    localStorage.setItem('userData', JSON.stringify(userData))
-    localStorage.setItem('accessToken', JSON.stringify(accessToken))
-
+    localStorage.setItem('userData', code)
+    // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
+    console.log(code)
     // Redirect to `to` query if exist or redirect to index route
-    router.replace(route.query.to ? String(route.query.to) : '/')
+    router.replace('/')
+    if(code==-1){
+      errmessage.value=message
+    }
   }).catch(e => {
-    const { errors: formErrors } = e.response.data
+    // const { errors: formErrors } = e.response.data
 
-    errors.value = formErrors
-    console.error(e.response.data)
+    // errors.value = formErrors
+    console.error(e)
   })
 }
-
+const onChange = () => {
+  // console.log('xxxxxxxxxxxx')
+  errmessage.value = "";
+};
 const onSubmit = () => {
   refVForm.value?.validate().then(({ valid: isValid }) => {
     if (isValid)
@@ -109,19 +121,7 @@ const onSubmit = () => {
             Login to your account to start the online course
           </p>
         </VCardText>
-        <VCardText>
-          <VAlert
-            color="primary"
-            variant="tonal"
-          >
-            <p class="text-caption mb-2">
-              Admin Email: <strong>admin@demo.com</strong> / Pass: <strong>admin</strong>
-            </p>
-            <p class="text-caption mb-0">
-              Client Email: <strong>client@demo.com</strong> / Pass: <strong>client</strong>
-            </p>
-          </VAlert>
-        </VCardText>
+     
         <VCardText>
           <VForm
             ref="refVForm"
@@ -137,6 +137,7 @@ const onSubmit = () => {
                   autofocus
                   :rules="[requiredValidator, emailValidator]"
                   :error-messages="errors.email"
+                  v-on:input="onChange"
                 />
               </VCol>
 
@@ -150,6 +151,7 @@ const onSubmit = () => {
                   :error-messages="errors.password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                  v-on:input="onChange"
                 />
 
                 <div class="d-flex align-center flex-wrap justify-space-between mt-2 mb-4">
@@ -171,6 +173,15 @@ const onSubmit = () => {
                 >
                   Login
                 </VBtn>
+                <div
+                  style="
+                    text-align: center;
+                    color: rgb(234, 84, 85);
+                    margin-top: 20px;
+                  "
+                >
+                  {{ errmessage }}
+                </div>
               </VCol>
 
               <!-- create account -->

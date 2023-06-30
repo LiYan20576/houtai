@@ -78,6 +78,17 @@ export default defineConfig({
     }),
     DefineOptions(),
   ],
+  server: { //主要是加上这段代码
+    host: '127.0.0.1',
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://106.14.204.207:8082',	//实际请求地址
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+    }
+  },
   define: { 'process.env': {} },
   resolve: {
     alias: {

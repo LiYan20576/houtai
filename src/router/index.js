@@ -12,13 +12,10 @@ const router = createRouter({
     {
       path: '/',
       redirect: to => {
-        const userData = JSON.parse(localStorage.getItem('userData') || '{}')
-        const userRole = (userData && userData.role) ? userData.role : null
-        if (userRole === 'admin')
+        const userData = localStorage.getItem('userData') || '{}'
+        const userRole = userData ? userData : null
+        if (userRole == 200)
           return { name: 'dashboards-analytics' }
-        if (userRole === 'client')
-          return { name: 'access-control' }
-        
         return { name: 'login', query: to.query }
       },
     },
@@ -36,8 +33,8 @@ const router = createRouter({
 
 
 // Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
-router.beforeEach(to => {
-  const isLoggedIn = isUserLoggedIn()
+// router.beforeEach(to => {
+  // const isLoggedIn = isUserLoggedIn()
 
   /*
   
@@ -60,15 +57,15 @@ router.beforeEach(to => {
     return next()
   
     */
-  if (canNavigate(to)) {
-    if (to.meta.redirectIfLoggedIn && isLoggedIn)
-      return '/'
-  }
-  else {
-    if (isLoggedIn)
-      return { name: 'not-authorized' }
-    else
-      return { name: 'login', query: { to: to.name !== 'index' ? to.fullPath : undefined } }
-  }
-})
+  // if (canNavigate(to)) {
+  //   if (to.meta.redirectIfLoggedIn && isLoggedIn)
+  //     return '/'
+  // }
+  // else {
+  //   if (isLoggedIn)
+  //     return { name: 'not-authorized' }
+  //   else
+  //     return { name: 'login', query: { to: to.name !== 'index' ? to.fullPath : undefined } }
+  // }
+// })
 export default router
