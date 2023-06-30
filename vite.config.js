@@ -82,10 +82,10 @@ export default defineConfig({
     host: '127.0.0.1',
     port: 3000,
     proxy: {
-      '/api': {
+      '/account': {
         target: 'http://106.14.204.207:8082',	//实际请求地址
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/account/, '/account')
       },
     }
   },

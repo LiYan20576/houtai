@@ -19,6 +19,7 @@ import {
 } from "@validators";
 
 const refVForm = ref();
+const successmessage = ref();
 const errmessage = ref();
 const number = ref("");
 const message = ref("Get Code");
@@ -43,7 +44,7 @@ const errors = ref({
 const register = () => {
   errmessage.value = "";
   axios
-    .post("api/account/RegEmail", {
+    .post("account/RegEmail", {
       vcode: number.value,
       email: email.value,
       password: password.value,
@@ -53,8 +54,10 @@ const register = () => {
       const { code, message } = r.data;
       if (code == -1) {
         errmessage.value = message;
-      } else if (code == 200) {
+      } else if (code == 0) {
         console.log(code, message);
+        // router.replace('/')
+        successmessage.value = '注册成功'
       }
       // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
       // ability.update(userAbilities);
@@ -95,7 +98,7 @@ const getcode = () => {
   console.log(code.value);
   if (email.value && code.value) {
     axios
-      .post("api/account/SendCodeEmail", {
+      .post("account/SendCodeEmail", {
         email: email.value,
       })
       .then((r) => {
@@ -221,6 +224,15 @@ const getcode = () => {
                   "
                 >
                   {{ errmessage }}
+                </div>
+                <div
+                  style="
+                    text-align: center;
+                    color: rgb(37, 183, 67);
+                    margin-top: 20px;
+                  "
+                >
+                  {{ successmessage }}
                 </div>
               </VCol>
 

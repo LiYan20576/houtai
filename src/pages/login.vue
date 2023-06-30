@@ -38,7 +38,7 @@ const errmessage = ref();
 const rememberMe = ref(false)
 
 const login = () => {
-  axios.post('api/account/EmailLogin', {
+  axios.post('account/EmailLogin', {
     email: email.value,
     password: password.value,
   }).then(r => {
