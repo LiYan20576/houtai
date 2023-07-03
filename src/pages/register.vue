@@ -19,15 +19,20 @@ import {
 } from "@validators";
 
 const refVForm = ref();
+const codeimg = ref();
+const creatway = ref("使用手机号注册");
+const creat = ref("电子邮件");
 const successmessage = ref();
 const errmessage = ref();
 const number = ref("");
 const message = ref("获取验证码");
 const email = ref("");
 const password = ref("");
+const imgcode = ref("");
 const privacyPolicies = ref(true);
 const code = ref(true);
-
+const useemail = ref(false);
+const aaa = ref(1);
 // Router
 const route = useRoute();
 const router = useRouter();
@@ -35,6 +40,12 @@ const router = useRouter();
 // Ability
 const ability = useAppAbility();
 
+const getimg = () => {
+  aaa.value = aaa.value + 1;
+  console.log("xxx", aaa.value);
+  codeimg.value = "http://106.14.204.207:8082/verify/index?id=" + aaa.value;
+};
+getimg();
 // Form Errors
 const errors = ref({
   email: undefined,
@@ -57,7 +68,7 @@ const register = () => {
       } else if (code == 0) {
         console.log(code, message);
         // router.replace('/')
-        successmessage.value = '注册成功'
+        successmessage.value = "注册成功";
       }
       // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
       // ability.update(userAbilities);
@@ -96,28 +107,68 @@ const onChange = () => {
 const getcode = () => {
   errmessage.value = "";
   console.log(code.value);
-  if (email.value && code.value) {
-    axios
-      .post("account/SendCodeEmail", {
-        email: email.value,
-      })
-      .then((r) => {
-        code.value = false;
-        console.log(r);
-        var time = 60;
-        let intervalID = setInterval(() => {
-          time--;
-          message.value = time;
-          if (time == -1) {
-            clearInterval(intervalID);
-            message.value = "Get Code";
-            code.value = true;
-          }
-        }, 1000);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+  if (useemail.value) {
+    if (email.value && code.value && imgcode.value) {
+      axios
+        .post("Sms/SendCodeMp", {
+          mp_num: email.value,
+          vcode: imgcode.value,
+        })
+        .then((r) => {
+          code.value = false;
+          console.log(r);
+          var time = 60;
+          let intervalID = setInterval(() => {
+            time--;
+            message.value = time;
+            if (time == -1) {
+              clearInterval(intervalID);
+              message.value = "获取验证码";
+              code.value = true;
+            }
+          }, 1000);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
+  } else {
+    if (email.value && code.value ) {
+      axios
+        .post("account/SendCodeEmail", {
+          email: email.value,
+        })
+        .then((r) => {
+          code.value = false;
+          console.log(r);
+          var time = 60;
+          let intervalID = setInterval(() => {
+            time--;
+            message.value = time;
+            if (time == -1) {
+              clearInterval(intervalID);
+              message.value = "Get Code";
+              code.value = true;
+            }
+          }, 1000);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
+  }
+};
+
+const getway = () => {
+  console.log(creatway.value);
+  creatway.value =
+    creatway.value == "使用邮箱注册" ? "使用手机号注册" : "使用邮箱注册";
+  if (creatway.value == "使用邮箱注册") {
+    creat.value = "手机号";
+    useemail.value = true;
+  } else {
+    creat.value = "电子邮箱";
+    useemail.value = false;
   }
 };
 </script>
@@ -160,16 +211,24 @@ const getcode = () => {
               </VCol> -->
 
               <!-- email -->
-              <VCol cols="12">
+              <VCol cols="12" v-if="useemail">
                 <AppTextField
                   v-model="email"
-                  :rules="[requiredValidator, emailValidator]"
-                  label="电子邮件"
+                  :rules="[requiredValidator]"
+                  :label="creat"
                   type="email"
                   v-on:input="onChange"
                 />
               </VCol>
-
+              <VCol cols="12" v-else>
+                <AppTextField
+                  v-model="email"
+                  :rules="[requiredValidator, emailValidator]"
+                  :label="creat"
+                  type="email"
+                  v-on:input="onChange"
+                />
+              </VCol>
               <!-- password -->
               <VCol cols="12">
                 <AppTextField
@@ -184,6 +243,25 @@ const getcode = () => {
                 />
               </VCol>
 
+              <VCol cols="7" v-if="useemail">
+                <AppTextField
+                  v-model="imgcode"
+                  :rules="[requiredValidator]"
+                  label="图形验证码"
+                />
+              </VCol>
+              <VCol
+                cols="5"
+                style="margin-top: 26px; padding-left: 0"
+                v-if="useemail"
+              >
+                <img
+                  :src="codeimg"
+                  @click="getimg"
+                  style="width: 100%; height: 40px"
+                />
+              </VCol>
+
               <!-- code -->
               <VCol cols="12" style="position: relative">
                 <AppTextField
@@ -195,7 +273,7 @@ const getcode = () => {
                 />
 
                 <div style="position: absolute; right: 20px; top: 45px">
-                  <button @click="getcode">{{ message }}</button>
+                  <button style="" @click="getcode">{{ message }}</button>
                 </div>
                 <div class="d-flex align-center mt-2 mb-4">
                   <VCheckbox
@@ -237,10 +315,16 @@ const getcode = () => {
               </VCol>
 
               <!-- create account -->
+
+              <VCol cols="12" class="text-center text-base">
+                <button type="button" class="text-primary ms-2" @click="getway">
+                  {{ creatway }}
+                </button>
+              </VCol>
               <VCol cols="12" class="text-center text-base">
                 <span>已经有账户?</span>
-                <RouterLink class="text-primary ms-2" :to="{ name: 'login' }">
-                 去登陆
+                <RouterLink class="text-primary" :to="{ name: 'login' }">
+                  去登陆
                 </RouterLink>
               </VCol>
 
@@ -259,6 +343,15 @@ const getcode = () => {
         </VCardText>
       </VCard>
     </VCol>
+    <div style="margin: auto;padding: 12px;">
+      <a
+        href="http://beian.miit.gocn/"
+        rel="noopener noreferrer"
+        color="primary"
+        target="_blank"
+        >沪ICP备2023016690号</a
+      >
+    </div>
   </VRow>
 </template>
 
