@@ -43,7 +43,7 @@ const ability = useAppAbility();
 const getimg = () => {
   aaa.value = aaa.value + 1;
   console.log("xxx", aaa.value);
-  codeimg.value = "http://106.14.204.207:8082/verify/index?id=" + aaa.value;
+  codeimg.value = "https://www.uesg.cn/verify/index?id=" + aaa.value;
 };
 getimg();
 // Form Errors
