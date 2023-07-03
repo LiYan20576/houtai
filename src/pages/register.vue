@@ -22,7 +22,7 @@ const refVForm = ref();
 const successmessage = ref();
 const errmessage = ref();
 const number = ref("");
-const message = ref("Get Code");
+const message = ref("获取验证码");
 const email = ref("");
 const password = ref("");
 const privacyPolicies = ref(true);
@@ -164,7 +164,7 @@ const getcode = () => {
                 <AppTextField
                   v-model="email"
                   :rules="[requiredValidator, emailValidator]"
-                  label="Email"
+                  label="电子邮件"
                   type="email"
                   v-on:input="onChange"
                 />
@@ -175,7 +175,7 @@ const getcode = () => {
                 <AppTextField
                   v-model="password"
                   :rules="[requiredValidator]"
-                  label="Password"
+                  label="密码"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="
                     isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'
@@ -188,7 +188,7 @@ const getcode = () => {
               <VCol cols="12" style="position: relative">
                 <AppTextField
                   v-model="number"
-                  label="Code"
+                  label="验证码"
                   type="text"
                   :rules="[requiredValidator]"
                   v-on:input="onChange"
@@ -206,16 +206,16 @@ const getcode = () => {
                   >
                     <template #label>
                       <span class="me-1">
-                        I agree to
+                        我同意
                         <a href="javascript:void(0)" class="text-primary"
-                          >privacy policy & terms</a
+                          >隐私政策和条款</a
                         >
                       </span>
                     </template>
                   </VCheckbox>
                 </div>
 
-                <VBtn block type="submit" @click="onSubmit"> Sign up </VBtn>
+                <VBtn block type="submit" @click="onSubmit">注册</VBtn>
                 <div
                   style="
                     text-align: center;
@@ -238,9 +238,9 @@ const getcode = () => {
 
               <!-- create account -->
               <VCol cols="12" class="text-center text-base">
-                <span>Already have an account?</span>
+                <span>已经有账户?</span>
                 <RouterLink class="text-primary ms-2" :to="{ name: 'login' }">
-                  Sign in instead
+                 去登陆
                 </RouterLink>
               </VCol>
 

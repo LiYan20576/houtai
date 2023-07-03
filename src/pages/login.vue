@@ -49,7 +49,7 @@ const login = () => {
       },
     ]
     const { code,message} = r.data
-    localStorage.setItem('userAbilities', JSON.stringify(userAbilities[0]))
+    localStorage.setItem('userAbilities', JSON.stringify(userAbilities))
     ability.update(userAbilities)
     localStorage.setItem('userData', code)
     // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
@@ -115,10 +115,10 @@ const onSubmit = () => {
           />
 
           <h5 class="text-h5 mb-1">
-            Welcome to <span class="text-capitalize"> {{ themeConfig.app.title }} </span>! 👋🏻
+           欢迎来到 <span class="text-capitalize"> {{ themeConfig.app.title }} </span>! 👋🏻
           </h5>
           <p class="mb-0">
-            Login to your account to start the online course
+            登录到您的帐户以开始在线课程
           </p>
         </VCardText>
      
@@ -132,7 +132,7 @@ const onSubmit = () => {
               <VCol cols="12">
                 <AppTextField
                   v-model="email"
-                  label="Email"
+                  label="电子邮件"
                   type="email"
                   autofocus
                   :rules="[requiredValidator, emailValidator]"
@@ -145,7 +145,7 @@ const onSubmit = () => {
               <VCol cols="12">
                 <AppTextField
                   v-model="password"
-                  label="Password"
+                  label="密码"
                   :rules="[requiredValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :error-messages="errors.password"
@@ -157,13 +157,13 @@ const onSubmit = () => {
                 <div class="d-flex align-center flex-wrap justify-space-between mt-2 mb-4">
                   <VCheckbox
                     v-model="rememberMe"
-                    label="Remember me"
+                    label="记住我"
                   />
                   <RouterLink
                     class="text-primary ms-2 mb-1"
                     :to="{ name: 'forgot-password' }"
                   >
-                    Forgot Password?
+                    忘记密码?
                   </RouterLink>
                 </div>
 
@@ -189,12 +189,12 @@ const onSubmit = () => {
                 cols="12"
                 class="text-center"
               >
-                <span>New to UESG?</span>
+                <span>刚接触 UESG?</span>
                 <RouterLink
                   class="text-primary ms-2"
                   :to="{ name: 'register' }"
                 >
-                  Create an account
+                创建一个帐户
                 </RouterLink>
               </VCol>
               <VCol
