@@ -14,7 +14,7 @@ import authV2MaskDark from "@images/pages/misc-mask-dark.png";
 import authV2MaskLight from "@images/pages/misc-mask-light.png";
 import { VNodeRenderer } from "@layouts/components/VNodeRenderer";
 import { themeConfig } from "@themeConfig";
-import { emailValidator, requiredValidator } from "@validators";
+import { emailValidator, requirednumberoremaliValidator ,numberoremaliValidator,passwordValidator,requiredepasswordValidator} from "@validators";
 
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
@@ -81,13 +81,16 @@ const onSubmit = () => {
     if (isValid) login();
   });
 };
+const content = (val) => {
+  console.log(val,'xxxxxxxxs')
+};
 </script>
 
 <template>
   <VRow no-gutters class="auth-wrapper bg-surface">
     <VCol lg="8" class="d-none d-lg-flex">
       <div class="position-relative w-100">
-        <div class="d-flex align-center justify-center w-100 h-100">
+        <div class="d-flex align-baseline justify-center w-100 h-100">
           <VImg
             max-width="750"
             :src="authThemeImg"
@@ -121,10 +124,10 @@ const onSubmit = () => {
               <VCol cols="12">
                 <AppTextField
                   v-model="email"
-                  label="电子邮箱"
+                  label="手机号/电子邮箱"
                   type="email"
                   autofocus
-                  :rules="[requiredValidator, emailValidator]"
+                  :rules="[requirednumberoremaliValidator, numberoremaliValidator]"
                   :error-messages="errors.email"
                   v-on:input="onChange"
                 />
@@ -135,7 +138,7 @@ const onSubmit = () => {
                 <AppTextField
                   v-model="password"
                   label="密码"
-                  :rules="[requiredValidator]"
+                  :rules="[requiredepasswordValidator,passwordValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :error-messages="errors.password"
                   :append-inner-icon="
@@ -187,7 +190,7 @@ const onSubmit = () => {
 
               <!-- auth providers -->
               <VCol cols="12" class="text-center">
-                <AuthProvider />
+                <AuthProvider @type="content"/>
               </VCol>
             </VRow>
           </VForm>

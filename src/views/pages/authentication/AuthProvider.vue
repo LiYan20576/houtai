@@ -3,18 +3,22 @@ import { useTheme } from 'vuetify'
 
 const { global } = useTheme()
 
+
+const emits = defineEmits(['type'])
+
+const getway = (type) => {
+  emits('type', type)
+}
 const authProviders = [
   {
-    icon: 'fa-facebook',
-    color: '#4267b2',
+    icon: 'ic:baseline-wechat',
+    color: '#00ac84',
+    type:'wechat'
   },
   {
-    icon: 'fa-google',
-    color: '#dd4b39',
-  },
-  {
-    icon: 'fa-twitter',
-    color: '#1da1f2',
+    icon: 'bi:alipay',
+    color: '#108ee9',
+    type:'pay'
   },
 ]
 </script>
@@ -29,6 +33,7 @@ const authProviders = [
       size="38"
       :color="global.name.value === 'dark' ? link.colorInDark : link.color"
       class="rounded"
+      @click="getway(link.type)"
     >
       <VIcon
         size="18"
