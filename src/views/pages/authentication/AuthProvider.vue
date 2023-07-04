@@ -2,9 +2,14 @@
 import { useTheme } from 'vuetify'
 
 const { global } = useTheme()
-const getway=(type)=>{
-  console.log(type,'xxxxxxxxx')
+
+const emits = defineEmits(['type'])
+
+const getway = (type) => {
+  console.log(type, 'xxxxxxxxx')
+  emits('type', type)
 }
+
 const authProviders = [
   {
     icon: 'ic:baseline-wechat',

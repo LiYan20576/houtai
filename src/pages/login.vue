@@ -39,6 +39,7 @@ const email = ref("");
 const password = ref("");
 const errmessage = ref();
 const rememberMe = ref(false);
+const showQR = ref(false);
 
 const login = () => {
   axios
@@ -81,6 +82,15 @@ const onSubmit = () => {
     if (isValid) login();
   });
 };
+
+const handleAuthProviderSelected = (type) => {
+  console.log('Received auth provider:', type);
+  if( !showQR.value && type === 'wechat') {
+    showQR.value = true;
+  } else {
+    showQR.value = false;
+  }
+}
 </script>
 
 <template>
@@ -118,7 +128,7 @@ const onSubmit = () => {
           <VForm ref="refVForm" @submit.prevent="onSubmit">
             <VRow>
               <!-- email -->
-              <VCol cols="12">
+              <VCol cols="12" v-if="!showQR">
                 <AppTextField
                   v-model="email"
                   label="电子邮箱"
@@ -131,7 +141,7 @@ const onSubmit = () => {
               </VCol>
 
               <!-- password -->
-              <VCol cols="12">
+              <VCol cols="12" v-if="!showQR">
                 <AppTextField
                   v-model="password"
                   label="密码"
@@ -169,6 +179,11 @@ const onSubmit = () => {
                 </div>
               </VCol>
 
+              <!-- QR code -->
+              <Vcol cols="12" v-if="showQR">
+                <img src="http://192.168.31.126:8888/images/qr.png" style="width: 300px;height: 300px;">
+              </Vcol>
+
               <!-- create account -->
               <VCol cols="12" class="text-center">
                 <span>刚接触 UESG?</span>
@@ -187,7 +202,7 @@ const onSubmit = () => {
 
               <!-- auth providers -->
               <VCol cols="12" class="text-center">
-                <AuthProvider />
+                <AuthProvider @type="handleAuthProviderSelected"/>
               </VCol>
             </VRow>
           </VForm>
