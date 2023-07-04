@@ -9,6 +9,7 @@ const emits = defineEmits(['type'])
 const getway = (type) => {
   emits('type', type)
 }
+
 const authProviders = [
   {
     icon: 'ic:baseline-wechat',

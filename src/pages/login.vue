@@ -39,6 +39,7 @@ const email = ref("");
 const password = ref("");
 const errmessage = ref();
 const rememberMe = ref(false);
+const showQR = ref(false);
 
 const login = () => {
   axios
@@ -121,7 +122,7 @@ const content = (val) => {
           <VForm ref="refVForm" @submit.prevent="onSubmit">
             <VRow>
               <!-- email -->
-              <VCol cols="12">
+              <VCol cols="12" v-if="!showQR">
                 <AppTextField
                   v-model="email"
                   label="手机号/电子邮箱"
@@ -134,7 +135,7 @@ const content = (val) => {
               </VCol>
 
               <!-- password -->
-              <VCol cols="12">
+              <VCol cols="12" v-if="!showQR">
                 <AppTextField
                   v-model="password"
                   label="密码"
@@ -171,6 +172,11 @@ const content = (val) => {
                   {{ errmessage }}
                 </div>
               </VCol>
+
+              <!-- QR code -->
+              <Vcol cols="12" v-if="showQR">
+                <img src="http://192.168.31.126:8888/images/qr.png" style="width: 300px;height: 300px;">
+              </Vcol>
 
               <!-- create account -->
               <VCol cols="12" class="text-center">
