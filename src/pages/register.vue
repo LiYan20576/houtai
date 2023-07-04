@@ -13,26 +13,34 @@ import { useGenerateImageVariant } from "@core/composable/useGenerateImageVarian
 import { VNodeRenderer } from "@layouts/components/VNodeRenderer";
 import { themeConfig } from "@themeConfig";
 import {
-  alphaDashValidator,
   emailValidator,
-  requiredValidator,
+  requiredemailValidator,
+  requiredenumberValidator,
+  numberValidator,
+  passwordValidator,
+  requiredepasswordValidator,
+  requiredecodeValidator,
+  requirederuleValidator,
+  requirederulesValidator,
 } from "@validators";
 
 const refVForm = ref();
 const codeimg = ref();
 const creatway = ref("使用手机号注册");
-const creat = ref("电子邮件");
+const creat = ref("电子邮箱");
 const successmessage = ref();
 const errmessage = ref();
 const number = ref("");
-const message = ref("获取验证码");
+const getcoderule = ref("获取验证码");
 const email = ref("");
 const password = ref("");
 const imgcode = ref("");
 const privacyPolicies = ref(true);
-const code = ref(true);
+const coderule = ref(true);
 const useemail = ref(false);
 const aaa = ref(1);
+const errmessageemail = ref();
+const errmessageenumber = ref();
 // Router
 const route = useRoute();
 const router = useRouter();
@@ -101,65 +109,85 @@ const onSubmit = () => {
   });
 };
 const onChange = () => {
-  // console.log('xxxxxxxxxxxx')
   errmessage.value = "";
+  errmessageemail.value = ""
+  errmessageenumber.value = ""
+  console.log("xxxxxxxxxxxx", errmessage.value);
 };
 const getcode = () => {
   errmessage.value = "";
-  console.log(code.value);
+
+  console.log(coderule.value);
   if (useemail.value) {
-    if (email.value && code.value && imgcode.value) {
+    if (email.value && coderule.value && imgcode.value) {
       axios
         .post("Sms/SendCodeMp", {
           mp_num: email.value,
           vcode: imgcode.value,
         })
         .then((r) => {
-          code.value = false;
-          console.log(r);
-          var time = 60;
-          let intervalID = setInterval(() => {
-            time--;
-            message.value = time;
-            if (time == -1) {
-              clearInterval(intervalID);
-              message.value = "获取验证码";
-              code.value = true;
-            }
-          }, 1000);
+          const { code, message } = r.data;
+          console.log(r, code, message);
+          if (code == 200) {
+            coderule.value = false;
+
+            var time = 60;
+            let intervalID = setInterval(() => {
+              time--;
+              getcoderule.value = time;
+              if (time == -1) {
+                clearInterval(intervalID);
+                getcoderule.value = "Get Code";
+                coderule.value = true;
+              }
+            }, 1000);
+          } else {
+            errmessage.value = message;
+          }
         })
         .catch((e) => {
           console.error(e);
         });
-    }
+    } 
   } else {
-    if (email.value && code.value ) {
+    if (email.value && coderule.value) {
       axios
         .post("account/SendCodeEmail", {
           email: email.value,
         })
         .then((r) => {
-          code.value = false;
-          console.log(r);
-          var time = 60;
-          let intervalID = setInterval(() => {
-            time--;
-            message.value = time;
-            if (time == -1) {
-              clearInterval(intervalID);
-              message.value = "Get Code";
-              code.value = true;
-            }
-          }, 1000);
+          const { code, message } = r.data;
+          console.log(code, message);
+          if (code == 200) {
+            coderule.value = false;
+
+            var time = 60;
+            let intervalID = setInterval(() => {
+              time--;
+              getcoderule.value = time;
+              if (time == -1) {
+                clearInterval(intervalID);
+                getcoderule.value = "Get Code";
+                coderule.value = true;
+              }
+            }, 1000);
+          } else {
+            errmessage.value = message;
+          }
         })
         .catch((e) => {
           console.error(e);
         });
-    }
+    } 
   }
 };
 
 const getway = () => {
+  email.value = "";
+  password.value = "";
+  imgcode.value = "";
+  number.value = "";
+  errmessage.value = "";
   console.log(creatway.value);
   creatway.value =
     creatway.value == "使用邮箱注册" ? "使用手机号注册" : "使用邮箱注册";
@@ -214,26 +242,45 @@ const getway = () => {
               <VCol cols="12" v-if="useemail">
                 <AppTextField
                   v-model="email"
-                  :rules="[requiredValidator]"
                   :label="creat"
                   type="email"
+                  :rules="[numberValidator,requiredenumberValidator]"
                   v-on:input="onChange"
+                  color="red"
                 />
+                <div
+                  style="
+                    color: rgb(var(--v-theme-error));
+                    font-size: 12px;
+                    padding-top: 6px;
+                  "
+                >
+                  {{ errmessageenumber }}
+                </div>
               </VCol>
               <VCol cols="12" v-else>
                 <AppTextField
                   v-model="email"
-                  :rules="[requiredValidator, emailValidator]"
                   :label="creat"
+                  :rules="[emailValidator,requiredemailValidator ]"
                   type="email"
                   v-on:input="onChange"
                 />
+                <div
+                  style="
+                    color: rgb(var(--v-theme-error));
+                    font-size: 12px;
+                    padding-top: 6px;
+                  "
+                >
+                  {{ errmessageemail }}
+                </div>
               </VCol>
               <!-- password -->
               <VCol cols="12">
                 <AppTextField
                   v-model="password"
-                  :rules="[requiredValidator]"
+                  :rules="[requiredepasswordValidator, passwordValidator]"
                   label="密码"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="
@@ -246,7 +293,7 @@ const getway = () => {
               <VCol cols="7" v-if="useemail">
                 <AppTextField
                   v-model="imgcode"
-                  :rules="[requiredValidator]"
+                  :rules="[requirederulesValidator]"
                   label="图形验证码"
                 />
               </VCol>
@@ -268,18 +315,20 @@ const getway = () => {
                   v-model="number"
                   label="验证码"
                   type="text"
-                  :rules="[requiredValidator]"
+                  :rules="[requiredecodeValidator]"
                   v-on:input="onChange"
                 />
 
                 <div style="position: absolute; right: 20px; top: 45px">
-                  <button style="" @click="getcode">{{ message }}</button>
+                  <button  @click="getcode">
+                    {{ getcoderule }}
+                  </button>
                 </div>
                 <div class="d-flex align-center mt-2 mb-4">
                   <VCheckbox
                     id="privacy-policy"
                     v-model="privacyPolicies"
-                    :rules="[requiredValidator]"
+                    :rules="[requirederuleValidator]"
                     inline
                   >
                     <template #label>
@@ -297,7 +346,8 @@ const getway = () => {
                 <div
                   style="
                     text-align: center;
-                    color: rgb(234, 84, 85);
+                    color: rgb(var(--v-theme-error));
+                    font-size: 12px;
                     margin-top: 20px;
                   "
                 >
@@ -343,7 +393,7 @@ const getway = () => {
         </VCardText>
       </VCard>
     </VCol>
-    <div style="margin: auto;padding: 12px;">
+    <div style="margin: auto; padding: 12px">
       <a
         href="http://beian.miit.gocn/"
         rel="noopener noreferrer"

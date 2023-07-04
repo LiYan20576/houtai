@@ -121,7 +121,7 @@ const onSubmit = () => {
               <VCol cols="12">
                 <AppTextField
                   v-model="email"
-                  label="电子邮件"
+                  label="电子邮箱"
                   type="email"
                   autofocus
                   :rules="[requiredValidator, emailValidator]"
@@ -157,7 +157,7 @@ const onSubmit = () => {
                   </RouterLink>
                 </div>
 
-                <VBtn block type="submit"> Login </VBtn>
+                <VBtn block type="submit"> 登录 </VBtn>
                 <div
                   style="
                     text-align: center;

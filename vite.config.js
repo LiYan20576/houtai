@@ -83,12 +83,12 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/account': {
-        target: 'https://106.14.204.207:8082',	//实际请求地址
+        target: 'https://www.uesg.cn',	//实际请求地址
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/account/, '/account')
       },
       '/Sms': {
-        target: 'https://106.14.204.207:8082',	//实际请求地址
+        target: 'https://www.uesg.cn',	//实际请求地址
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/Sms/, '/Sms')
       },

@@ -3,20 +3,58 @@ import { isEmpty, isEmptyArray, isNullOrUndefined } from './index'
 // 👉 Required Validator
 export const requiredValidator = value => {
   if (isNullOrUndefined(value) || isEmptyArray(value) || value === false)
-    return 'This field is required'
+    return '不能为空'
   
-  return !!String(value).trim().length || 'This field is required'
+  return !!String(value).trim().length || '不能为空'
+}
+export const requiredemailValidator = value => {
+  if (isNullOrUndefined(value) || isEmptyArray(value) || value === false)
+    return '电子邮箱不能为空'
+  
+  return !!String(value).trim().length || '电子邮箱不能为空'
+}
+export const requiredenumberValidator = value => {
+  if (isNullOrUndefined(value) || isEmptyArray(value) || value === false)
+    return '手机号不能为空'
+  
+  return !!String(value).trim().length || '手机号不能为空'
+}
+export const requiredepasswordValidator = value => {
+  if (isNullOrUndefined(value) || isEmptyArray(value) || value === false)
+    return '密码不能为空'
+  
+  return !!String(value).trim().length || '密码不能为空'
 }
 
+export const requiredecodeValidator = value => {
+  if (isNullOrUndefined(value) || isEmptyArray(value) || value === false)
+    return '验证码不能为空'
+  
+  return !!String(value).trim().length || '验证码不能为空'
+}
+
+export const requirederuleValidator = value => {
+  if (isNullOrUndefined(value) || isEmptyArray(value) || value === false)
+    return '请勾选同意'
+  
+  return !!String(value).trim().length || '请勾选同意'
+}
+
+export const requirederulesValidator = value => {
+  if (isNullOrUndefined(value) || isEmptyArray(value) || value === false)
+    return '图形码不能为空'
+  
+  return !!String(value).trim().length || '图形码不能为空'
+}
 // 👉 Email Validator
 export const emailValidator = value => {
   if (isEmpty(value))
     return true
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   if (Array.isArray(value))
-    return value.every(val => re.test(String(val))) || 'The Email field must be a valid email'
+    return value.every(val => re.test(String(val))) || '请输入正确的电子邮箱'
   
-  return re.test(String(value)) || 'The Email field must be a valid email'
+  return re.test(String(value)) || '请输入正确的电子邮箱'
 }
 
 // 👉 Password Validator
@@ -27,9 +65,20 @@ export const passwordValidator = password => {
   return (
     // eslint-disable-next-line operator-linebreak
     validPassword ||
-        'Field must contain at least one uppercase, lowercase, special character and digit with min 8 chars')
+        '密码必须至少包含一个大写、小写、特殊字符和数字，最少 8 个字符')
 }
+//手机号
+export const numberValidator = value => {
+  if (isEmpty(value))
+  return true
+const re = /^1[3|4|5|7|8][0-9]{9}$/;
+if (Array.isArray(value))
+  return value.every(val => re.test(String(val))) ||   '请输入正确的手机号'
 
+return re.test(String(value)) ||   '请输入正确的手机号'
+  
+      
+}
 // 👉 Confirm Password Validator
 export const confirmedValidator = (value, target) => value === target || 'The Confirm Password field confirmation does not match'
 
