@@ -30,7 +30,7 @@ const handleClick = (type) => {
   if (isMobile.value) {
     // 在移动设备上执行的点击行为
     console.log('Mobile Click')
-    window.location.href='https://www.baidu.com';
+    window.location.href='https://www.uesg.cn/weixin/auth';
   } else {
     // 在非移动设备上执行的点击行为
     emits('type', type)
