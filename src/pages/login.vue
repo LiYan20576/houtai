@@ -72,6 +72,17 @@ const login = () => {
       // errors.value = formErrors
       console.error(e);
     });
+
+  
+  // const userAbilities = [
+  //   {
+  //     action: "manage",
+  //     subject: "all",
+  //   },
+  // ];
+  // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+  // localStorage.setItem("userData", 200);
+  // router.replace("/");
 };
 const onChange = () => {
   // console.log('xxxxxxxxxxxx')
@@ -82,9 +93,17 @@ const onSubmit = () => {
     if (isValid) login();
   });
 };
-const content = (val) => {
-  console.log(val,'xxxxxxxxs')
-};
+
+const handleAuthProviderSelected = (type) => {
+  console.log('Received auth provider:', type);
+  if( !showQR.value && type === 'wechat') {
+    showQR.value = true;
+  } else {
+    showQR.value = false;
+  }
+}
+
+
 </script>
 
 <template>
@@ -175,7 +194,7 @@ const content = (val) => {
 
               <!-- QR code -->
               <Vcol cols="12" v-if="showQR">
-                <img src="http://192.168.31.126:8888/images/qr.png" style="width: 300px;height: 300px;">
+                <img src="https://lovemedicine.cn/public/uesg/520/img/qr.png" style="width: 300px;height: 300px;">
               </Vcol>
 
               <!-- create account -->
@@ -195,8 +214,13 @@ const content = (val) => {
               </VCol>
 
               <!-- auth providers -->
-              <VCol cols="12" class="text-center">
-                <AuthProvider @type="content"/>
+              <VCol cols="12" class="text-center" v-if="!showQR">
+                <AuthProvider @type="handleAuthProviderSelected"/>
+              </VCol>
+              <VCol cols="12" class="text-center text-base" v-else>
+                <button type="button" class="text-primary ms-2" @click="handleAuthProviderSelected">
+                  返回手机/邮箱登录
+                </button>
               </VCol>
             </VRow>
           </VForm>
