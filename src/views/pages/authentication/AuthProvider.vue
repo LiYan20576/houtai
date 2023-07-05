@@ -5,10 +5,10 @@ const { global } = useTheme()
 
 const emits = defineEmits(['type'])
 
-const getway = (type) => {
-  console.log(type, 'xxxxxxxxx')
-  emits('type', type)
-}
+// const getway = (type) => {
+//   console.log(type, 'xxxxxxxxx')
+//   emits('type', type)
+// }
 
 const authProviders = [
   {
@@ -22,6 +22,34 @@ const authProviders = [
   //   type:'pay'
   // },
 ]
+
+const isMobile = ref(false)
+
+const handleClick = (type) => {
+  
+  if (isMobile.value) {
+    // 在移动设备上执行的点击行为
+    console.log('Mobile Click')
+    window.location.href='https://www.baidu.com';
+  } else {
+    // 在非移动设备上执行的点击行为
+    emits('type', type)
+    console.log(type, 'xxxxxxxxx')
+    console.log('Desktop Click')
+  }
+}
+
+onMounted(() => {
+  const mediaQuery = window.matchMedia('(max-width: 1280px)')
+  isMobile.value = mediaQuery.matches
+
+  const handleResize = () => {
+    isMobile.value = mediaQuery.matches
+  }
+
+  window.addEventListener('resize', handleResize)
+})
+
 </script>
 
 <template>
@@ -34,7 +62,7 @@ const authProviders = [
       size="38"
       :color="global.name.value === 'dark' ? link.colorInDark : link.color"
       class="rounded"
-      @click="getway(link.type)"
+      @click="handleClick(link.type)"
     >
       <VIcon
         size="18"
