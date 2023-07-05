@@ -72,6 +72,17 @@ const login = () => {
       // errors.value = formErrors
       console.error(e);
     });
+
+  
+  // const userAbilities = [
+  //   {
+  //     action: "manage",
+  //     subject: "all",
+  //   },
+  // ];
+  // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+  // localStorage.setItem("userData", 200);
+  // router.replace("/");
 };
 const onChange = () => {
   // console.log('xxxxxxxxxxxx')
@@ -91,6 +102,35 @@ const handleAuthProviderSelected = (type) => {
     showQR.value = false;
   }
 }
+
+
+// 微信登录
+const wechatLogin = () => {
+  axios
+    .get('XXX')
+    .then((res) => {
+      if(res.code !== 200) return
+      let state = parseInt(new Date().getTime() / 1000)
+      let obj = new WxLogin({
+        self_redirect: false,
+        id: 'login_container',
+        appid: data.appid,
+        scope: 'snsapi_login',
+        redirect_uri: data.redirect_url, // 这里跳的是扫码成功后,账户操作的地址
+        state: state,
+        style: 'black',
+        href: '',
+      })
+      // 自己封装的sessionStorage方法
+      sessionStorage.setItem('beforeLogin', window.location.href) // 记录当前操作页面,以备后面跳转
+      sessionStorage.setItem('QRcode', 'login') // 记录当前扫码是注册还是登录
+      state.loginType = 'QRcode'
+    })
+    .catch((err) => {
+
+    });
+}
+
 </script>
 
 <template>
@@ -181,7 +221,7 @@ const handleAuthProviderSelected = (type) => {
 
               <!-- QR code -->
               <Vcol cols="12" v-if="showQR">
-                <img src="http://192.168.31.126:8888/images/qr.png" style="width: 300px;height: 300px;">
+                <img src="https://lovemedicine.cn/public/uesg/520/img/qr.png" style="width: 300px;height: 300px;">
               </Vcol>
 
               <!-- create account -->
@@ -201,8 +241,13 @@ const handleAuthProviderSelected = (type) => {
               </VCol>
 
               <!-- auth providers -->
-              <VCol cols="12" class="text-center">
-                <AuthProvider @type="handleAuthProviderSelected"/>
+              <VCol cols="12" class="text-center" v-if="!showQR">
+                <AuthProvider @type="handleAuthProviderSelected" @click="wechatLogin"/>
+              </VCol>
+              <VCol cols="12" class="text-center text-base" v-else>
+                <button type="button" class="text-primary ms-2" @click="handleAuthProviderSelected">
+                  返回手机/邮箱登录
+                </button>
               </VCol>
             </VRow>
           </VForm>

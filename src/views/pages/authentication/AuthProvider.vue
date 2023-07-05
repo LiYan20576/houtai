@@ -16,11 +16,11 @@ const authProviders = [
     color: '#00ac84',
     type:'wechat'
   },
-  {
-    icon: 'bi:alipay',
-    color: '#108ee9',
-    type:'pay'
-  },
+  // {
+  //   icon: 'bi:alipay',
+  //   color: '#108ee9',
+  //   type:'pay'
+  // },
 ]
 </script>
 
