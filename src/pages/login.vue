@@ -15,6 +15,8 @@ import authV2MaskLight from "@images/pages/misc-mask-light.png";
 import { VNodeRenderer } from "@layouts/components/VNodeRenderer";
 import { themeConfig } from "@themeConfig";
 import { emailValidator, requirednumberoremaliValidator ,numberoremaliValidator,passwordValidator,requiredepasswordValidator} from "@validators";
+import { watch } from "vue";
+import { reqEmailLogin } from "@/api/index.js"
 
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
@@ -41,48 +43,58 @@ const errmessage = ref();
 const rememberMe = ref(false);
 const showQR = ref(false);
 
-const login = () => {
-  axios
-    .post("/account/EmailLogin", {
-      email: email.value,
-      password: password.value,
-    })
-    .then((r) => {
-      const userAbilities = [
-        {
-          action: "manage",
-          subject: "all",
-        },
-      ];
-      const { code, message } = r.data;
-      localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-      ability.update(userAbilities);
-      localStorage.setItem("userData", code);
-      // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
-      console.log(code);
-      // Redirect to `to` query if exist or redirect to index route
-      router.replace("/");
-      if (code == -1) {
-        errmessage.value = message;
-      }
-    })
-    .catch((e) => {
-      // const { errors: formErrors } = e.response.data
+const login = async() => {
+  // axios
+  //   .post("/account/EmailLogin", {
+  //     email: email.value,
+  //     password: password.value,
+  //   })
+  //   .then((r) => {
+  //     const userAbilities = [
+  //       {
+  //         action: "manage",
+  //         subject: "all",
+  //       },
+  //     ];
+  //     const { code, message } = r.data;
+  //     localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+  //     ability.update(userAbilities);
+  //     localStorage.setItem("userData", code);
+  //     // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
+  //     console.log(code);
+  //     // Redirect to `to` query if exist or redirect to index route
+  //     router.replace("/");
+  //     if (code == -1) {
+  //       errmessage.value = message;
+  //     }
+  //   })
+  //   .catch((e) => {
+  //     // const { errors: formErrors } = e.response.data
 
-      // errors.value = formErrors
-      console.error(e);
-    });
-
+  //     // errors.value = formErrors
+  //     console.error(e);
+  //   });
   
-  // const userAbilities = [
-  //   {
-  //     action: "manage",
-  //     subject: "all",
-  //   },
-  // ];
-  // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-  // localStorage.setItem("userData", 200);
-  // router.replace("/");
+  const {data:res} = await reqEmailLogin(email.value, password.value);
+  console.log(res);
+  
+  if(res.code === 200) {
+    const userAbilities = [
+      {
+        action: "manage",
+        subject: "all",
+      },
+    ];
+    const code = res.code;
+    localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+    ability.update(userAbilities);
+    localStorage.setItem("userData", code);
+    // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
+    router.replace("/");
+  } else if (code === -1) {
+    errmessage.value = message;
+  }
+
 };
 const onChange = () => {
   // console.log('xxxxxxxxxxxx')
@@ -93,17 +105,69 @@ const onSubmit = () => {
     if (isValid) login();
   });
 };
-
-const handleAuthProviderSelected = (type) => {
+const changeLoginType = (type) => {
   console.log('Received auth provider:', type);
   if( !showQR.value && type === 'wechat') {
     showQR.value = true;
   } else {
     showQR.value = false;
   }
-}
+};
 
+const queryParams = ref('');
+const is_wxlogin = () => {
+  // 获取URL查询参数
+  const searchParams = window.location.search
+  queryParams.value = searchParams.substring(1)
+  console.log(queryParams.value)
+  if(queryParams.value) {
+    // axios
+    // .post("/account/is_login", {
+    //   code: queryParams.value
+    // })
+    // .then((r) => {
+    //   const userAbilities = [
+    //     {
+    //       action: "manage",
+    //       subject: "all",
+    //     },
+    //   ];
+    //   const { code, message } = r.data;
+    //   localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+    //   ability.update(userAbilities);
+    //   localStorage.setItem("userData", code);
+    //   // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
+    //   console.log(code);
+    //   // Redirect to `to` query if exist or redirect to index route
+    //   router.replace("/");
+    //   if (code == -1) {
+    //     errmessage.value = message;
+    //   }
+    // })
+    // .catch((e) => {
+    //   // const { errors: formErrors } = e.response.data
 
+    //   // errors.value = formErrors
+    //   console.error(e);
+    // });
+
+    const userAbilities = [
+      {
+        action: "manage",
+        subject: "all",
+      },
+    ];
+    localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+    ability.update(userAbilities);
+    localStorage.setItem("userData", 200);
+    router.replace("/");
+  }
+  
+};
+onMounted(() => {
+  // 在页面加载时执行的方法
+  is_wxlogin()
+});
 </script>
 
 <template>
@@ -111,11 +175,12 @@ const handleAuthProviderSelected = (type) => {
     <VCol lg="8" class="d-none d-lg-flex">
       <div class="position-relative w-100">
         <div class="d-flex align-baseline justify-center w-100 h-100">
-          <VImg
+          <!-- <VImg
             max-width="750"
             :src="authThemeImg"
             class="auth-illustration rounded-lg"
-          />
+          /> -->
+          <img :src="authThemeImg" style="width: 100%;" alt="">
         </div>
       </div>
     </VCol>
@@ -158,7 +223,6 @@ const handleAuthProviderSelected = (type) => {
                 <AppTextField
                   v-model="password"
                   label="密码"
-                  :rules="[requiredepasswordValidator,passwordValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :error-messages="errors.password"
                   :append-inner-icon="
@@ -194,7 +258,7 @@ const handleAuthProviderSelected = (type) => {
 
               <!-- QR code -->
               <Vcol cols="12" v-if="showQR">
-                <img src="https://lovemedicine.cn/public/uesg/520/img/qr.png" style="width: 300px;height: 300px;">
+                <img src="https://www.uesg.cn/weixing/member" style="width: 300px;height: 300px;">
               </Vcol>
 
               <!-- create account -->
@@ -215,10 +279,10 @@ const handleAuthProviderSelected = (type) => {
 
               <!-- auth providers -->
               <VCol cols="12" class="text-center" v-if="!showQR">
-                <AuthProvider @type="handleAuthProviderSelected"/>
+                <AuthProvider @type="changeLoginType"/>
               </VCol>
               <VCol cols="12" class="text-center text-base" v-else>
-                <button type="button" class="text-primary ms-2" @click="handleAuthProviderSelected">
+                <button type="button" class="text-primary ms-2" @click="changeLoginType">
                   返回手机/邮箱登录
                 </button>
               </VCol>

@@ -27,6 +27,7 @@ import {
   requirederuleValidator,
   requirederulesValidator,
 } from "@validators";
+import { regEmail } from "@/api/index.js"
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
   authV2LoginIllustrationDark,
@@ -101,6 +102,9 @@ const register = () => {
     .catch((e) => {
       console.error(e);
     });
+
+  // const { data:res } = await regEmail( number.value, email.value, password.value);
+  // console.log(res);
 };
 
 const imageVariant = useGenerateImageVariant(
@@ -192,6 +196,7 @@ const getcode = () => {
   }
 };
 const content = (val) => {
+  router.push('/login')
   console.log(val,'xxxxxxxxs')
 };
 const getway = () => {
@@ -211,6 +216,10 @@ const getway = () => {
     useemail.value = false;
   }
 };
+
+const handleClick = () => {
+  location.reload();
+};
 </script>
 
 <template>
@@ -218,11 +227,12 @@ const getway = () => {
     <VCol lg="8" class="d-none d-lg-flex">
       <div class="position-relative w-100">
         <div class="d-flex align-baseline justify-center w-100 h-100">
-          <VImg
+          <!-- <VImg
             max-width="750"
             :src="authThemeImg"
             class="auth-illustration rounded-lg"
-          />
+          /> -->
+          <img :src="authThemeImg" style="width: 100%;" alt="">
         </div>
       </div>
     </VCol>
@@ -236,7 +246,7 @@ const getway = () => {
         </VCardText>
 
         <VCardText>
-          <VForm ref="refVForm" @submit.prevent="false">
+          <VForm ref="refVForm" @submit.prevent="onSubmit">
             <VRow>
               <!-- Username -->
               <!-- <VCol cols="12">
@@ -311,7 +321,7 @@ const getway = () => {
                 />
 
                 <div style="position: absolute; right: 20px; top: 45px">
-                  <button  @click="getcode">
+                  <button type="button" @click="getcode">
                     {{ getcoderule }}
                   </button>
                 </div>
@@ -333,7 +343,7 @@ const getway = () => {
                   </VCheckbox>
                 </div>
 
-                <VBtn block type="submit" @click="onSubmit">注册</VBtn>
+                <VBtn block type="submit">注册</VBtn>
                 <div
                   style="
                     text-align: center;
