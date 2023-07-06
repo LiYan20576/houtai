@@ -31,6 +31,15 @@ const router = createRouter({
   ],
 })
 
+router.beforeEach(to => {
+  const isLoggedIn = isUserLoggedIn();
+
+  if(!canNavigate(to)) {
+    if(!isLoggedIn) {
+      router.replace('/')
+    }
+  }
+})
 
 // Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
 // router.beforeEach(to => {

@@ -27,7 +27,7 @@ import {
   requirederuleValidator,
   requirederulesValidator,
 } from "@validators";
-import { regEmail } from "@/api/index.js"
+import { regEmail,SendCodeMp,SendCodeEmail } from "@/api/index.js"
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
   authV2LoginIllustrationDark,
@@ -71,40 +71,47 @@ const errors = ref({
   password: undefined,
 });
 
-const register = () => {
+const register = async () => {
   errmessage.value = "";
-  axios
-    .post("account/RegEmail", {
-      vcode: number.value,
-      email: email.value,
-      password: password.value,
-    })
-    .then((r) => {
-      // const { accessToken, userData, userAbilities } = r.data;
-      const { code, message } = r.data;
-      if (code == -1) {
-        errmessage.value = message;
-      } else if (code == 0) {
-        console.log(code, message);
-        // router.replace('/')
-        successmessage.value = "注册成功";
-      }
-      // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-      // ability.update(userAbilities);
-      // localStorage.setItem("userData", JSON.stringify(userData));
-      // localStorage.setItem("accessToken", JSON.stringify(accessToken));
+  // axios
+  //   .post("account/RegEmail", {
+  //     vcode: number.value,
+  //     email: email.value,
+  //     password: password.value,
+  //   })
+  //   .then((r) => {
+  //     // const { accessToken, userData, userAbilities } = r.data;
+  //     const { code, message } = r.data;
+  //     if (code == -1) {
+  //       errmessage.value = message;
+  //     } else if (code == 0) {
+  //       console.log(code, message);
+  //       // router.replace('/')
+  //       successmessage.value = "注册成功";
+  //     }
+  //     // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+  //     // ability.update(userAbilities);
+  //     // localStorage.setItem("userData", JSON.stringify(userData));
+  //     // localStorage.setItem("accessToken", JSON.stringify(accessToken));
 
-      // Redirect to `to` query if exist or redirect to index route
-      // router.replace(route.query.to ? String(route.query.to) : "/");
+  //     // Redirect to `to` query if exist or redirect to index route
+  //     // router.replace(route.query.to ? String(route.query.to) : "/");
 
-      // return null;
-    })
-    .catch((e) => {
-      console.error(e);
-    });
+  //     // return null;
+  //   })
+  //   .catch((e) => {
+  //     console.error(e);
+  //   });
 
-  // const { data:res } = await regEmail( number.value, email.value, password.value);
-  // console.log(res);
+  const { data:res } = await regEmail( number.value, email.value, password.value);
+  console.log(res);
+  if (res.code == -1) {
+    errmessage.value = res.message;
+  } else if (res.code == 0) {
+    // console.log(res.code, res.message);
+    // router.replace('/')
+    successmessage.value = "注册成功";
+  }
 };
 
 const imageVariant = useGenerateImageVariant(
@@ -128,70 +135,105 @@ const onChange = () => {
   errmessageenumber.value = ""
   console.log("xxxxxxxxxxxx", errmessage.value);
 };
-const getcode = () => {
+const getcode = async () => {
   errmessage.value = "";
-
   console.log(coderule.value);
   if (useemail.value) {
     if (email.value && coderule.value && imgcode.value) {
-      axios
-        .post("sms/SendCodeMp", {
-          mp_num: email.value,
-          vcode: imgcode.value,
-        })
-        .then((r) => {
-          const { code, message } = r.data;
-          console.log(r, code, message);
-          if (code == 200) {
-            coderule.value = false;
+      // axios
+      //   .post("sms/SendCodeMp", {
+      //     mp_num: email.value,
+      //     vcode: imgcode.value,
+      //   })
+      //   .then((r) => {
+      //     const { code, message } = r.data;
+      //     console.log(r, code, message);
+      //     if (code == 200) {
+      //       coderule.value = false;
 
-            var time = 60;
-            let intervalID = setInterval(() => {
-              time--;
-              getcoderule.value = time;
-              if (time == -1) {
-                clearInterval(intervalID);
-                getcoderule.value = "Get Code";
-                coderule.value = true;
-              }
-            }, 1000);
-          } else {
-            errmessage.value = message;
+      //       var time = 60;
+      //       let intervalID = setInterval(() => {
+      //         time--;
+      //         getcoderule.value = time;
+      //         if (time == -1) {
+      //           clearInterval(intervalID);
+      //           getcoderule.value = "Get Code";
+      //           coderule.value = true;
+      //         }
+      //       }, 1000);
+      //     } else {
+      //       errmessage.value = message;
+      //     }
+      //   })
+      //   .catch((e) => {
+      //     console.error(e);
+      //   });
+
+      const { data:res } = await SendCodeMp(email.value, imgcode.value);
+      if (res.code == 200) {
+        coderule.value = false;
+
+        var time = 60;
+        let intervalID = setInterval(() => {
+          time--;
+          getcoderule.value = time;
+          if (time == -1) {
+            clearInterval(intervalID);
+            getcoderule.value = "Get Code";
+            coderule.value = true;
           }
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+        }, 1000);
+      } else {
+        errmessage.value = res.message;
+      }
     } 
   } else {
     if (email.value && coderule.value) {
-      axios
-        .post("account/SendCodeEmail", {
-          email: email.value,
-        })
-        .then((r) => {
-          const { code, message } = r.data;
-          console.log(code, message);
-          if (code == 200) {
-            coderule.value = false;
+      // axios
+      //   .post("account/SendCodeEmail", {
+      //     email: email.value,
+      //   })
+      //   .then((r) => {
+      //     const { code, message } = r.data;
+      //     console.log(code, message);
+      //     if (code == 200) {
+      //       coderule.value = false;
 
-            var time = 60;
-            let intervalID = setInterval(() => {
-              time--;
-              getcoderule.value = time;
-              if (time == -1) {
-                clearInterval(intervalID);
-                getcoderule.value = "Get Code";
-                coderule.value = true;
-              }
-            }, 1000);
-          } else {
-            errmessage.value = message;
+      //       var time = 60;
+      //       let intervalID = setInterval(() => {
+      //         time--;
+      //         getcoderule.value = time;
+      //         if (time == -1) {
+      //           clearInterval(intervalID);
+      //           getcoderule.value = "Get Code";
+      //           coderule.value = true;
+      //         }
+      //       }, 1000);
+      //     } else {
+      //       errmessage.value = message;
+      //     }
+      //   })
+      //   .catch((e) => {
+      //     console.error(e);
+      //   });
+
+      const { data:res } = await SendCodeEmail(email.value);
+      if (res.code == 200) {
+        coderule.value = false;
+
+        var time = 60;
+        let intervalID = setInterval(() => {
+          time--;
+          getcoderule.value = time;
+          if (time == -1) {
+            clearInterval(intervalID);
+            getcoderule.value = "Get Code";
+            coderule.value = true;
           }
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+        }, 1000);
+      } else {
+        errmessage.value = res.message;
+      }
     } 
   }
 };

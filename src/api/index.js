@@ -14,3 +14,16 @@ export const regEmail = (vcode, email, password) => {
         password: password
     });
 };
+
+export const SendCodeMp = (mp_num, vcode) => {
+    return requests.post("/sms/SendCodeMp", {
+        mp_num: mp_num,
+        vcode: vcode
+    });
+};
+
+export const SendCodeEmail = (email) => {
+    return requests.post("/account/SendCodeEmail", {
+        email: email
+    });
+};
