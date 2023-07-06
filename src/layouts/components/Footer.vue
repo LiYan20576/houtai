@@ -3,7 +3,7 @@
     <!-- 👉 Footer: left content -->
     <span class="d-flex align-center">
       <a
-        href="http://beian.miit.gocn/"
+        href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=2023016690"
         target="_blank"
         rel="noopener noreferrer"
         class="text-primary ms-1"

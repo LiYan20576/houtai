@@ -180,7 +180,7 @@ onMounted(() => {
             :src="authThemeImg"
             class="auth-illustration rounded-lg"
           /> -->
-          <img :src="authThemeImg" style="width: 100%;" alt="">
+          <img :src="authThemeImg" class="auth-illustration rounded-lg" style="width: 100%;" alt="">
         </div>
       </div>
     </VCol>
@@ -293,7 +293,7 @@ onMounted(() => {
     </VCol>
     <div style="margin: auto;padding: 12px;">
       <a
-        href="http://beian.miit.gocn/"
+        href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=2023016690"
         rel="noopener noreferrer"
         color="primary"
         target="_blank"
