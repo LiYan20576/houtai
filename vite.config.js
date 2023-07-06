@@ -87,10 +87,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/account/, '/account')
       },
-      '/Sms': {
+      '/sms': {
         target: 'https://www.uesg.cn',	//实际请求地址
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/Sms/, '/Sms')
+        rewrite: (path) => path.replace(/^\/sms/, '/sms')
       },
     }
   },

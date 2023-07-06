@@ -135,7 +135,7 @@ const getcode = () => {
   if (useemail.value) {
     if (email.value && coderule.value && imgcode.value) {
       axios
-        .post("Sms/SendCodeMp", {
+        .post("sms/SendCodeMp", {
           mp_num: email.value,
           vcode: imgcode.value,
         })
@@ -246,20 +246,11 @@ const handleClick = () => {
         </VCardText>
 
         <VCardText>
-          <VForm ref="refVForm" @submit.prevent="onSubmit">
+          <!-- 手机号注册 -->
+          <VForm ref="refVForm" @submit.prevent="onSubmit" v-if="useemail">
             <VRow>
-              <!-- Username -->
-              <!-- <VCol cols="12">
-                <AppTextField
-                  v-model="username"
-                  autofocus
-                  :rules="[requiredValidator, alphaDashValidator]"
-                  label="Username"
-                />
-              </VCol> -->
-
               <!-- email -->
-              <VCol cols="12" v-if="useemail">
+              <VCol cols="12" >
                 <AppTextField
                   v-model="email"
                   :label="creat"
@@ -268,15 +259,7 @@ const handleClick = () => {
                   v-on:input="onChange"
                 />
               </VCol>
-              <VCol cols="12" v-else>
-                <AppTextField
-                  v-model="email"
-                  :label="creat"
-                  :rules="[emailValidator,requiredemailValidator ]"
-                  type="email"
-                  v-on:input="onChange"
-                />
-              </VCol>
+              
               <!-- password -->
               <VCol cols="12">
                 <AppTextField
@@ -291,7 +274,8 @@ const handleClick = () => {
                 />
               </VCol>
 
-              <VCol cols="7" v-if="useemail">
+              <!-- 图形验证码 -->
+              <VCol cols="7">
                 <AppTextField
                   v-model="imgcode"
                   :rules="[requirederulesValidator]"
@@ -301,7 +285,6 @@ const handleClick = () => {
               <VCol
                 cols="5"
                 style="margin-top: 26px; padding-left: 0"
-                v-if="useemail"
               >
                 <img
                   :src="codeimg"
@@ -366,7 +349,6 @@ const handleClick = () => {
               </VCol>
 
               <!-- create account -->
-
               <VCol cols="12" class="text-center text-base">
                 <button type="button" class="text-primary ms-2" @click="getway">
                   {{ creatway }}
@@ -385,6 +367,111 @@ const handleClick = () => {
                 <VDivider />
               </VCol>
 
+              <!-- auth providers -->
+              <VCol cols="12" class="text-center">
+                <AuthProvider @type="content"/>
+              </VCol>
+            </VRow>
+          </VForm>
+
+          <!-- 邮箱注册 -->
+          <VForm ref="refVForm" @submit.prevent="onSubmit" v-else>
+            <VRow>
+              <!-- email -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="email"
+                  :label="creat"
+                  :rules="[emailValidator,requiredemailValidator ]"
+                  type="email"
+                  v-on:input="onChange"
+                />
+              </VCol>
+              <!-- password -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="password"
+                  :rules="[requiredepasswordValidator, passwordValidator]"
+                  label="密码"
+                  :type="isPasswordVisible ? 'text' : 'password'"
+                  :append-inner-icon="
+                    isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'
+                  "
+                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
+                />
+              </VCol>
+              <!-- code -->
+              <VCol cols="12" style="position: relative">
+                <AppTextField
+                  v-model="number"
+                  label="验证码"
+                  type="text"
+                  :rules="[requiredecodeValidator]"
+                  v-on:input="onChange"
+                />
+
+                <div style="position: absolute; right: 20px; top: 45px">
+                  <button type="button" @click="getcode">
+                    {{ getcoderule }}
+                  </button>
+                </div>
+                <div class="d-flex align-center mt-2 mb-4">
+                  <VCheckbox
+                    id="privacy-policy"
+                    v-model="privacyPolicies"
+                    :rules="[requirederuleValidator]"
+                    inline
+                  >
+                    <template #label>
+                      <span class="me-1">
+                        我同意
+                        <a href="javascript:void(0)" class="text-primary"
+                          >隐私政策和条款</a
+                        >
+                      </span>
+                    </template>
+                  </VCheckbox>
+                </div>
+
+                <VBtn block type="submit">注册</VBtn>
+                <div
+                  style="
+                    text-align: center;
+                    color: rgb(var(--v-theme-error));
+                    font-size: 12px;
+                    margin-top: 20px;
+                  "
+                >
+                  {{ errmessage }}
+                </div>
+                <div
+                  style="
+                    text-align: center;
+                    color: rgb(37, 183, 67);
+                    margin-top: 20px;
+                  "
+                >
+                  {{ successmessage }}
+                </div>
+              </VCol>
+
+              <!-- create account -->
+              <VCol cols="12" class="text-center text-base">
+                <button type="button" class="text-primary ms-2" @click="getway">
+                  {{ creatway }}
+                </button>
+              </VCol>
+              <VCol cols="12" class="text-center text-base">
+                <span>已经有账户?</span>
+                <RouterLink class="text-primary" :to="{ name: 'login' }">
+                  去登陆
+                </RouterLink>
+              </VCol>
+              <VCol cols="12" class="d-flex align-center">
+                <VDivider />
+                <span class="mx-4">or</span>
+                <VDivider />
+              </VCol>
               <!-- auth providers -->
               <VCol cols="12" class="text-center">
                 <AuthProvider @type="content"/>
