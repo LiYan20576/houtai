@@ -16,7 +16,7 @@ import { VNodeRenderer } from "@layouts/components/VNodeRenderer";
 import { themeConfig } from "@themeConfig";
 import { emailValidator, requirednumberoremaliValidator ,numberoremaliValidator,passwordValidator,requiredepasswordValidator} from "@validators";
 import { watch } from "vue";
-import { reqEmailLogin } from "@/api/index.js"
+import { reqEmailLogin, regNumberLogin, isWechat } from "@/api/index.js"
 
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
@@ -42,6 +42,17 @@ const password = ref("");
 const errmessage = ref();
 const rememberMe = ref(false);
 const showQR = ref(false);
+const isLoading = ref(false);
+
+const isEmail = (input) => {
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return emailRegex.test(input);
+};
+
+const isPhoneNumber = (input) => {
+  const phoneRegex = /^1[3|4|5|7|8|9][0-9]{9}$/;
+  return phoneRegex.test(input);
+};
 
 const login = async() => {
   // axios
@@ -74,27 +85,54 @@ const login = async() => {
   //     // errors.value = formErrors
   //     console.error(e);
   //   });
-  
-  const {data:res} = await reqEmailLogin(email.value, password.value);
-  console.log(res);
-  
-  if(res.code === 200) {
-    const userAbilities = [
-      {
-        action: "manage",
-        subject: "all",
-      },
-    ];
-    const code = res.code;
-    localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-    ability.update(userAbilities);
-    localStorage.setItem("userData", code);
-    // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
-    router.replace("/");
-  } else if (code === -1) {
-    errmessage.value = message;
-  }
+  isLoading.value=true;
+  if(isEmail(email.value)){
+    console.log("邮箱登录");
 
+    const {data:res} = await reqEmailLogin(email.value, password.value);
+    if(res.code === 200) {
+      const userAbilities = [
+        {
+          action: "manage",
+          subject: "all",
+        },
+      ];
+      const code = res.code;
+      localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+      ability.update(userAbilities);
+      localStorage.setItem("userData", code);
+      // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
+      router.replace("/");
+      isLoading.value=false;
+    } else if (res.code === -1) {
+      isLoading.value=false;
+      errmessage.value = res.message;
+    }
+  } else if(isPhoneNumber(email.value)){
+    console.log("电话登录");
+    isLoading.value=false;
+
+    const { data:res } = await regNumberLogin(email.value, password.value);
+
+    if(res.code === 200) {
+      const userAbilities = [
+        {
+          action: "manage",
+          subject: "all",
+        },
+      ];
+      const code = res.code;
+      localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+      ability.update(userAbilities);
+      localStorage.setItem("userData", code);
+      // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
+      router.replace("/");
+      isLoading.value=false;
+    } else if (res.code === -1) {
+      isLoading.value=false;
+      errmessage.value = res.message;
+    }
+  }
 };
 const onChange = () => {
   // console.log('xxxxxxxxxxxx')
@@ -115,7 +153,7 @@ const changeLoginType = (type) => {
 };
 
 const queryParams = ref('');
-const is_wxlogin = () => {
+const is_wxlogin = async () => {
   // 获取URL查询参数
   const searchParams = window.location.search
   queryParams.value = searchParams.substring(1)
@@ -151,26 +189,36 @@ const is_wxlogin = () => {
     //   console.error(e);
     // });
 
-    const userAbilities = [
-      {
-        action: "manage",
-        subject: "all",
-      },
-    ];
-    localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-    ability.update(userAbilities);
-    localStorage.setItem("userData", 200);
-    router.replace("/");
+    const { data:res } = await isWechat(queryParams.value);
+
+    console.log(res);
+    alert(res.message);
+
+    // const userAbilities = [
+    //   {
+    //     action: "manage",
+    //     subject: "all",
+    //   },
+    // ];
+    // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+    // ability.update(userAbilities);
+    // localStorage.setItem("userData", 200);
+    // router.replace("/");
   }
   
 };
 onMounted(() => {
   // 在页面加载时执行的方法
   is_wxlogin()
+  console.log("xxx");
 });
 </script>
 
 <template>
+  <!-- 遮罩层 -->
+  <div class="loading-overlay" v-if="isLoading">
+    <VProgressCircular :size="60" color="primary" indeterminate />
+  </div>
   <VRow no-gutters class="auth-wrapper bg-surface">
     <VCol lg="8" class="d-none d-lg-flex">
       <div class="position-relative w-100">
@@ -305,6 +353,18 @@ onMounted(() => {
 
 <style lang="scss">
 @use "@core/scss/template/pages/page-auth.scss";
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
 </style>
 
 <route lang="yaml">

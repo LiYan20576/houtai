@@ -27,7 +27,7 @@ import {
   requirederuleValidator,
   requirederulesValidator,
 } from "@validators";
-import { regEmail,SendCodeMp,SendCodeEmail } from "@/api/index.js"
+import { regEmail, SendCodeMp, SendCodeEmail, regNumber } from "@/api/index.js";
 const authThemeImg = useGenerateImageVariant(
   authV2LoginIllustrationLight,
   authV2LoginIllustrationDark,
@@ -72,46 +72,76 @@ const errors = ref({
 });
 
 const register = async () => {
-  errmessage.value = "";
-  // axios
-  //   .post("account/RegEmail", {
-  //     vcode: number.value,
-  //     email: email.value,
-  //     password: password.value,
-  //   })
-  //   .then((r) => {
-  //     // const { accessToken, userData, userAbilities } = r.data;
-  //     const { code, message } = r.data;
-  //     if (code == -1) {
-  //       errmessage.value = message;
-  //     } else if (code == 0) {
-  //       console.log(code, message);
-  //       // router.replace('/')
-  //       successmessage.value = "注册成功";
-  //     }
-  //     // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-  //     // ability.update(userAbilities);
-  //     // localStorage.setItem("userData", JSON.stringify(userData));
-  //     // localStorage.setItem("accessToken", JSON.stringify(accessToken));
+  if(useemail.value) {
+    // 手机号注册
+    errmessage.value = "";
+    const { data:res } = await regNumber(
+      number.value,
+      email.value,
+      password.value
+    );
 
-  //     // Redirect to `to` query if exist or redirect to index route
-  //     // router.replace(route.query.to ? String(route.query.to) : "/");
+    console.log(res);
+    
+    if (res.code == 100) {
+      successmessage.value = "注册成功";
+    } else {
+      errmessage.value = res.message? res.message: "注册失败！";
+    } 
 
-  //     // return null;
-  //   })
-  //   .catch((e) => {
-  //     console.error(e);
-  //   });
 
-  const { data:res } = await regEmail( number.value, email.value, password.value);
-  console.log(res);
-  if (res.code == -1) {
-    errmessage.value = res.message;
-  } else if (res.code == 0) {
-    // console.log(res.code, res.message);
-    // router.replace('/')
-    successmessage.value = "注册成功";
+  } else {
+    // 邮箱注册
+    errmessage.value = "";
+    // axios
+    //   .post("account/RegEmail", {
+    //     vcode: number.value,
+    //     email: email.value,
+    //     password: password.value,
+    //   })
+    //   .then((r) => {
+    //     // const { accessToken, userData, userAbilities } = r.data;
+    //     const { code, message } = r.data;
+    //     if (code == -1) {
+    //       errmessage.value = message;
+    //     } else if (code == 0) {
+    //       console.log(code, message);
+    //       // router.replace('/')
+    //       successmessage.value = "注册成功";
+    //     }
+    //     // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+    //     // ability.update(userAbilities);
+    //     // localStorage.setItem("userData", JSON.stringify(userData));
+    //     // localStorage.setItem("accessToken", JSON.stringify(accessToken));
+
+    //     // Redirect to `to` query if exist or redirect to index route
+    //     // router.replace(route.query.to ? String(route.query.to) : "/");
+
+    //     // return null;
+    //   })
+    //   .catch((e) => {
+    //     console.error(e);
+    //   });
+
+    const { data: res } = await regEmail(
+      number.value,
+      email.value,
+      password.value
+    );
+    console.log(res);
+    
+    
+    if (res.code == 0) {
+      // console.log(res.code, res.message);
+      // router.replace('/')
+      successmessage.value = "注册成功";
+    } else {
+      errmessage.value = res.message? res.message:"注册失败！";
+    } 
+
+
   }
+  
 };
 
 const imageVariant = useGenerateImageVariant(
@@ -131,13 +161,13 @@ const onSubmit = () => {
 };
 const onChange = () => {
   errmessage.value = "";
-  errmessageemail.value = ""
-  errmessageenumber.value = ""
+  errmessageemail.value = "";
+  errmessageenumber.value = "";
   console.log("xxxxxxxxxxxx", errmessage.value);
 };
 const getcode = async () => {
   errmessage.value = "";
-  console.log(coderule.value);
+  // 获取手机验证码
   if (useemail.value) {
     if (email.value && coderule.value && imgcode.value) {
       // axios
@@ -169,8 +199,8 @@ const getcode = async () => {
       //     console.error(e);
       //   });
 
-      const { data:res } = await SendCodeMp(email.value, imgcode.value);
-      if (res.code == 200) {
+      const { data: res } = await SendCodeMp(email.value, imgcode.value);
+      if (res.code == 100) {
         coderule.value = false;
 
         var time = 60;
@@ -179,15 +209,16 @@ const getcode = async () => {
           getcoderule.value = time;
           if (time == -1) {
             clearInterval(intervalID);
-            getcoderule.value = "Get Code";
+            getcoderule.value = "获取验证码";
             coderule.value = true;
           }
         }, 1000);
       } else {
-        errmessage.value = res.message;
+        errmessage.value = res.message ? res.message : "获取验证码失败！";
       }
-    } 
+    }
   } else {
+    // 获取邮箱验证码
     if (email.value && coderule.value) {
       // axios
       //   .post("account/SendCodeEmail", {
@@ -217,7 +248,7 @@ const getcode = async () => {
       //     console.error(e);
       //   });
 
-      const { data:res } = await SendCodeEmail(email.value);
+      const { data: res } = await SendCodeEmail(email.value);
       if (res.code == 200) {
         coderule.value = false;
 
@@ -227,19 +258,19 @@ const getcode = async () => {
           getcoderule.value = time;
           if (time == -1) {
             clearInterval(intervalID);
-            getcoderule.value = "Get Code";
+            getcoderule.value = "获取验证码";
             coderule.value = true;
           }
         }, 1000);
       } else {
-        errmessage.value = res.message;
+        errmessage.value = res.message ? res.message : "获取验证码失败！";
       }
-    } 
+    }
   }
 };
 const content = (val) => {
-  router.push('/login')
-  console.log(val,'xxxxxxxxs')
+  router.push("/login");
+  console.log(val, "xxxxxxxxs");
 };
 const getway = () => {
   email.value = "";
@@ -265,7 +296,7 @@ const handleClick = () => {
 </script>
 
 <template>
- <VRow no-gutters class="auth-wrapper bg-surface">
+  <VRow no-gutters class="auth-wrapper bg-surface">
     <VCol lg="8" class="d-none d-lg-flex">
       <div class="position-relative w-100">
         <div class="d-flex align-baseline justify-center w-100 h-100">
@@ -274,7 +305,12 @@ const handleClick = () => {
             :src="authThemeImg"
             class="auth-illustration rounded-lg"
           /> -->
-          <img :src="authThemeImg" class="auth-illustration rounded-lg" style="width: 100%;" alt="">
+          <img
+            :src="authThemeImg"
+            class="auth-illustration rounded-lg"
+            style="width: 100%"
+            alt=""
+          />
         </div>
       </div>
     </VCol>
@@ -292,16 +328,16 @@ const handleClick = () => {
           <VForm ref="refVForm" @submit.prevent="onSubmit" v-if="useemail">
             <VRow>
               <!-- email -->
-              <VCol cols="12" >
+              <VCol cols="12">
                 <AppTextField
                   v-model="email"
                   :label="creat"
                   type="email"
-                  :rules="[numberValidator,requiredenumberValidator]"
+                  :rules="[numberValidator, requiredenumberValidator]"
                   v-on:input="onChange"
                 />
               </VCol>
-              
+
               <!-- password -->
               <VCol cols="12">
                 <AppTextField
@@ -324,10 +360,7 @@ const handleClick = () => {
                   label="图形验证码"
                 />
               </VCol>
-              <VCol
-                cols="5"
-                style="margin-top: 26px; padding-left: 0"
-              >
+              <VCol cols="5" style="margin-top: 26px; padding-left: 0">
                 <img
                   :src="codeimg"
                   @click="getimg"
@@ -411,7 +444,7 @@ const handleClick = () => {
 
               <!-- auth providers -->
               <VCol cols="12" class="text-center">
-                <AuthProvider @type="content"/>
+                <AuthProvider @type="content" />
               </VCol>
             </VRow>
           </VForm>
@@ -424,7 +457,7 @@ const handleClick = () => {
                 <AppTextField
                   v-model="email"
                   :label="creat"
-                  :rules="[emailValidator,requiredemailValidator ]"
+                  :rules="[emailValidator, requiredemailValidator]"
                   type="email"
                   v-on:input="onChange"
                 />
@@ -516,7 +549,7 @@ const handleClick = () => {
               </VCol>
               <!-- auth providers -->
               <VCol cols="12" class="text-center">
-                <AuthProvider @type="content"/>
+                <AuthProvider @type="content" />
               </VCol>
             </VRow>
           </VForm>

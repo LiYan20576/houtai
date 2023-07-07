@@ -28,3 +28,9 @@ handleSkinChanges()
     </VApp>
   </VLocaleProvider>
 </template>
+
+<style>
+  .layout-wrapper {
+    background: rgb(var(--v-theme-surface)) !important;
+  }
+</style>

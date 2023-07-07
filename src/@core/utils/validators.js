@@ -77,7 +77,7 @@ export const passwordValidator = password => {
 export const numberValidator = value => {
   if (isEmpty(value))
   return true
-const re = /^1[3|4|5|7|8][0-9]{9}$/;
+const re = /^1[3|4|5|7|8|9][0-9]{9}$/;
 if (Array.isArray(value))
   return value.every(val => re.test(String(val))) ||   '请输入正确的手机号'
 
@@ -89,7 +89,7 @@ return re.test(String(value)) ||   '请输入正确的手机号'
 export const numberoremaliValidator = value => {
   if (isEmpty(value))
   return true
-const re = /^1[3|4|5|7|8][0-9]{9}$/;
+const re = /^1[3|4|5|7|8|9][0-9]{9}$/;
 const res = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 if (Array.isArray(value))
   return value.every(val => res.test(String(val))) || value.every(val => re.test(String(val))) ||   '请输入正确的手机号或电子邮箱'

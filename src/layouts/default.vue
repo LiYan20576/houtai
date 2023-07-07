@@ -30,4 +30,7 @@ injectSkinClasses()
 <style lang="scss">
 // As we are using `layouts` plugin we need its styles to be imported
 @use "@layouts/styles/default-layout";
+.layout-content-wrapper {
+  background-color: rgb(var(--v-theme-surface), 0.9) !important;
+}
 </style>

@@ -58,11 +58,11 @@ const { width: windowWidth } = useWindowSize()
     </RouterView>
 
     <!-- 👉 Footer -->
-    <template #footer>
+    <!-- <template #footer>
       <Footer />
-    </template>
+    </template> -->
 
     <!-- 👉 Customizer -->
-    <!-- <TheCustomizer /> -->
+    <TheCustomizer />
   </VerticalNavLayout>
 </template>
