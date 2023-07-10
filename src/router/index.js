@@ -28,10 +28,8 @@ const router = createRouter({
       redirect: to => {
         const userData = localStorage.getItem('userData') || '{}'
         const userRole = userData ? userData : null
-        if (userRole == 200)
-        // course-optional-courses
-        // dashboards-analytics
-        
+
+        if (userRole == 200) 
           return { name: 'pages-account-settings-tab', params: { tab: 'account' } }
         return { name: 'login', query: to.query }
       },
@@ -40,23 +38,23 @@ const router = createRouter({
       path: '/pages/user-profile',
       redirect: () => ({ name: 'pages-user-profile-tab', params: { tab: 'profile' } }),
     },
-    {
-      path: '/pages/account-settings',
-      redirect: () => ({ name: 'pages-account-settings-tab', params: { tab: 'account' } }),
-    },
+    // {
+    //   path: '/pages/account-settings',
+    //   redirect: () => ({ name: 'pages-account-settings-tab', params: { tab: 'account' } }),
+    // },
     ...setupLayouts(routes),
   ],
 })
 
-router.beforeEach(to => {
-  const isLoggedIn = isUserLoggedIn();
+// router.beforeEach(to => {
+//   const isLoggedIn = isUserLoggedIn();
 
-  if(!canNavigate(to)) {
-    if(!isLoggedIn) {
-      router.replace('/')
-    }
-  }
-})
+//   if(!canNavigate(to)) {
+//     if(!isLoggedIn) {
+//       router.replace('/')
+//     }
+//   }
+// })
 
 // Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
 // router.beforeEach(to => {

@@ -31,6 +31,8 @@ onMounted(() => {
   // 在页面加载时执行的方法
   
   getData();
+  localStorage.setItem("info_islogin", true);
+
 });
 </script>
 

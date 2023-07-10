@@ -1,5 +1,5 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
 import AccountSettingsAccount from '@/views/pages/account-settings/AccountSettingsAccount.vue'
 import AccountSettingsBillingAndPlans from '@/views/pages/account-settings/AccountSettingsBillingAndPlans.vue'
 import AccountSettingsConnections from '@/views/pages/account-settings/AccountSettingsConnections.vue'
@@ -7,6 +7,7 @@ import AccountSettingsNotification from '@/views/pages/account-settings/AccountS
 import AccountSettingsSecurity from '@/views/pages/account-settings/AccountSettingsSecurity.vue'
 
 const route = useRoute()
+const router = useRouter()
 const activeTab = ref(route.params.tab)
 
 // tabs
@@ -37,6 +38,13 @@ const tabs = [
   //   tab: 'connection',
   // },
 ]
+
+// console.log(localStorage.getItem('info_islogin'));
+
+// if(localStorage.getItem('info_islogin')){
+//   localStorage.setItem("info_islogin", false);
+  router.push('/pages/account-settings/account')
+// } 
 </script>
 
 <template>

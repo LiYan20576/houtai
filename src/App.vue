@@ -3,6 +3,18 @@ import { useTheme } from 'vuetify'
 import ScrollToTop from '@core/components/ScrollToTop.vue'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
 import { hexToRgb } from '@layouts/utils'
+import { useAppAbility } from "@/plugins/casl/useAppAbility";
+
+const ability = useAppAbility();
+const userAbilities = [
+  {
+    action: "manage",
+    subject: "all",
+  },
+];
+localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+ability.update(userAbilities);
+// localStorage.setItem("userData", 200);
 
 const {
   syncInitialLoaderTheme,
@@ -17,6 +29,7 @@ const { global } = useTheme()
 syncInitialLoaderTheme()
 syncConfigThemeWithVuetifyTheme()
 handleSkinChanges()
+
 </script>
 
 <template>
