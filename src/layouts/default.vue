@@ -33,4 +33,5 @@ injectSkinClasses()
 .layout-content-wrapper {
   background-color: rgb(var(--v-theme-surface), 0.9) !important;
 }
+
 </style>

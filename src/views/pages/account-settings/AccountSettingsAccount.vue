@@ -1,6 +1,18 @@
 <script setup>
 import avatar1 from '@images/avatars/avatar-14.png'
 import axios from 'axios'
+import {
+  emailValidator,
+  requiredemailValidator,
+  requiredenumberValidator,
+  numberValidator,
+  passwordValidator,
+  requiredepasswordValidator,
+  requiredecodeValidator,
+  requirederuleValidator,
+  requirederulesValidator,
+} from "@validators";
+import { updateInfo } from '@/api/index'
 
 const accountData = {
   avatarImg: avatar1,
@@ -18,14 +30,68 @@ const accountData = {
   currency: 'USD',
   Name: 'joker'
 }
-const user = {'id':1,'fullName':"John Doe",'username':"johndoe",'avatar':"http://192.168.31.126:8888/images/ava.jpg",'email':"admin@demo.com",'role':"admin"}
-localStorage.setItem('userData', JSON.stringify(user))
+// const user = {'id':1,'fullName':"John Doe",'username':"johndoe",'avatar':"http://192.168.31.126:8888/images/ava.jpg",'email':"admin@demo.com",'role':"admin"}
+// localStorage.setItem('userData', JSON.stringify(user))
 
+const refVForm = ref();
 const refInputEl = ref()
 const isConfirmDialogOpen = ref(false)
 const accountDataLocal = ref(structuredClone(accountData))
 const isAccountDeactivated = ref(false)
 const validateAccountDeactivation = [v => !!v || 'Please confirm account deactivation']
+
+const onSubmit = () => {
+  refVForm.value?.validate().then(({ valid: isValid }) => {
+    if (isValid) register();
+  });
+};
+
+const getcode = async () => {
+  errmessage.value = "";
+  // 获取手机验证码
+  if (useemail.value) {
+    if (email.value && coderule.value && imgcode.value) {
+      const { data: res } = await SendCodeMp(email.value, imgcode.value);
+      if (res.code == 100) {
+        coderule.value = false;
+
+        var time = 60;
+        let intervalID = setInterval(() => {
+          time--;
+          getcoderule.value = time;
+          if (time == -1) {
+            clearInterval(intervalID);
+            getcoderule.value = "获取验证码";
+            coderule.value = true;
+          }
+        }, 1000);
+      } else {
+        errmessage.value = res.message ? res.message : "获取验证码失败！";
+      }
+    }
+  } else {
+    // 获取邮箱验证码
+    if (email.value && coderule.value) {
+      const { data: res } = await SendCodeEmail(email.value);
+      if (res.code == 200) {
+        coderule.value = false;
+
+        var time = 60;
+        let intervalID = setInterval(() => {
+          time--;
+          getcoderule.value = time;
+          if (time == -1) {
+            clearInterval(intervalID);
+            getcoderule.value = "获取验证码";
+            coderule.value = true;
+          }
+        }, 1000);
+      } else {
+        errmessage.value = res.message ? res.message : "获取验证码失败！";
+      }
+    }
+  }
+};
 
 const resetForm = () => {
   accountDataLocal.value = structuredClone(accountData)
@@ -39,6 +105,7 @@ const changeAvatar = file => {
     fileReader.onload = () => {
       if (typeof fileReader.result === 'string')
         accountDataLocal.value.avatarImg = fileReader.result
+        console.log(fileReader.result);
     }
   }
 }
@@ -50,64 +117,50 @@ const resetAvatar = () => {
 
 // 从接口获取动态数据
 const fetchAccountData = async () => {
-  try {
-    // const query = {
-    //   userId: 1
-    // };
-    // const response = await axios.get('http://192.168.31.126:8888/getUserInfo');
+  // try {
+  //   // const query = {
+  //   //   userId: 1
+  //   // };
+  //   // const response = await axios.get('http://192.168.31.126:8888/getUserInfo');
 
-    const response = {data:{
-        avatarImg: avatar1,
-        firstName: 'steve',
-        lastName: 'Deng',
-        email: 'steveDeng@example.com',
-        org: 'Pixinvent',
-        phone: '+86 18954235717',
-        address: '123 Main St, New York, NY 10001',
-        state: 'New York',
-        zip: '10001',
-        country: 'USA',
-        language: 'English',
-        timezone: '(GMT-11:00) International Date Line West',
-        currency: 'USD',
-        nickname: 'Joker'
-    }};
-    accountDataLocal.value = response.data;
+  //   const response = {data:{
+  //       avatarImg: avatar1,
+  //       firstName: 'steve',
+  //       lastName: 'Deng',
+  //       email: 'steveDeng@example.com',
+  //       org: 'Pixinvent',
+  //       phone: '+86 18954235717',
+  //       address: '123 Main St, New York, NY 10001',
+  //       state: 'New York',
+  //       zip: '10001',
+  //       country: 'USA',
+  //       language: 'English',
+  //       timezone: '(GMT-11:00) International Date Line West',
+  //       currency: 'USD',
+  //       nickname: 'Joker'
+  //   }};
+  //   accountDataLocal.value = response.data;
     
-    // 从 localStorage 中获取之前存储的 userData
-    const userData = JSON.parse(localStorage.getItem('userData'));
+  //   // 从 localStorage 中获取之前存储的 userData
+  //   const userData = JSON.parse(localStorage.getItem('userData'));
 
-    // 修改 avatar 字段的值
-    userData.avatar = response.data.avatarImg;
+  //   // 修改 avatar 字段的值
+  //   userData.avatar = response.data.avatarImg;
 
-    // 将修改后的 userData 对象重新存储到 localStorage 中
-    localStorage.setItem('userData', JSON.stringify(userData));
+  //   // 将修改后的 userData 对象重新存储到 localStorage 中
+  //   localStorage.setItem('userData', JSON.stringify(userData));
 
 
     
-  } catch (error) {
-    console.error('Error fetching account data:', error);
-  }
+  // } catch (error) {
+  //   console.error('Error fetching account data:', error);
+  // }
 };
 
 // 保存用户数据
 const saveChanges = async () => {
-  try {
-    const response = await axios.post('http://192.168.31.126:8888/saveChanges',accountDataLocal.value);
-
-    accountDataLocal.value = response
-    
-    // 从 localStorage 中获取之前存储的 userData
-    const userData = JSON.parse(localStorage.getItem('userData'));
-
-    // 修改 avatar 字段的值
-    userData.avatar = response.data.avatarImg;
-
-    // 将修改后的 userData 对象重新存储到 localStorage 中
-    localStorage.setItem('userData', JSON.stringify(userData));
-  } catch (error) {
-    console.error('Error fetching account data:', error);
-  }
+  const { data:res } = await updateInfo(accountDataLocal.value.firstName,accountDataLocal.value.email,accountDataLocal.value.avatarImg);
+  console.log(res);
 };
 
 // 在组件挂载前触发请求
@@ -177,7 +230,7 @@ onBeforeMount(() => {
 
         <VCardText class="pt-2">
           <!-- 👉 Form -->
-          <VForm class="mt-6">
+          <VForm class="mt-6" ref="refVForm" @submit.prevent="onSubmit">
             <VRow>
               <!-- 👉 First Name -->
               <VCol
@@ -186,7 +239,7 @@ onBeforeMount(() => {
               >
                 <AppTextField
                   v-model="accountDataLocal.firstName"
-                  label="姓名"
+                  label="昵称"
                 />
               </VCol>
 
@@ -199,7 +252,25 @@ onBeforeMount(() => {
                   v-model="accountDataLocal.email"
                   label="电子邮箱"
                   type="email"
+                  :rules="[numberValidator, requiredenumberValidator]"
                 />
+
+              </VCol>
+              <!-- code --> 
+              <VCol cols="12" md="6" style="position: relative">
+                <AppTextField
+                  v-model="number"
+                  label="验证码"
+                  type="text"
+                  :rules="[requiredecodeValidator]"
+                  v-on:input="onChange"
+                />
+
+                <div style="position: absolute; right: 20px; top: 45px">
+                  <button type="button" @click="getcode">
+                    {{ getcoderule }}
+                  </button>
+                </div>
               </VCol>
 
               <!-- 👉 Phone -->
@@ -235,39 +306,6 @@ onBeforeMount(() => {
       </VCard>
     </VCol>
 
-    <VCol cols="12">
-      <!-- 👉 Delete Account -->
-      <VCard title="Delete Account">
-        <VCardText>
-          <!-- 👉 Checkbox and Button  -->
-          <div>
-            <VCheckbox
-              v-model="isAccountDeactivated"
-              :rules="validateAccountDeactivation"
-              label="I confirm my account deactivation"
-            />
-          </div>
-
-          <VBtn
-            :disabled="!isAccountDeactivated"
-            color="error"
-            class="mt-3"
-            @click="isConfirmDialogOpen = true"
-          >
-            Deactivate Account
-          </VBtn>
-        </VCardText>
-      </VCard>
-    </VCol>
   </VRow>
 
-  <!-- Confirm Dialog -->
-  <ConfirmDialog
-    v-model:isDialogVisible="isConfirmDialogOpen"
-    confirmation-question="Are you sure you want to deactivate your account?"
-    confirm-title="Deactivated!"
-    confirm-msg="Your account has been deactivated successfully."
-    cancel-title="Cancelled"
-    cancel-msg="Account Deactivation Cancelled!"
-  />
 </template>

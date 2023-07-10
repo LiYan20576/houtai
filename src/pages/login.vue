@@ -55,84 +55,59 @@ const isPhoneNumber = (input) => {
 };
 
 const login = async() => {
-  // axios
-  //   .post("/account/EmailLogin", {
-  //     email: email.value,
-  //     password: password.value,
-  //   })
-  //   .then((r) => {
-  //     const userAbilities = [
-  //       {
-  //         action: "manage",
-  //         subject: "all",
-  //       },
-  //     ];
-  //     const { code, message } = r.data;
-  //     localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-  //     ability.update(userAbilities);
-  //     localStorage.setItem("userData", code);
-  //     // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
-  //     console.log(code);
-  //     // Redirect to `to` query if exist or redirect to index route
-  //     router.replace("/");
-  //     if (code == -1) {
-  //       errmessage.value = message;
-  //     }
-  //   })
-  //   .catch((e) => {
-  //     // const { errors: formErrors } = e.response.data
+  try{
+    isLoading.value=true;
+    if(isEmail(email.value)){
+      console.log("邮箱登录");
 
-  //     // errors.value = formErrors
-  //     console.error(e);
-  //   });
-  isLoading.value=true;
-  if(isEmail(email.value)){
-    console.log("邮箱登录");
+      const {data:res} = await reqEmailLogin(email.value, password.value);
+      isLoading.value=false;
+      if(res.code === 200) {
+        const userAbilities = [
+          {
+            action: "manage",
+            subject: "all",
+          },
+        ];
+        const code = res.code;
+        localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+        ability.update(userAbilities);
+        localStorage.setItem("userData", code);
+        // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
+        router.replace("/");
+        isLoading.value=false;
+      } else if (res.code === -1) {
+        isLoading.value=false;
+        errmessage.value = res.message;
+      } 
+    } else if(isPhoneNumber(email.value)){
+      console.log("电话登录");
 
-    const {data:res} = await reqEmailLogin(email.value, password.value);
-    if(res.code === 200) {
-      const userAbilities = [
-        {
-          action: "manage",
-          subject: "all",
-        },
-      ];
-      const code = res.code;
-      localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-      ability.update(userAbilities);
-      localStorage.setItem("userData", code);
-      // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
-      router.replace("/");
+      const { data:res } = await regNumberLogin(email.value, password.value);
       isLoading.value=false;
-    } else if (res.code === -1) {
-      isLoading.value=false;
-      errmessage.value = res.message;
+      if(res.code === 200) {
+        const userAbilities = [
+          {
+            action: "manage",
+            subject: "all",
+          },
+        ];
+        const code = res.code;
+        localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+        ability.update(userAbilities);
+        localStorage.setItem("userData", code);
+        // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
+        router.replace("/");
+        isLoading.value=false;
+      } else if (res.code === -1) {
+        isLoading.value=false;
+        errmessage.value = res.message;
+      } 
     }
-  } else if(isPhoneNumber(email.value)){
-    console.log("电话登录");
+  } catch {
     isLoading.value=false;
-
-    const { data:res } = await regNumberLogin(email.value, password.value);
-
-    if(res.code === 200) {
-      const userAbilities = [
-        {
-          action: "manage",
-          subject: "all",
-        },
-      ];
-      const code = res.code;
-      localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-      ability.update(userAbilities);
-      localStorage.setItem("userData", code);
-      // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
-      router.replace("/");
-      isLoading.value=false;
-    } else if (res.code === -1) {
-      isLoading.value=false;
-      errmessage.value = res.message;
-    }
   }
+  
 };
 const onChange = () => {
   // console.log('xxxxxxxxxxxx')
@@ -154,8 +129,8 @@ const is_wxlogin = async () => {
   console.log(filteredString)
   if(queryParams.value) {
     
-    const { data:res } = await isWechat(filteredString);
-    if(res){
+    // const { data:res } = await isWechat(filteredString);
+    // if(res){
       const userAbilities = [
         {
           action: "manage",
@@ -166,14 +141,14 @@ const is_wxlogin = async () => {
       ability.update(userAbilities);
       localStorage.setItem("userData", 200);
       router.replace("/");
-    }
+    // }
 
   }
   
 };
 onMounted(() => {
   // 在页面加载时执行的方法
-  is_wxlogin()
+  is_wxlogin();
   console.log("xxx");
 });
 </script>

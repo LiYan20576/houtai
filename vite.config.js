@@ -97,6 +97,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/weixin/, '/weixin')
       },
+      '/learn': {
+        target: 'https://www.uesg.cn',	//实际请求地址
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/learn/, '/learn')
+      },
     }
   },
   define: { 'process.env': {} },

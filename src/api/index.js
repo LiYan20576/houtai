@@ -56,3 +56,26 @@ export const changePassword = (password,password1,password2) => {
         password2:password2
     });
 };
+
+export const updateInfo = (nickname,email,mp,photo_data) => {
+    return requests.post("/account/update_info", {
+        nickname:nickname,
+        email:email,
+        mp:mp,
+        photo_data: photo_data,
+    });
+};
+
+export const lessons = () => {
+    return requests.post("/learn/lessons");
+};
+
+
+export const getIndexData = () => {
+    return requests.get("https://lovemedicine.cn/public/uesg/6.13/news/cover-ch.json");
+};
+
+export const getDetail = (index) => {
+    return requests.get("https://lovemedicine.cn/public/uesg/6.13/news/01/" + index + ".json");
+};
+

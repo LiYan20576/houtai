@@ -1,25 +1,36 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import {lessons} from '@/api/index'
+import {getIndexData} from '@/api/index'
+import { useAppAbility } from "@/plugins/casl/useAppAbility";
 
 const router = useRouter();
-
+const ability = useAppAbility();
 const avatars = ref("");
 
 const isCardDetailsVisible = ref(false)
 
+const userAbilities = [
+  {
+    action: "manage",
+    subject: "all",
+  },
+];
+localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+ability.update(userAbilities);
+
 const getData = async () => {
-  const { data:res } = await lessons();
-  avatars.value = res.lessons;
+  const { data:res } = await getIndexData();
+  avatars.value = res;
 };
 
-const pay = () => {
-  router.replace("/pay/")
+const info = (index) => {
+  router.push("/inner/"+index);
 }
 
 onMounted(() => {
   // 在页面加载时执行的方法
-  getData()
+  
+  getData();
 });
 </script>
 
@@ -38,16 +49,12 @@ onMounted(() => {
         <VImg :src="item.cover" />
 
         <VCardItem>
-          <VCardTitle>{{ item.name }}</VCardTitle>
+          <VCardTitle>{{ item.title }}</VCardTitle>
         </VCardItem>
 
-        <VCardText>{{ item.desc }}</VCardText>
-
-        <VCardText>￥{{ item.price }}</VCardText>
-
         <VCardActions>
-          <VBtn @click="pay">
-            购买
+          <VBtn @click="info(index+1)">
+            详情
           </VBtn>
         </VCardActions>
 

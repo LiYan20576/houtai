@@ -12,10 +12,27 @@ const router = createRouter({
     {
       path: '/',
       redirect: to => {
+        
+        // const userData = localStorage.getItem('userData') || '{}'
+        // const userRole = userData ? userData : null
+        // if (userRole == 200)
+        // course-optional-courses
+        // dashboards-analytics
+        
+        return { name: 'home' }
+        // return { name: 'login', query: to.query }
+      },
+    },
+    {
+      path: '/pages/account-settings/account',
+      redirect: to => {
         const userData = localStorage.getItem('userData') || '{}'
         const userRole = userData ? userData : null
         if (userRole == 200)
-          return { name: 'dashboards-analytics' }
+        // course-optional-courses
+        // dashboards-analytics
+        
+          return { name: 'pages-account-settings-tab', params: { tab: 'account' } }
         return { name: 'login', query: to.query }
       },
     },

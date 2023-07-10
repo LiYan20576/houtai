@@ -44,15 +44,6 @@ const isRequirementMet = (requirement) => {
   return false;
 };
 
-
-// const confirm = () => {
-//   if(newPassword == confirmPassword) {
-//     validPassword.value = true
-//   } else {
-//     validPassword.value = false
-//   }
-// }
-
 const change = async () => {
   const { data:res } = await changePassword(currentPassword.value,newPassword.value,confirmPassword.value);
   console.log(res);
@@ -111,10 +102,9 @@ const change = async () => {
                   :append-inner-icon="isConfirmPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   label="确认新密码"
                   @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
-                  @input="confirm"
                 />
 
-                <div v-if="newPassword != confirmPassword" style="margin-top: 5px; color: rgb(234, 84, 85);">
+                <div v-if="newPassword != confirmPassword && confirmPassword" style="margin-top: 5px; color: rgb(234, 84, 85);">
                     两次密码不同
                 </div>
               </VCol>

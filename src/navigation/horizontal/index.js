@@ -11,6 +11,7 @@ import course from './course'
 import personal from './personal-info'
 import exam from './exam'
 import help  from './help'
+import home  from './home'
 
 // export default [...dashboard, ...apps, ...pages, ...uiElements, ...forms, ...tables, ...charts, ...misc]
-export default [...course,...exam,...help,...personal]
+export default [...home,...course,...exam,...help,...personal]

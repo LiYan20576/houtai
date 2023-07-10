@@ -33,4 +33,7 @@ handleSkinChanges()
   .layout-wrapper {
     background: rgb(var(--v-theme-surface)) !important;
   }
+  .layout-navbar,.layout-page-content{
+    max-inline-size:none !important;
+  }
 </style>
