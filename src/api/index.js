@@ -48,3 +48,11 @@ export const isWechat = (token) => {
         token: token,
     });
 };
+
+export const changePassword = (password,password1,password2) => {
+    return requests.post("/account/change_password", {
+        password: password,
+        password1:password1,
+        password2:password2
+    });
+};

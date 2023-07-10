@@ -41,7 +41,7 @@ const { width: windowWidth } = useWindowSize()
 
         <NavBarI18n class="me-1" />
         <NavbarThemeSwitcher class="me-1" />
-        <NavbarShortcuts class="me-1" />
+        <!-- <NavbarShortcuts class="me-1" /> -->
         <NavBarNotifications class="me-2" />
         <UserProfile />
       </div>

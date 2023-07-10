@@ -143,67 +143,31 @@ const onSubmit = () => {
     if (isValid) login();
   });
 };
-const changeLoginType = (type) => {
-  console.log('Received auth provider:', type);
-  if( !showQR.value && type === 'wechat') {
-    showQR.value = true;
-  } else {
-    showQR.value = false;
-  }
-};
 
 const queryParams = ref('');
 const is_wxlogin = async () => {
   // 获取URL查询参数
   const searchParams = window.location.search
   queryParams.value = searchParams.substring(1)
-  console.log(queryParams.value)
+
+  const filteredString = queryParams.value.replace(/=/g, '');
+  console.log(filteredString)
   if(queryParams.value) {
-    // axios
-    // .post("/account/is_login", {
-    //   code: queryParams.value
-    // })
-    // .then((r) => {
-    //   const userAbilities = [
-    //     {
-    //       action: "manage",
-    //       subject: "all",
-    //     },
-    //   ];
-    //   const { code, message } = r.data;
-    //   localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-    //   ability.update(userAbilities);
-    //   localStorage.setItem("userData", code);
-    //   // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
-    //   console.log(code);
-    //   // Redirect to `to` query if exist or redirect to index route
-    //   router.replace("/");
-    //   if (code == -1) {
-    //     errmessage.value = message;
-    //   }
-    // })
-    // .catch((e) => {
-    //   // const { errors: formErrors } = e.response.data
+    
+    const { data:res } = await isWechat(filteredString);
+    if(res){
+      const userAbilities = [
+        {
+          action: "manage",
+          subject: "all",
+        },
+      ];
+      localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+      ability.update(userAbilities);
+      localStorage.setItem("userData", 200);
+      router.replace("/");
+    }
 
-    //   // errors.value = formErrors
-    //   console.error(e);
-    // });
-
-    const { data:res } = await isWechat(queryParams.value);
-
-    console.log(res);
-    alert(res.message);
-
-    // const userAbilities = [
-    //   {
-    //     action: "manage",
-    //     subject: "all",
-    //   },
-    // ];
-    // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-    // ability.update(userAbilities);
-    // localStorage.setItem("userData", 200);
-    // router.replace("/");
   }
   
 };
@@ -254,7 +218,7 @@ onMounted(() => {
           <VForm ref="refVForm" @submit.prevent="onSubmit">
             <VRow>
               <!-- email -->
-              <VCol cols="12" v-if="!showQR">
+              <VCol cols="12">
                 <AppTextField
                   v-model="email"
                   label="手机号/电子邮箱"
@@ -267,7 +231,7 @@ onMounted(() => {
               </VCol>
 
               <!-- password -->
-              <VCol cols="12" v-if="!showQR">
+              <VCol cols="12">
                 <AppTextField
                   v-model="password"
                   label="密码"
@@ -305,9 +269,9 @@ onMounted(() => {
               </VCol>
 
               <!-- QR code -->
-              <Vcol cols="12" v-if="showQR">
-                <img src="https://www.uesg.cn/weixing/member" style="width: 300px;height: 300px;">
-              </Vcol>
+              <!-- <Vcol cols="12" v-if="showQR">
+                <img src="https://www.uesg.cn/test.html" style="width: 300px;height: 300px;">
+              </Vcol> -->
 
               <!-- create account -->
               <VCol cols="12" class="text-center">
@@ -326,13 +290,8 @@ onMounted(() => {
               </VCol>
 
               <!-- auth providers -->
-              <VCol cols="12" class="text-center" v-if="!showQR">
-                <AuthProvider @type="changeLoginType"/>
-              </VCol>
-              <VCol cols="12" class="text-center text-base" v-else>
-                <button type="button" class="text-primary ms-2" @click="changeLoginType">
-                  返回手机/邮箱登录
-                </button>
+              <VCol cols="12" class="text-center">
+                <AuthProvider/>
               </VCol>
             </VRow>
           </VForm>

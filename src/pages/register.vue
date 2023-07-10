@@ -85,6 +85,7 @@ const register = async () => {
     
     if (res.code == 100) {
       successmessage.value = "注册成功";
+      router.replace("/");
     } else {
       errmessage.value = res.message? res.message: "注册失败！";
     } 
@@ -135,6 +136,7 @@ const register = async () => {
       // console.log(res.code, res.message);
       // router.replace('/')
       successmessage.value = "注册成功";
+      router.replace("/");
     } else {
       errmessage.value = res.message? res.message:"注册失败！";
     } 

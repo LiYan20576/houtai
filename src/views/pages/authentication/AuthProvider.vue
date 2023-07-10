@@ -4,14 +4,6 @@ import { useTheme } from 'vuetify'
 
 const { global } = useTheme()
 
-
-const emits = defineEmits(['type'])
-
-// const getway = (type) => {
-//   console.log(type, 'xxxxxxxxx')
-//   emits('type', type)
-// }
-
 const authProviders = [
   {
     icon: 'ic:baseline-wechat',
@@ -34,9 +26,8 @@ const handleClick = (type) => {
     window.location.href='https://www.uesg.cn/weixin/auth';
   } else {
     // 在非移动设备上执行的点击行为
-    emits('type', type)
-    console.log(type, 'xxxxxxxxx')
     console.log('Desktop Click')
+    window.location.href='https://www.uesg.cn/test.html';
   }
 }
 
