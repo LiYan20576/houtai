@@ -61,7 +61,6 @@ const ability = useAppAbility();
 
 const getimg = () => {
   aaa.value = aaa.value + 1;
-  console.log("xxx", aaa.value);
   codeimg.value = "https://www.uesg.cn/verify/index?id=" + aaa.value;
 };
 getimg();
@@ -129,12 +128,9 @@ const register = async () => {
       email.value,
       password.value
     );
-    console.log(res);
     
     
     if (res.code == 0) {
-      // console.log(res.code, res.message);
-      // router.replace('/')
       successmessage.value = "注册成功";
       router.replace("/");
     } else {
@@ -272,7 +268,6 @@ const getcode = async () => {
 };
 const content = (val) => {
   router.push("/login");
-  console.log(val, "xxxxxxxxs");
 };
 const getway = () => {
   email.value = "";
@@ -280,7 +275,6 @@ const getway = () => {
   imgcode.value = "";
   number.value = "";
   errmessage.value = "";
-  console.log(creatway.value);
   creatway.value =
     creatway.value == "使用手机号注册" ? "使用电子邮箱注册" : "使用手机号注册";
   if (creatway.value == "使用电子邮箱注册") {

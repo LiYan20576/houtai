@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="text-align: center;">
     <img src="https://www.uesg.cn/weixin/CreatePayCode" style="width: 40%;">
   </div>
 </template>

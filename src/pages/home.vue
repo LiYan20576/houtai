@@ -9,18 +9,13 @@ const avatars = ref("");
 
 const isCardDetailsVisible = ref(false)
 
-const userAbilities = [
-  {
-    action: "manage",
-    subject: "all",
-  },
-];
-localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-ability.update(userAbilities);
+const length = ref("");
 
 const getData = async () => {
   const { data:res } = await getIndexData();
   avatars.value = res;
+  avatars.value.reverse();
+  length.value = avatars.value.length;
 };
 
 const info = (index) => {
@@ -29,9 +24,17 @@ const info = (index) => {
 
 onMounted(() => {
   // 在页面加载时执行的方法
-  
   getData();
-  localStorage.setItem("info_islogin", true);
+
+  const userAbilities = [
+    {
+      action: "manage",
+      subject: "all",
+    },
+  ];
+  localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+  ability.update(userAbilities);
+  // localStorage.setItem("info_islogin", true);
 
 });
 </script>
@@ -47,7 +50,7 @@ onMounted(() => {
       sm="6"
       v-for="(item,index) in avatars" :key="index"
     >
-      <VCard>
+      <VCard @click="info(length-index)">
         <VImg :src="item.cover" />
 
         <VCardItem>
@@ -55,7 +58,7 @@ onMounted(() => {
         </VCardItem>
 
         <VCardActions>
-          <VBtn @click="info(index+1)">
+          <VBtn @click="info(length-index)">
             详情
           </VBtn>
         </VCardActions>

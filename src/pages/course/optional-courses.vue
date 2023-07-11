@@ -14,7 +14,7 @@ const getData = async () => {
 };
 
 const pay = () => {
-  router.replace("/pay/")
+  router.push("/pay/")
 }
 
 onMounted(() => {

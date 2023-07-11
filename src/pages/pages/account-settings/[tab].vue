@@ -39,12 +39,8 @@ const tabs = [
   // },
 ]
 
-// console.log(localStorage.getItem('info_islogin'));
 
-// if(localStorage.getItem('info_islogin')){
-//   localStorage.setItem("info_islogin", false);
-  router.push('/pages/account-settings/account')
-// } 
+// router.push('/pages/account-settings/account')
 </script>
 
 <template>
@@ -104,4 +100,5 @@ const tabs = [
 <route lang="yaml">
 meta:
   navActiveLink: pages-account-settings-tab
+  check: true
 </route>

@@ -1,4 +1,5 @@
 <script setup>
+import { isUserLoggedIn } from '@/router/utils'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 import { initialAbility } from '@/plugins/casl/ability'
 import { useAppAbility } from '@/plugins/casl/useAppAbility'
@@ -14,13 +15,13 @@ const logout = () => {
 
   // Remove "accessToken" from localStorage
   localStorage.removeItem('accessToken')
-  router.push('/login').then(() => {
+  router.push('/').then(() => {
 
     // Remove "userAbilities" from localStorage
-    localStorage.removeItem('userAbilities')
+    // localStorage.removeItem('userAbilities')
 
     // Reset ability to initial ability
-    ability.update(initialAbility)
+    // ability.update(initialAbility)
   })
 }
 
@@ -84,6 +85,13 @@ const userProfileList = [
     onClick: logout,
   },
 ]
+
+const login = () => {
+  if(!isUserLoggedIn()) {
+    console.log("xxx");
+    router.push('/login');
+  }
+}
 </script>
 
 <template>
@@ -94,6 +102,7 @@ const userProfileList = [
     offset-x="3"
     offset-y="3"
     color="success"
+    
   >
     <VAvatar
       class="cursor-pointer"
@@ -107,6 +116,7 @@ const userProfileList = [
       <VIcon
         v-else
         icon="tabler-user"
+        @click="login"
       />
 
       <!-- SECTION Menu -->
@@ -115,6 +125,7 @@ const userProfileList = [
         width="230"
         location="bottom end"
         offset="14px"
+        v-if="isUserLoggedIn()"
       >
         <VList>
           <VListItem>
@@ -145,10 +156,10 @@ const userProfileList = [
               </VListItemAction>
             </template>
 
-            <VListItemTitle class="font-weight-medium">
-              {{ userData.fullName || userData.username }}
+            <VListItemTitle class="font-weight-medium" v-if="userData">
+              {{ (userData.fullName || userData.username) }}
             </VListItemTitle>
-            <VListItemSubtitle>{{ userData.role }}</VListItemSubtitle>
+            <VListItemSubtitle v-if="userData">{{ userData.role }}</VListItemSubtitle>
           </VListItem>
 
           <PerfectScrollbar :options="{ wheelPropagation: false }">

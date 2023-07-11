@@ -46,7 +46,16 @@ handleSkinChanges()
   .layout-wrapper {
     background: rgb(var(--v-theme-surface)) !important;
   }
-  .layout-navbar,.layout-page-content{
-    max-inline-size:none !important;
+  /* .layout-page-content{
+    max-inline-size:1600px !important;
+  }
+  .navbar-content-container,.horizontal-nav-content-container {
+    max-inline-size:1600px !important;
+  } */
+
+  .layout-content-width-boxed .layout-page-content,.layout-content-width-boxed.layout-wrapper.layout-nav-type-horizontal .navbar-content-container, .layout-content-width-boxed.layout-wrapper.layout-nav-type-horizontal .layout-footer .footer-content-container, .layout-content-width-boxed .layout-horizontal-nav .horizontal-nav-content-container {
+    inline-size: 100%;
+    margin-inline: auto;
+    max-inline-size: 1200px !important;
   }
 </style>

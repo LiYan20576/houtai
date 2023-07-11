@@ -27,9 +27,9 @@ const { appRouteTransition } = useThemeConfig()
       >
         <VNodeRenderer :nodes="themeConfig.app.logo" />
 
-        <h1 class="app-title font-weight-bold leading-normal text-xl text-capitalize">
+        <!-- <h1 class="app-title font-weight-bold leading-normal text-xl text-capitalize">
           {{ themeConfig.app.title }}
-        </h1>
+        </h1> -->
       </RouterLink>
       <VSpacer />
 
@@ -58,6 +58,6 @@ const { appRouteTransition } = useThemeConfig()
     </template> -->
 
     <!-- 👉 Customizer -->
-    <TheCustomizer />
+    <!-- <TheCustomizer /> -->
   </HorizontalNavLayout>
 </template>

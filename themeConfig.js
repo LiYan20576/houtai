@@ -12,7 +12,7 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
     title: 'UESG',
     logo: h('div', { innerHTML: logo, style: 'line-height:0; color: rgb(var(--v-global-theme-primary))' }),
     contentWidth: ContentWidth.Boxed,
-    contentLayoutNav: AppContentLayoutNav.Vertical,
+    contentLayoutNav: AppContentLayoutNav.Horizontal,
     overlayNavFromBreakpoint: breakpointsVuetify.md + 16,
     enableI18n: true,
     theme: 'system',

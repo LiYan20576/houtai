@@ -110,7 +110,6 @@ const login = async() => {
   
 };
 const onChange = () => {
-  // console.log('xxxxxxxxxxxx')
   errmessage.value = "";
 };
 const onSubmit = () => {
@@ -126,7 +125,6 @@ const is_wxlogin = async () => {
   queryParams.value = searchParams.substring(1)
 
   const filteredString = queryParams.value.replace(/=/g, '');
-  console.log(filteredString)
   if(queryParams.value) {
     
     // const { data:res } = await isWechat(filteredString);
@@ -149,7 +147,6 @@ const is_wxlogin = async () => {
 onMounted(() => {
   // 在页面加载时执行的方法
   is_wxlogin();
-  console.log("xxx");
 });
 </script>
 

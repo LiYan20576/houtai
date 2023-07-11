@@ -5,91 +5,49 @@ import routes from '~pages'
 import { canNavigate } from '@layouts/plugins/casl'
 
 const router = createRouter({
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }; // 将滚动位置设置为顶部
+  },
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // ℹ️ We are redirecting to different pages based on role.
-    // NOTE: Role is just for UI purposes. ACL is based on abilities.
     {
       path: '/',
       redirect: to => {
-        
-        // const userData = localStorage.getItem('userData') || '{}'
-        // const userRole = userData ? userData : null
-        // if (userRole == 200)
-        // course-optional-courses
-        // dashboards-analytics
-        
         return { name: 'home' }
-        // return { name: 'login', query: to.query }
       },
     },
     {
       path: '/pages/account-settings/account',
-      redirect: to => {
-        const userData = localStorage.getItem('userData') || '{}'
-        const userRole = userData ? userData : null
-
-        if (userRole == 200) 
-          return { name: 'pages-account-settings-tab', params: { tab: 'account' } }
-        return { name: 'login', query: to.query }
-      },
     },
     {
       path: '/pages/user-profile',
       redirect: () => ({ name: 'pages-user-profile-tab', params: { tab: 'profile' } }),
     },
-    // {
-    //   path: '/pages/account-settings',
-    //   redirect: () => ({ name: 'pages-account-settings-tab', params: { tab: 'account' } }),
-    // },
     ...setupLayouts(routes),
   ],
 })
 
-// router.beforeEach(to => {
-//   const isLoggedIn = isUserLoggedIn();
-
-//   if(!canNavigate(to)) {
-//     if(!isLoggedIn) {
-//       router.replace('/')
-//     }
-//   }
-// })
-
-// Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
-// router.beforeEach(to => {
-  // const isLoggedIn = isUserLoggedIn()
-
-  /*
-  
-    ℹ️ Commented code is legacy code
-  
-    if (!canNavigate(to)) {
-      // Redirect to login if not logged in
-      // ℹ️ Only add `to` query param if `to` route is not index route
-      if (!isLoggedIn)
-        return next({ name: 'login', query: { to: to.name !== 'index' ? to.fullPath : undefined } })
-  
-      // If logged in => not authorized
-      return next({ name: 'not-authorized' })
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  if (to.meta.check) { // 检查目标路由是否需要登录
+    const isLoggedIn = isUserLoggedIn(); // 检查用户是否已登录，这是你根据具体情况实现的逻辑
+    console.log(isLoggedIn);
+    if (isLoggedIn) {
+      // 用户已登录，继续导航到目标路由
+      console.log("登录成功");
+      next();
+    } else {
+      // 用户未登录，跳转到登录页，并保存目标路由的信息
+      next({
+        name: 'login',
+        query: to.query, // 通过 query 参数保存目标路由的完整路径
+      });
     }
-  
-    // Redirect if logged in
-    if (to.meta.redirectIfLoggedIn && isLoggedIn)
-      next('/')
-  
-    return next()
-  
-    */
-  // if (canNavigate(to)) {
-  //   if (to.meta.redirectIfLoggedIn && isLoggedIn)
-  //     return '/'
-  // }
-  // else {
-  //   if (isLoggedIn)
-  //     return { name: 'not-authorized' }
-  //   else
-  //     return { name: 'login', query: { to: to.name !== 'index' ? to.fullPath : undefined } }
-  // }
-// })
+  } else {
+    // 不需要登录的路由，直接导航
+    next();
+  }
+});
+
 export default router
