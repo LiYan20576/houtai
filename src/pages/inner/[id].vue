@@ -1,14 +1,15 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
 import { getDetail,getIndexData } from '@/api/index'
 
 const route = useRoute()
+const router = useRouter()
 const activeTab = ref(route.params.id)
 const content = ref([])
 
 const getInfo = async () => {
-    const { data:res } = await getDetail(activeTab.value);
-    content.value = res;
+  const { data:res } = await getDetail(activeTab.value);
+  content.value = res;
 }
 
 const length = ref("");
@@ -20,6 +21,10 @@ const getData = async () => {
   avatars.value.reverse();
   length.value = avatars.value.length;
 };
+
+const info = (index) => {
+  window.location.href= "/inner/"+index
+}
 
 onMounted(() => {
   // 在页面加载时执行的方法
@@ -73,12 +78,17 @@ onMounted(() => {
   }
   .content-index p{
     padding: 0 20px;
+    text-indent: 20px;
   }
   @media screen and (max-width:1280px) {
-    img{
-      width: 96% !important;
+    .left {
+      width: 100%;
+      margin-right: 0;
     }
-    p{
+    .right {
+      display: none;
+    }
+    .content-index p{
       padding: 0 20px !important;
     }
   }

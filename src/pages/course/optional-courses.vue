@@ -3,18 +3,30 @@ import { useRouter } from 'vue-router'
 import {lessons} from '@/api/index'
 
 const router = useRouter();
-
 const avatars = ref("");
-
 const isCardDetailsVisible = ref(false)
+const isWeChatBrowser = ref(false)
+const isMobile = ref(false)
+
+onMounted(() => {
+  const userAgent = window.navigator.userAgent.toLowerCase()
+  isWeChatBrowser.value = userAgent.indexOf('micromessenger') !== -1
+
+  const mobileAgents = ['android', 'iphone', 'ipad', 'ipod', 'windows phone']
+  isMobile.value = mobileAgents.some(agent => userAgent.includes(agent))
+})
 
 const getData = async () => {
   const { data:res } = await lessons();
   avatars.value = res.lessons;
 };
 
-const pay = () => {
-  router.push("/pay/")
+const pay = (id) => {
+  if(!isMobile.value) {
+    router.push({ path: "/pay/", query: { id: id } });
+  } else {
+    window.location.href="https://www.uesg.cn/weixin/CreatePayH5?id="+id;
+  }
 }
 
 onMounted(() => {
@@ -46,7 +58,7 @@ onMounted(() => {
         <VCardText>￥{{ item.price }}</VCardText>
 
         <VCardActions>
-          <VBtn @click="pay">
+          <VBtn @click="pay(item.id)">
             购买
           </VBtn>
         </VCardActions>

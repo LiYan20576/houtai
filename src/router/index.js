@@ -27,9 +27,9 @@ const router = createRouter({
   ],
 })
 
+
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
-  console.log(to);
   if (to.meta.check) { // 检查目标路由是否需要登录
     const isLoggedIn = isUserLoggedIn(); // 检查用户是否已登录，这是你根据具体情况实现的逻辑
     console.log(isLoggedIn);
@@ -49,5 +49,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
+
 
 export default router
