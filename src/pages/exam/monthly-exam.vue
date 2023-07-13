@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="exam-wrap">
+    <h1 style="text-align: center; padding: 20px 0;">UESG证书考试</h1>
     <div class="exam">
       <div class="question-card">
         <div class="question-list">
@@ -49,9 +50,18 @@
         </div>
       </div>
       <div class="question-card">
-        <div class="timer">
+        <div
+          class="timer"
+          style="
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
           <div class="countdown">{{ countdown }}</div>
           <p>诚信考试，杜绝作弊</p>
+          <VBtn @click="submit"> 交卷 </VBtn>
         </div>
       </div>
       <div class="camera">
@@ -61,39 +71,35 @@
         <!-- <button @click="uploadImage">Upload Image</button> -->
       </div>
     </div>
-    <VDialog v-model="isDialogVisible" width="500">
-      <!-- Dialog close btn -->
-      <DialogCloseBtn @click="isDialogVisible = !isDialogVisible" />
-
-      <!-- Dialog Content -->
-      <VCard title="提示">
-        <VCardText>
-          诚信考试，杜绝作弊 剩余切屏次数：{{ total - now }}
-        </VCardText>
-
-        <VCardText class="d-flex justify-end">
-          <VBtn @click="isDialogVisible = false"> 确定 </VBtn>
-        </VCardText>
-      </VCard>
-    </VDialog>
-
-    <VDialog v-model="isDialogVisible2" width="500">
-      <!-- Dialog close btn -->
-      <DialogCloseBtn @click="isDialogVisible2 = !isDialogVisible2" />
-
-      <!-- Dialog Content -->
-      <VCard title="提示">
-        <VCardText> 请允许打开摄像头，否则成绩不合格 </VCardText>
-
-        <VCardText class="d-flex justify-end">
-          <VBtn @click="isDialogVisible2 = false">
-            确定
-          </VBtn>
-        </VCardText>
-      </VCard>
-    </VDialog>
-    <VBtn @click="submit"> 交卷 </VBtn>
   </div>
+  <VDialog v-model="isDialogVisible" width="500">
+    <!-- Dialog close btn -->
+    <DialogCloseBtn @click="isDialogVisible = !isDialogVisible" />
+
+    <!-- Dialog Content -->
+    <VCard title="提示">
+      <VCardText>
+        诚信考试，杜绝作弊 剩余切屏次数：{{ total - now }}
+      </VCardText>
+
+      <VCardText class="d-flex justify-end">
+        <VBtn @click="isDialogVisible = false"> 确定 </VBtn>
+      </VCardText>
+    </VCard>
+  </VDialog>
+  <VDialog v-model="isDialogVisible2" width="500">
+    <!-- Dialog close btn -->
+    <DialogCloseBtn @click="isDialogVisible2 = !isDialogVisible2" />
+
+    <!-- Dialog Content -->
+    <VCard title="提示">
+      <VCardText> 请允许打开摄像头，否则成绩不合格 </VCardText>
+
+      <VCardText class="d-flex justify-end">
+        <VBtn @click="isDialogVisible2 = false"> 确定 </VBtn>
+      </VCardText>
+    </VCard>
+  </VDialog>
 </template>
 
 <script>
@@ -146,10 +152,10 @@ export default {
       that.cutScreen();
     };
     // 防止页面后退
-    history.pushState(null, null, document.URL)
-    window.addEventListener('popstate', function() {
-      history.pushState(null, null, document.URL)
-    })
+    history.pushState(null, null, document.URL);
+    window.addEventListener("popstate", function () {
+      history.pushState(null, null, document.URL);
+    });
 
     this.startTimer();
     this.addEventListeners();
@@ -168,7 +174,8 @@ export default {
     cutScreen() {
       this.isDialogVisible = true;
       if (this.now === this.total) {
-        this.$router.push({ path: "/Home" });
+        // this.$router.push({ path: "/Home" });
+        window.location.href = "/";
         //处理剩余其他逻辑
       }
       //调用后台接口，传递当前页面数据，后台返回total，now，后台计算
@@ -196,7 +203,7 @@ export default {
         })
         .catch((error) => {
           // window.location.href = "/";
-          this.isDialogVisible2 = true; 
+          this.isDialogVisible2 = true;
           console.error("Failed to access camera: ", error);
         });
     },
@@ -309,6 +316,12 @@ export default {
   gap: 10px;
 }
 
+.exam-wrap {
+  width: 80%;
+  height: 100vh;
+  margin: 50px auto;
+}
+
 .exam {
   display: flex;
   justify-content: space-between;
@@ -388,4 +401,5 @@ export default {
 meta:
   layout: blank
   navActiveLink: exam-monthly-exam 
+  check: true
 </route>

@@ -157,7 +157,7 @@ const login = () => {
             </template>
 
             <VListItemTitle class="font-weight-medium" v-if="userData">
-              {{ (userData.fullName || userData.username) }}
+              {{ userData.Name }}
             </VListItemTitle>
             <VListItemSubtitle v-if="userData">{{ userData.role }}</VListItemSubtitle>
           </VListItem>

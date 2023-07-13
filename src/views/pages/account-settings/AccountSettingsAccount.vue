@@ -30,8 +30,6 @@ const accountData = {
   currency: 'USD',
   Name: 'joker'
 }
-// const user = {'id':1,'fullName':"John Doe",'username':"johndoe",'avatar':"http://192.168.31.126:8888/images/ava.jpg",'email':"admin@demo.com",'role':"admin"}
-// localStorage.setItem('userData', JSON.stringify(user))
 
 const refVForm = ref();
 const refInputEl = ref()
@@ -159,7 +157,7 @@ const fetchAccountData = async () => {
 
 // 保存用户数据
 const saveChanges = async () => {
-  const { data:res } = await updateInfo(accountDataLocal.value.firstName,accountDataLocal.value.email,accountDataLocal.value.avatarImg);
+  const { data:res } = await updateInfo(accountDataLocal.value.firstName,accountDataLocal.value.email,accountDataLocal.value.phone,accountDataLocal.value.avatarImg);
   console.log(res);
 };
 
@@ -252,25 +250,9 @@ onBeforeMount(() => {
                   v-model="accountDataLocal.email"
                   label="电子邮箱"
                   type="email"
-                  :rules="[numberValidator, requiredenumberValidator]"
+                  :rules="[emailValidator,requiredemailValidator]"
                 />
 
-              </VCol>
-              <!-- code --> 
-              <VCol cols="12" md="6" style="position: relative">
-                <AppTextField
-                  v-model="number"
-                  label="验证码"
-                  type="text"
-                  :rules="[requiredecodeValidator]"
-                  v-on:input="onChange"
-                />
-
-                <div style="position: absolute; right: 20px; top: 45px">
-                  <button type="button" @click="getcode">
-                    {{ getcoderule }}
-                  </button>
-                </div>
               </VCol>
 
               <!-- 👉 Phone -->

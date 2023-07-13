@@ -16,9 +16,7 @@ const router = createRouter({
         return { name: 'home' }
       },
     },
-    {
-      path: '/pages/account-settings/account',
-    },
+    
     {
       path: '/pages/user-profile',
       redirect: () => ({ name: 'pages-user-profile-tab', params: { tab: 'profile' } }),
@@ -49,7 +47,6 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
 
 
 export default router

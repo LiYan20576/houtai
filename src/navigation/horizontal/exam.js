@@ -3,7 +3,8 @@ export default [
     {
         title: '月度考试',
         icon: { icon: 'tabler-message-circle' },
-        to: 'exam-monthly-exam' ,
+        // to: 'exam-monthly-exam' ,
+        to: 'exam-confirm-exam' ,
     },
   ]
   

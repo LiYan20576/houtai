@@ -63,16 +63,32 @@ const login = async() => {
       const {data:res} = await reqEmailLogin(email.value, password.value);
       isLoading.value=false;
       if(res.code === 200) {
+        const code = res.code;
         const userAbilities = [
           {
             action: "manage",
             subject: "all",
           },
         ];
-        const code = res.code;
+        const accountData = {
+          firstName: 'john',
+          lastName: 'Doe',
+          email: 'johnDoe@example.com',
+          org: 'Pixinvent',
+          phone: '+1 (917) 543-9876',
+          address: '123 Main St, New York, NY 10001',
+          state: 'New York',
+          zip: '10001',
+          country: 'USA',
+          language: 'English',
+          timezone: '(GMT-11:00) International Date Line West',
+          currency: 'USD',
+          Name: 'joker'
+        }
         localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
         ability.update(userAbilities);
-        localStorage.setItem("userData", code);
+        localStorage.setItem("userData", JSON.stringify(accountData));
+        localStorage.setItem("userStatus", code);
         // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
         router.replace("/");
         isLoading.value=false;
@@ -82,20 +98,35 @@ const login = async() => {
       } 
     } else if(isPhoneNumber(email.value)){
       console.log("电话登录");
-
       const { data:res } = await regNumberLogin(email.value, password.value);
       isLoading.value=false;
       if(res.code === 200) {
+        const code = res.code;
         const userAbilities = [
           {
             action: "manage",
             subject: "all",
           },
         ];
-        const code = res.code;
+        const accountData = {
+          firstName: 'john',
+          lastName: 'Doe',
+          email: 'johnDoe@example.com',
+          org: 'Pixinvent',
+          phone: '+1 (917) 543-9876',
+          address: '123 Main St, New York, NY 10001',
+          state: 'New York',
+          zip: '10001',
+          country: 'USA',
+          language: 'English',
+          timezone: '(GMT-11:00) International Date Line West',
+          currency: 'USD',
+          Name: 'joker'
+        }
+        localStorage.setItem("userData", JSON.stringify(accountData));
         localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
         ability.update(userAbilities);
-        localStorage.setItem("userData", code);
+        localStorage.setItem("userStatus", code);
         // localStorage.setItem('accessToken', JSON.stringify(eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0.fhc3wykrAnRpcKApKhXiahxaOe8PSHatad31NuIZ0Zg))
         router.replace("/");
         isLoading.value=false;
