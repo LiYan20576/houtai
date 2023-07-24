@@ -2,7 +2,7 @@
   import { useRouter } from 'vue-router'
 
   const router = useRouter();
-  const isRoot = ref(false);
+  const isLoading = ref(false);
   const isDialogVisible = ref(false);
 
   const checkCameraPermission = () => {
@@ -23,13 +23,17 @@
     });
   }
   const gotoExam = () => {
+    console.log(checkCameraPermission());
+    isLoading.value = true;
     checkCameraPermission()
       .then(() => {
+        isLoading.value = false;
         console.log("Camera permission granted");
         // 执行摄像头相关操作
         router.push("/exam/monthly-exam")
       })
       .catch((error) => {
+        isLoading.value = false;
         console.error("Camera permission denied or not supported:", error);
         // 处理未授权或不支持的情况
         isDialogVisible.value = true;
@@ -37,8 +41,14 @@
   }
 </script>
 
+
+
 <template>
   <div>
+    <!-- 遮罩层 -->
+    <div class="loading-overlay" v-if="isLoading">
+      <VProgressCircular :size="60" color="primary" indeterminate />
+    </div>
     <!-- 👉 Support -->
     <VCol>
       <VCard class="text-center">
@@ -100,7 +110,18 @@
 </template>
 
 <style>
-
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
 </style>
 
 <route lang="yaml">

@@ -44,7 +44,7 @@ onMounted(() => {
 
 
     <!-- 👉 Popular Uses Of The Internet -->
-    <VCol
+    <!-- <VCol
       cols="12"
       md="4"
       sm="6"
@@ -63,6 +63,49 @@ onMounted(() => {
           </VBtn>
         </VCardActions>
 
+      </VCard>
+    </VCol> -->
+
+    <VCol
+      cols="12"
+      md="4"
+      sm="6"
+    >
+      <VCard>
+        <VImg src="https://lovemedicine.cn/public/uesg/7.23/study/%E5%B9%BF%E5%91%8A1.jpg" />
+
+        <VCardItem>
+          <VCardTitle>ESG的含义</VCardTitle>
+        </VCardItem>
+
+        <VCardText>
+          ESG解释为“Environmental环境”、“Social社会” 和“Governance治理”。
+        </VCardText>
+
+        <VCardActions>
+          <VBtn @click="isCardDetailsVisible = !isCardDetailsVisible">
+            了解详情
+          </VBtn>
+
+          <VSpacer />
+
+          <VBtn
+            icon
+            size="small"
+            @click="isCardDetailsVisible = !isCardDetailsVisible"
+          >
+            <VIcon :icon="isCardDetailsVisible ? 'tabler-chevron-up' : 'tabler-chevron-down'" />
+          </VBtn>
+        </VCardActions>
+
+        <VExpandTransition>
+          <div v-show="isCardDetailsVisible">
+            <VDivider />
+            <VCardText>
+             
+            </VCardText>
+          </div>
+        </VExpandTransition>
       </VCard>
     </VCol>
 

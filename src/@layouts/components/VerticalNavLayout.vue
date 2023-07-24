@@ -56,7 +56,7 @@ export default defineComponent({
 
 
       // 👉 Navbar
-      const navbar = h('header', { class: ['layout-navbar', { 'navbar-blur': isNavbarBlurEnabled.value }] }, [
+      const navbar = h('header', { class: ['layout-navbar', { 'navbar-blur': isNavbarBlurEnabled.value }], style: 'display:none;' }, [
         h('div', { class: 'navbar-content-container' }, slots.navbar?.({
           toggleVerticalOverlayNavActive: toggleIsOverlayNavActive,
         })),

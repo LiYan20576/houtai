@@ -166,9 +166,25 @@ const is_wxlogin = async () => {
           subject: "all",
         },
       ];
+      const accountData = {
+        firstName: 'john',
+        lastName: 'Doe',
+        email: 'johnDoe@example.com',
+        org: 'Pixinvent',
+        phone: '+1 (917) 543-9876',
+        address: '123 Main St, New York, NY 10001',
+        state: 'New York',
+        zip: '10001',
+        country: 'USA',
+        language: 'English',
+        timezone: '(GMT-11:00) International Date Line West',
+        currency: 'USD',
+        Name: 'joker'
+      }
       localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
       ability.update(userAbilities);
-      localStorage.setItem("userData", 200);
+      localStorage.setItem("userStatus", 200);
+      localStorage.setItem("userData", JSON.stringify(accountData));
       router.replace("/");
     // }
 

@@ -21,7 +21,7 @@ const { width: windowWidth } = useWindowSize()
 <template>
   <VerticalNavLayout :nav-items="navItems">
     <!-- 👉 navbar -->
-    <template #navbar="{ toggleVerticalOverlayNavActive }">
+    <!-- <template #navbar="{ toggleVerticalOverlayNavActive }">
       <div class="d-flex h-100 align-center">
         <IconBtn
           v-if="isLessThanOverlayNavBreakpoint(windowWidth)"
@@ -39,13 +39,13 @@ const { width: windowWidth } = useWindowSize()
 
         <VSpacer />
 
-        <!-- <NavBarI18n class="me-1" /> -->
+        <NavBarI18n class="me-1" />
         <NavbarThemeSwitcher class="me-1" />
-        <!-- <NavbarShortcuts class="me-1" /> -->
+        <NavbarShortcuts class="me-1" />
         <NavBarNotifications class="me-2" />
         <UserProfile />
       </div>
-    </template>
+    </template> -->
 
     <!-- 👉 Pages -->
     <RouterView v-slot="{ Component }">

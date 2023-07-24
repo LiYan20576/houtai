@@ -12,6 +12,11 @@ import personal from './personal-info'
 import exam from './exam'
 import help  from './help'
 
+import news from './news'
+import auth from './auth'
+import settings from './settings'
+
 
 // export default [...dashboard, ...appAndPages, ...uiElements, ...forms, ...charts, ...others]
-export default [...home,...course,...exam,...help,...personal]
+// export default [...home,...course,...exam,...help,...personal]
+export default [...news,...auth,...settings]
