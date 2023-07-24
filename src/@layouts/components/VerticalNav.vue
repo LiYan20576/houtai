@@ -94,9 +94,9 @@ const handleNavScroll = evt => {
           to="/"
           class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
         >
-          <VNodeRenderer :nodes="config.app.logo" v-show="isHovered"/>
+          <VNodeRenderer :nodes="config.app.logo" v-show="!hideTitleAndIcon"/>
 
-          <VNodeRenderer :nodes="config.app.smallLogo" v-show="!isHovered"/>
+          <VNodeRenderer :nodes="config.app.slogo" v-show="hideTitleAndIcon"/>
           
         </RouterLink>
         <!-- 👉 Vertical nav actions -->

@@ -1,11 +1,12 @@
 import { breakpointsVuetify } from '@vueuse/core'
 import { AppContentLayoutNav, ContentWidth, FooterType, NavbarType } from '@layouts/enums'
+import old from '@images/slogo.svg?raw'
 
 export const config = {
   app: {
     title: 'title',
     logo: h('img', { src: '/src/assets/logo.svg' }),
-
+    slogo: h('div', { innerHTML: old, style: 'line-height:0; color: rgb(var(--v-global-theme-primary))' }),
     // logo: () => h('img', { src: 'assets/colored-logo.png' }, null),
     contentWidth: ref(ContentWidth.Boxed),
     contentLayoutNav: ref(AppContentLayoutNav.Vertical),
