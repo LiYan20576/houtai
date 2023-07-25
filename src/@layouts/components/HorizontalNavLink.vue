@@ -34,7 +34,7 @@ const { dynamicI18nProps } = useLayouts()
     <Component
       :is="item.to ? 'RouterLink' : 'a'"
       v-bind="getComputedNavLinkToProp(item)"
-      :class="{ 'router-link-active router-link-exact-active': isNavLinkActive(item, $router) }"
+      :class="{ 'router-link-active router-link-exact-active-new': isNavLinkActive(item, $router) }"
     >
       <Component
         :is="config.app.iconRenderer || 'div'"

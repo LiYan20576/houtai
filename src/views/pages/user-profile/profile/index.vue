@@ -38,23 +38,23 @@ watch(router, fetchAboutData, { immediate: true })
           <ActivityTimeline />
         </VCol>
 
-        <VCol
+        <!-- <VCol
           cols="12"
           md="6"
         >
           <Connection :connections-data="profileTabData.connections" />
-        </VCol>
+        </VCol> -->
 
-        <VCol
+        <!-- <VCol
           cols="12"
           md="6"
         >
           <Teams :teams-data="profileTabData.teamsTech" />
-        </VCol>
+        </VCol> -->
 
-        <VCol cols="12">
+        <!-- <VCol cols="12">
           <ProjectList />
-        </VCol>
+        </VCol> -->
       </VRow>
     </VCol>
   </VRow>

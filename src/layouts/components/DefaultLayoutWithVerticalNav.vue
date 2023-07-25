@@ -1,6 +1,8 @@
 <script setup>
 import navItems from '@/navigation/vertical'
+import { useRouter } from 'vue-router'
 import { useThemeConfig } from '@core/composable/useThemeConfig'
+const router = useRouter();
 
 // Components
 import Footer from '@/layouts/components/Footer.vue'
@@ -48,7 +50,7 @@ const { width: windowWidth } = useWindowSize()
     </template> -->
 
     <!-- 👉 Pages -->
-    <RouterView v-slot="{ Component }">
+    <RouterView v-slot="{ Component }" :key="router.fullPath">
       <Transition
         :name="appRouteTransition"
         mode="out-in"
@@ -58,11 +60,11 @@ const { width: windowWidth } = useWindowSize()
     </RouterView>
 
     <!-- 👉 Footer -->
-    <!-- <template #footer>
+    <template #footer>
       <Footer />
-    </template> -->
+    </template>
 
     <!-- 👉 Customizer -->
-    <TheCustomizer />
+    <!-- <TheCustomizer /> -->
   </VerticalNavLayout>
 </template>

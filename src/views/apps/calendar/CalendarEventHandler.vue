@@ -141,6 +141,7 @@ const dialogModelValueUpdate = val => {
 
 <template>
   <VNavigationDrawer
+    
     temporary
     location="end"
     :model-value="props.isDrawerOpen"

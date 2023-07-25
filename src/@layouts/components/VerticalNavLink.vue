@@ -18,6 +18,16 @@ const { width: windowWidth } = useWindowSize()
 const { isVerticalNavMini, dynamicI18nProps } = useLayouts()
 const hideTitleAndBadge = isVerticalNavMini(windowWidth)
 
+const isHovering = ref(false)
+
+const handleMouseOver = () => {
+  isHovering.value = true
+}
+
+const handleMouseLeave = () => {
+  isHovering.value = false
+}
+
 </script>
 
 <template>
@@ -25,11 +35,13 @@ const hideTitleAndBadge = isVerticalNavMini(windowWidth)
     v-if="can(item.action, item.subject)"
     class="nav-link"
     :class="{ disabled: item.disable }"
+    @mouseover="handleMouseOver"
+    @mouseleave="handleMouseLeave"
   >
     <Component
       :is="item.to ? 'RouterLink' : 'a'"
       v-bind="getComputedNavLinkToProp(item)"
-      :class="{ 'router-link-active router-link-exact-active': isNavLinkActive(item, $router) }"
+      :class="{ 'router-link-active router-link-exact-active-new': isNavLinkActive(item, $router) }"
       @click="handleNavLinkClick"
     >
       <!-- <Component
@@ -38,8 +50,9 @@ const hideTitleAndBadge = isVerticalNavMini(windowWidth)
         class="nav-item-icon"
       /> -->
 
-      <img class="nav-item-icon" :src="item.icon.url" style="width: 17.5px;height: 17.5px;">
-
+      <!-- :src="item.icon.url" -->
+      <img class="nav-item-icon" :src="isHovering ? item.hoverIcon.url : item.icon.url" style="width:19px;height:19px;">
+      
       <TransitionGroup name="transition-slide-x">
         <!-- 👉 Title -->
         <Component
@@ -66,6 +79,7 @@ const hideTitleAndBadge = isVerticalNavMini(windowWidth)
         </Component>
       </TransitionGroup>
     </Component>
+
   </li>
 </template>
 

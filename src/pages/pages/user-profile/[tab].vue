@@ -12,25 +12,25 @@ const activeTab = ref(route.params.tab)
 // tabs
 const tabs = [
   {
-    title: 'Profile',
+    title: '用户概况',
     icon: 'tabler-user-check',
     tab: 'profile',
   },
   {
-    title: 'Team',
+    title: '学习情况',
     icon: 'tabler-users',
     tab: 'teams',
   },
-  {
-    title: 'Projects',
-    icon: 'tabler-layout-grid',
-    tab: 'projects',
-  },
-  {
-    title: 'Connections',
-    icon: 'tabler-link',
-    tab: 'connections',
-  },
+  // {
+  //   title: 'Projects',
+  //   icon: 'tabler-layout-grid',
+  //   tab: 'projects',
+  // },
+  // {
+  //   title: 'Connections',
+  //   icon: 'tabler-link',
+  //   tab: 'connections',
+  // },
 ]
 </script>
 

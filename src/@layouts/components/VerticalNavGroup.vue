@@ -95,6 +95,16 @@ watch(openGroups, val => {
 watch(isVerticalNavMini(windowWidth, isVerticalNavHovered), val => {
   isGroupOpen.value = val ? false : isGroupActive.value
 })
+
+const isHovering = ref(false)
+
+const handleMouseOver = () => {
+  isHovering.value = true
+}
+
+const handleMouseLeave = () => {
+  isHovering.value = false
+}
 </script>
 
 <template>
@@ -108,16 +118,19 @@ watch(isVerticalNavMini(windowWidth, isVerticalNavHovered), val => {
         disabled: item.disable,
       },
     ]"
+    @mouseover="handleMouseOver"
+    @mouseleave="handleMouseLeave"
   >
     <div
       class="nav-group-label"
       @click="isGroupOpen = !isGroupOpen"
     >
-      <Component
+      <!-- <Component
         :is="config.app.iconRenderer || 'div'"
         v-bind="item.icon || config.verticalNav.defaultNavItemIconProps"
         class="nav-item-icon"
-      />
+      /> -->
+      <img class="nav-item-icon" :src="isHovering ? item.hoverIcon.url : item.icon.url"  style="width:19px;height:19px;">
       <TransitionGroup name="transition-slide-x">
         <!-- 👉 Title -->
         <Component

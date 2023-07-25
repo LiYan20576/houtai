@@ -3,7 +3,7 @@ import { VIcon } from 'vuetify/components/VIcon'
 
 // ❗ Logo SVG must be imported with ?raw suffix
 import logo from '@images/logo.svg?raw'
-import old from '@images/slogo.svg?raw'
+import old from '@images/newLogo.svg?raw'
 import { defineThemeConfig } from '@core'
 import { RouteTransitions, Skins } from '@core/enums'
 import { AppContentLayoutNav, ContentWidth, FooterType, NavbarType } from '@layouts/enums'
@@ -16,7 +16,7 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
     contentLayoutNav: AppContentLayoutNav.Vertical,
     overlayNavFromBreakpoint: breakpointsVuetify.md + 16,
     enableI18n: true,
-    theme: 'system',
+    theme: 'light',
     isRtl: false,
     skin: Skins.Default,
     routeTransition: RouteTransitions.Fade,
@@ -26,9 +26,9 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
     type: NavbarType.Sticky,
     navbarBlur: true,
   },
-  footer: { type: FooterType.Static },
+  footer: { type: FooterType.Sticky },
   verticalNav: {
-    isVerticalNavCollapsed: false,
+    isVerticalNavCollapsed: true,
     defaultNavItemIconProps: { icon: 'tabler-circle', size: 10 },
     isVerticalNavSemiDark: false,
   },

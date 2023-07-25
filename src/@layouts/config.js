@@ -1,6 +1,6 @@
 import { breakpointsVuetify } from '@vueuse/core'
 import { AppContentLayoutNav, ContentWidth, FooterType, NavbarType } from '@layouts/enums'
-import old from '@images/slogo.svg?raw'
+import old from '@images/newLogo.svg?raw'
 
 export const config = {
   app: {

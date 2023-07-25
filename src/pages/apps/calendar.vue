@@ -17,8 +17,15 @@ const event = ref(structuredClone(blankEvent))
 const isEventHandlerSidebarActive = ref(false)
 
 watch(isEventHandlerSidebarActive, val => {
+  console.log(event.value.id,'xxx')
+  // if(event.value.id){
+  //   isEventHandlerSidebarActive.value=true
+  // }else{
+  //   isEventHandlerSidebarActive.value=true
+  // }
   if (!val)
-    event.value = structuredClone(blankEvent)
+ { 
+    event.value = structuredClone(blankEvent)}
 })
 
 const { isLeftSidebarOpen } = useResponsiveLeftSidebar()
@@ -42,7 +49,7 @@ const checkAll = computed({
       <!-- `z-index: 0` Allows overlapping vertical nav on calendar -->
       <VLayout style="z-index: 0;">
         <!-- 👉 Navigation drawer -->
-        <VNavigationDrawer
+        <!-- <VNavigationDrawer
           v-model="isLeftSidebarOpen"
           width="292"
           absolute
@@ -93,7 +100,7 @@ const checkAll = computed({
               />
             </div>
           </div>
-        </VNavigationDrawer>
+        </VNavigationDrawer> -->
 
         <VMain>
           <VCard flat>
@@ -114,6 +121,25 @@ const checkAll = computed({
     />
   </div>
 </template>
+
+<style>
+  button[title="month view"] {
+    display: none !important;
+  }
+  button[title="week view"] {
+    display: none !important;
+  }
+  button[title="day view"] {
+    display: none !important;
+  }
+  button[title="list view"] {
+    display: none !important;
+  }
+
+  .v-application .fc .fc-view-harness{
+    height: 60vh !important;
+  }
+</style>
 
 <style lang="scss">
 @use "@core/scss/template/libs/full-calendar";

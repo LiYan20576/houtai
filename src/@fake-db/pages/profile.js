@@ -22,25 +22,25 @@ import UserProfileHeaderBg from '@images/pages/user-profile-header-bg.png'
 
 const data = {
   profileHeader: {
-    fullName: 'Belle Ferguson',
+    fullName: '微信昵称',
     location: 'Vatican City',
     joiningDate: 'April 2021',
-    designation: 'UX Designer',
+    designation: '普通用户',
     profileImg: avatar15,
     coverImg: UserProfileHeaderBg,
   },
   profile: {
     about: [
-      { property: 'Full Name', value: 'John Doe', icon: 'tabler-user' },
-      { property: 'Status', value: 'active', icon: 'tabler-check' },
-      { property: 'Role', value: 'Developer', icon: 'tabler-star' },
-      { property: 'Country', value: 'USA', icon: 'tabler-flag' },
-      { property: 'Language', value: 'English', icon: 'tabler-language' },
+      { property: '姓名', value: 'John Doe', icon: 'tabler-user' },
+      { property: '状态', value: '已注册', icon: 'tabler-check' },
+      { property: '身份', value: '普通用户', icon: 'tabler-star' },
+      // { property: 'Country', value: 'USA', icon: 'tabler-flag' },
+      { property: '语言', value: '中文', icon: 'tabler-language' },
     ],
     contacts: [
-      { property: 'Contact', value: '(123) 456-7890', icon: 'tabler-phone' },
-      { property: 'Skype', value: 'john.doe', icon: 'tabler-message' },
-      { property: 'Email', value: 'john.doe@example.com', icon: 'tabler-mail' },
+      { property: '手机', value: '123456789', icon: 'tabler-phone' },
+      // { property: 'Skype', value: 'john.doe', icon: 'tabler-message' },
+      { property: '邮箱', value: '123@uesg.com', icon: 'tabler-mail' },
     ],
     teams: [
       { property: 'Backend Developer', value: '(126 Members)', icon: 'tabler-brand-angular', color: 'error' },

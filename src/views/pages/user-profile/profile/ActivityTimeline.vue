@@ -1,5 +1,5 @@
 <script setup>
-import avatar2 from '@images/avatars/avatar-2.png'
+import avatar2 from '@images/avatars/avatar-seven.jpg'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import avatar2 from '@images/avatars/avatar-2.png'
         <VIcon icon="tabler-timeline" />
       </template>
 
-      <VCardTitle>Activity Timeline</VCardTitle>
+      <VCardTitle style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">用户轨迹</VCardTitle>
 
       <template #append>
         <div>
@@ -23,7 +23,7 @@ import avatar2 from '@images/avatars/avatar-2.png'
         </div>
       </template>
     </VCardItem>
-
+ 
     <VCardText>
       <VTimeline
         density="compact"
@@ -36,13 +36,13 @@ import avatar2 from '@images/avatars/avatar-2.png'
           size="x-small"
         >
           <div class="d-flex justify-space-between align-center flex-wrap">
-            <span class="app-timeline-title">
-              Client Meeting
+            <span class="app-timeline-title" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">
+              注册
             </span>
-            <span class="app-timeline-meta">Today</span>
+            <span class="app-timeline-meta" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">2023.07.25</span>
           </div>
-          <p class="app-timeline-text mb-2">
-            Project meeting with john @10:15am
+          <p class="app-timeline-text mb-2" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">
+            成为UESG会员
           </p>
 
           <div class="d-flex align-center mt-3">
@@ -53,16 +53,16 @@ import avatar2 from '@images/avatars/avatar-2.png'
             />
             <div>
               <h6 class="text-sm font-weight-medium mb-n1">
-                Lester McCarthy (Client)
+                微信用户(司总)
               </h6>
               <span class="app-timeline-meta">
-                CEO of Infidel
+                CEO of UESG
               </span>
             </div>
           </div>
         </VTimelineItem>
 
-        <VTimelineItem
+        <!-- <VTimelineItem
           dot-color="primary"
           size="x-small"
         >
@@ -127,7 +127,9 @@ import avatar2 from '@images/avatars/avatar-2.png'
           <p class="app-timeline-text mb-1">
             WooCommerce iOS App Completed
           </p>
-        </VTimelineItem>
+        </VTimelineItem> -->
+
+       
       </VTimeline>
     </VCardText>
   </VCard>

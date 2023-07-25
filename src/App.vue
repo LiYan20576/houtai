@@ -30,6 +30,8 @@ syncInitialLoaderTheme()
 syncConfigThemeWithVuetifyTheme()
 handleSkinChanges()
 
+
+
 </script>
 
 <template>
@@ -43,15 +45,21 @@ handleSkinChanges()
 </template>
 
 <style>
+
   .layout-wrapper {
     background: rgb(var(--v-theme-surface)) !important;
   }
-  /* .layout-page-content{
+  .layout-page-content{
     max-inline-size:1600px !important;
   }
   .navbar-content-container,.horizontal-nav-content-container {
     max-inline-size:1600px !important;
-  } */
+  }
+  .layout-content-width-boxed.layout-wrapper.layout-nav-type-vertical .layout-navbar, .layout-content-width-boxed.layout-wrapper.layout-nav-type-vertical .layout-footer {
+    inline-size: 100%;
+    margin-inline: auto;
+    max-inline-size:1600px !important;
+}
 
   /* .layout-content-width-boxed .layout-page-content,.layout-content-width-boxed.layout-wrapper.layout-nav-type-horizontal .navbar-content-container, .layout-content-width-boxed.layout-wrapper.layout-nav-type-horizontal .layout-footer .footer-content-container, .layout-content-width-boxed .layout-horizontal-nav .horizontal-nav-content-container {
     inline-size: 100%;

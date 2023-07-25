@@ -6,24 +6,24 @@ import PaymentContent from '@/views/wizard-examples/checkout/Payment.vue'
 import googleHome from '@images/pages/google-home.png'
 import iphone11 from '@images/pages/iphone-11.png'
 
-const checkoutSteps = [
-  {
-    title: 'Cart',
-    icon: 'custom-cart',
-  },
-  {
-    title: 'Address',
-    icon: 'custom-address',
-  },
-  {
-    title: 'Payment',
-    icon: 'custom-payment',
-  },
-  {
-    title: 'Confirmation',
-    icon: 'custom-trending',
-  },
-]
+// const checkoutSteps = [
+//   {
+//     title: 'Cart',
+//     icon: 'custom-cart',
+//   },
+//   {
+//     title: 'Address',
+//     icon: 'custom-address',
+//   },
+//   {
+//     title: 'Payment',
+//     icon: 'custom-payment',
+//   },
+//   {
+//     title: 'Confirmation',
+//     icon: 'custom-trending',
+//   },
+// ]
 
 const checkoutData = ref({
   cartItems: [
@@ -74,12 +74,55 @@ const checkoutData = ref({
 })
 
 const currentStep = ref(0)
+
+
+const lastWeeks = ref([]);
+
+onMounted(() => {
+  findLastWeeks();
+});
+
+function findLastWeeks() {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  const nextMonthFirstDay = new Date(currentYear, currentMonth + 1, 1);
+
+  for (let month = 0; month < 12; month++) {
+    const lastDayOfMonth = new Date(currentYear, month + 1, 0);
+    let lastWeekStart = new Date(lastDayOfMonth);
+    let lastWeekEnd = new Date(lastDayOfMonth);
+
+    while (lastWeekEnd.getDay() !== 0) {
+      lastWeekEnd.setDate(lastWeekEnd.getDate() + 1);
+    }
+    lastWeekStart.setDate(lastWeekEnd.getDate() - 6);
+
+    if (
+      lastWeekEnd >= nextMonthFirstDay ||
+      month === 11
+    ) {
+      lastWeeks.value.push({
+        start: formatDate(lastWeekStart),
+        end: formatDate(lastWeekEnd),
+      });
+      break;
+    }
+  }
+}
+
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 </script>
 
 <template>
   <VCard>
-    <VCardText>
-      <!-- 👉 Stepper -->
+    <!-- <VCardText>
       <AppStepper
         v-model:current-step="currentStep"
         class="checkout-stepper"
@@ -88,7 +131,7 @@ const currentStep = ref(0)
       />
     </VCardText>
 
-    <VDivider />
+    <VDivider /> -->
 
     <VCardText>
       <!-- 👉 stepper content -->

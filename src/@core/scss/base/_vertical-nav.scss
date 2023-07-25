@@ -27,6 +27,7 @@
       padding: variables.$vertical-nav-header-padding;
       margin-inline: variables.$vertical-nav-header-inline-spacing;
       min-block-size: variables.$vertical-nav-header-height;
+      padding-top: 40px !important;
 
       // TEMPLATE: Check if we need to move this to master
       .app-logo {
@@ -130,8 +131,9 @@
     .nav-link {
       @extend %nav-link;
 
-      > .router-link-exact-active {
-        @extend %nav-link-active;
+      > .router-link-exact-active::before {
+        // @extend %nav-link-active;
+        opacity: calc(var(--v-hover-opacity) * var(--v-theme-overlay-multiplier)) !important;
       }
 
       > a {
@@ -142,6 +144,7 @@
         @include vuetifyStates.states($active: false);
       }
     }
+
 
     // 👉 Vertical nav group
     .nav-group {

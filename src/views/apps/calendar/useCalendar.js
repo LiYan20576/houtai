@@ -170,6 +170,7 @@ export const useCalendar = (event, isEventHandlerSidebarActive, isLeftSidebarOpe
   const calendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin],
     initialView: 'dayGridMonth',
+    locale: 'zh',
     headerToolbar: {
       start: 'drawerToggler,prev,next title',
       end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
@@ -220,13 +221,15 @@ export const useCalendar = (event, isEventHandlerSidebarActive, isLeftSidebarOpe
       // * Only grab required field otherwise it goes in infinity loop
       // ! Always grab all fields rendered by form (even if it get `undefined`) otherwise due to Vue3/Composition API you might get: "object is not extensible"
       event.value = extractEventDataFromEventApi(clickedEvent)
-      isEventHandlerSidebarActive.value = true
+        isEventHandlerSidebarActive.value = true
     },
 
     // customButtons
     dateClick(info) {
       event.value = { ...event.value, start: info.date }
-      isEventHandlerSidebarActive.value = true
+      if(event.value.id){
+        isEventHandlerSidebarActive.value = true
+      }
     },
 
     /*

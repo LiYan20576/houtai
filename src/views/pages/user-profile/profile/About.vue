@@ -10,8 +10,8 @@ const props = defineProps({
 <template>
   <VCard class="mb-4">
     <VCardText>
-      <p class="text-xs">
-        ABOUT
+      <p class="text-xs" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">
+        用户信息
       </p>
 
       <VList class="card-list text-medium-emphasis">
@@ -27,14 +27,14 @@ const props = defineProps({
             />
           </template>
           <VListItemTitle>
-            <span class="font-weight-medium me-1">{{ item.property }}:</span>
-            <span>{{ item.value }}</span>
+            <span class="font-weight-medium me-1" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">{{ item.property }}:</span>
+            <span style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">{{ item.value }}</span>
           </VListItemTitle>
         </VListItem>
       </VList>
 
-      <p class="text-xs mt-5">
-        CONTACTS
+      <p class="text-xs mt-5" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">
+        联系方式
       </p>
 
       <VList class="card-list text-medium-emphasis">
@@ -50,17 +50,19 @@ const props = defineProps({
             />
           </template>
           <VListItemTitle>
-            <span class="font-weight-medium me-1">{{ item.property }}:</span>
-            <span>{{ item.value }}</span>
+            <span class="font-weight-medium me-1" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">{{ item.property }}:</span>
+            <span style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">{{ item.value }}</span>
           </VListItemTitle>
         </VListItem>
       </VList>
 
-      <p class="text-xs mt-5">
-        TEAMS
+      <p class="text-xs mt-5" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">
+       修改信息
       </p>
-
-      <VList class="card-list text-medium-emphasis">
+      <VBtn >
+            修改
+          </VBtn>
+      <!-- <VList class="card-list text-medium-emphasis">
         <VListItem
           v-for="item in props.data.teams"
           :key="item.property"
@@ -78,11 +80,11 @@ const props = defineProps({
             <span>{{ item.value }}</span>
           </VListItemTitle>
         </VListItem>
-      </VList>
+      </VList> -->
     </VCardText>
   </VCard>
 
-  <VCard>
+  <!-- <VCard>
     <VCardText>
       <p class="text-xs">
         OVERVIEW
@@ -107,7 +109,7 @@ const props = defineProps({
         </VListItem>
       </VList>
     </VCardText>
-  </VCard>
+  </VCard> -->
 </template>
 
 <style lang="scss" scoped>
