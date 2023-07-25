@@ -12,40 +12,19 @@ const isCardDetailsVisible1 = ref(false);
 
 const length = ref("");
 
-const getData = async () => {
-  const { data: res } = await getIndexData();
-  avatars.value = res;
-  avatars.value.reverse();
-  length.value = avatars.value.length;
-};
 
-const info = (index) => {
-  router.push("/inner/" + index);
-};
 
 const gotoPay = () => {
     // router.push('/wizard-examples/checkout')
     window.location.href = "/wizard-examples/checkout";
 }
 
-// onMounted(() => {
-//   // 在页面加载时执行的方法
-// //   getData();
 
-// //   const userAbilities = [
-// //     {
-// //       action: "manage",
-// //       subject: "all",
-// //     },
-// //   ];
-// //   localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-// //   ability.update(userAbilities);
-//   // localStorage.setItem("info_islogin", true);
-// });
 </script>
 
 <template>
-  <VRow class="cardWrap" style="display: flex;flex-direction: column;align-items: center;margin-bottom: 50px !important;">
+    <div>
+        <VRow class="cardWrap" style="display: flex;flex-direction: column;align-items: center;margin-bottom: 50px !important;">
     <div style="width: 70%;display: flex;align-items: flex-end;justify-content: space-between;margin-bottom: 58px;margin-top: 60px;">
         <div style="display: flex;align-items: center;justify-content: center;">
             <img src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg" style="width: 50px;height: 50px;margin-right: 10px;">
@@ -253,9 +232,11 @@ const gotoPay = () => {
         </div>
     </VExpandTransition>
   </VRow>
+    </div>
+
 </template>
 
-<style>
+<!-- <style>
 .cardWrap {
     /* height: 500px; */
     margin: 0;
@@ -331,7 +312,7 @@ const gotoPay = () => {
   align-items: center;
   justify-content: center;
 }
-</style>
+</style> -->
 
 <style lang="scss" scoped>
 // .v-card-text {

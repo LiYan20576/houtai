@@ -4,7 +4,7 @@ export default [
         title: '认证介绍',
         icon: { icon: 'ic:round-home',url: 'https://www.uesg.org.cn/icon/2_画板 1.svg' },
         hoverIcon: { url: 'https://www.uesg.org.cn/icon/2_画板 1.svg' },
-        to: 'auth1' ,
+        to: 'auth-auth1' ,
         // children: [
         //     { title: '基础分析师', to: 'course-optional-courses',icon: { url: 'https://www.uesg.org.cn/icon/9_画板 1.svg' },hoverIcon: { url: 'https://www.uesg.org.cn/icon/9_画板 1.svg' }, },
         //     { title: '高级分析师', to: 'course-selected-courses',icon: { url: 'https://www.uesg.org.cn/icon/9_画板 1.svg' },hoverIcon: { url: 'https://www.uesg.org.cn/icon/9_画板 1.svg' }, },
