@@ -79,3 +79,7 @@ export const getDetail = (index) => {
     return requests.get("https://lovemedicine.cn/public/uesg/6.13/news/01/" + index + ".json");
 };
 
+export const getWxCode = () => {
+    return requests.get("https://weixin.uesg.cn/account/getid");
+};
+

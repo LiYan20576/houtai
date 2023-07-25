@@ -83,7 +83,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/account': {
-        target: 'https://www.uesg.cn',	//实际请求地址
+        target: 'https://weixin.uesg.cn/',	//实际请求地址
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/account/, '/account')
       },

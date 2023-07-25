@@ -44,7 +44,7 @@ const checkAll = computed({
 </script>
 
 <template>
-  <div>
+  <div style="width:80vw;">
     <VCard>
       <!-- `z-index: 0` Allows overlapping vertical nav on calendar -->
       <VLayout style="z-index: 0;">
@@ -138,7 +138,12 @@ const checkAll = computed({
 
   .v-application .fc .fc-view-harness{
     height: 60vh !important;
+    min-block-size: 0;
   }
+
+  /* .v-layout .v-card {
+    width: 70vw !important;
+  } */
 </style>
 
 <style lang="scss">

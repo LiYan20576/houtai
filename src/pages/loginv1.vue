@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import {getIndexData} from '@/api/index'
+import {getIndexData,getWxCode} from '@/api/index'
 import { useAppAbility } from "@/plugins/casl/useAppAbility";
 // import { onBeforeRouteLeave } from 'vue'
 
@@ -23,20 +23,53 @@ const info = (index) => {
   router.push("/inner/"+index);
 }
 
+const qrUrl = ref("");
 
-onMounted(() => {
+onMounted(async () => {
   // 在页面加载时执行的方法
-  getData();
+  // getData();
 
-  const userAbilities = [
-    {
-      action: "manage",
-      subject: "all",
-    },
-  ];
-  localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
-  ability.update(userAbilities);
+  // const userAbilities = [
+  //   {
+  //     action: "manage",
+  //     subject: "all",
+  //   },
+  // ];
+  // localStorage.setItem("userAbilities", JSON.stringify(userAbilities));
+  // ability.update(userAbilities);
   // localStorage.setItem("info_islogin", true);
+
+  const { data:res } = await getWxCode();
+  console.log(res);
+  
+  qrUrl.value =  "https://weixin.uesg.cn/auth/member?sid=" + res.id;
+
+  const socket = new WebSocket('wss://weixin.uesg.cn/wss');
+
+  // 监听 WebSocket 打开连接事件
+  socket.addEventListener('open', () => {
+    console.log('WebSocket 连接已打开');
+    var msg = "log:" + res.id;
+    socket.send(msg);
+    console.log(res.id);
+  });
+
+  // 监听 WebSocket 接收到消息事件
+  socket.addEventListener('message', (event) => {
+    console.log('接收到消息：', event.data);
+  });
+
+  // 监听 WebSocket 关闭连接事件
+  socket.addEventListener('close', () => {
+    console.log('WebSocket 连接已关闭');
+  });
+
+  // 监听 WebSocket 错误事件
+  socket.addEventListener('error', (error) => {
+    console.error('WebSocket 错误：', error);
+  });
+
+
 
 });
 
@@ -46,7 +79,7 @@ onMounted(() => {
 
 
 <template>
-  <VRow style=" height: 100vh;margin: 0;background-color: #FFFFFFFF !important;box-shadow: 0px 5px 10px 0px #F0EFF2 !important;border-radius: 12px !important;">
+  <VRow style=" height: 85vh;margin: 0;background-color: #FFFFFFFF !important;box-shadow: 0px 5px 10px 0px #F0EFF2 !important;border-radius: 12px !important;">
 
 
     <!-- 👉 Popular Uses Of The Internet -->
@@ -84,7 +117,7 @@ onMounted(() => {
           微信扫码登录
         </div>
         <div style="width: 210px;height: 210px;border-radius: 12px;border: 4px solid #E6E6E6;margin-bottom: 30px;">
-
+          <img :src="qrUrl" style="width: 200px;height: 200px;">
         </div>
         <div style="font-size: 17px;line-height: 50px;color: #5C5A68;">
           微信扫码关注公众号进行登录
