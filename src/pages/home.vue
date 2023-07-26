@@ -124,14 +124,14 @@ onMounted(() => {
         <VImg :src="item.img" style="border-radius: 6px;"/>
 
         <VCardItem>
-          <VCardTitle class="cardTitle">{{ item.title }}</VCardTitle>
+          <VCardTitle class="cardTitle" style=" font-family: 'DINMedium';">{{ item.title }}</VCardTitle>
           <div class="tools">
             <div class="left">
-              <span class="tag">
+              <span class="tag" >
                 {{ item.tag }}
               </span>
               <span style="padding: 0 5px;font-size: 13px;line-height: 18px;color: #00000040;">|</span>
-              <span class="time">{{ item.time }}</span>
+              <span class="time" >{{ item.time }}</span>
             </div>
 
             <div class="right">
@@ -139,7 +139,7 @@ onMounted(() => {
                 src="https://www.uesg.org.cn/icon/0725/view_%E7%94%BB%E6%9D%BF%201.svg"
                 style="width: 20px; height: 15px"
               />
-              <span style="font-size: 12px; color: rgba(47, 43, 61, 0.42)">
+              <span style="font-size: 12px; color: rgba(47, 43, 61, 0.42)" >
                 {{ item.views }}
               </span>
             </div>
@@ -160,11 +160,11 @@ onMounted(() => {
           <VBtn
             icon
             size="small"
-            @click="isCardDetailsVisible = !isCardDetailsVisible"
+            @click="aaa(index)"
           >
             <VIcon
               :icon="
-                isCardDetailsVisible
+                index === index1
                   ? 'tabler-chevron-up'
                   : 'tabler-chevron-down'
               "
@@ -191,7 +191,7 @@ onMounted(() => {
               <span class="tag1">
                 {{ item.tag }}
               </span>
-              <span style="padding: 0 5px;font-size: 13px;line-height: 18px;color: #00000040;">|</span>
+              <span style="padding: 0 5px;font-size: 13px;line-height: 18px;color: #00000040;font-family: 'DINRegular';">|</span>
               <span class="time">{{ item.time }}</span>
             </div>
 
@@ -233,7 +233,7 @@ onMounted(() => {
           </VBtn>
         </VCardActions>
         <VCardText v-else>
-          <VBtn size="small" > 查看报告 </VBtn>
+          <VBtn size="small"> 查看报告 </VBtn>
         </VCardText>
 
 
@@ -249,6 +249,17 @@ onMounted(() => {
     </VCol>
   </VRow>
 </template>
+
+<style>
+  @font-face {
+    font-family: 'DINRegular';
+    src: url('https://www.uesg.org.cn/font/0725/D-DIN-PRO-400-Regular.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'DINMedium';
+    src: url('https://www.uesg.org.cn/font/0725/D-DIN-PRO-500-Medium.ttf') format('truetype');
+  }
+</style>
 
 <style>
 .v-card,.v-card-item__content {

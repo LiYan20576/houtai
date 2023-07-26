@@ -7,8 +7,12 @@ export async function loadFonts() {
   const webFontLoader = await import(/* webpackChunkName: "webfontloader" */ 'webfontloader')
 
   webFontLoader.load({
-    google: {
-      families: ['Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap'],
+    // google: {
+    //   // families: ['Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap'],
+    // },
+    custom: {
+      families: ['DINRegular','DINMedium'],
+      urls: ['https://www.uesg.org.cn/font/0725/D-DIN-PRO-400-Regular.ttf','https://www.uesg.org.cn/font/0725/D-DIN-PRO-500-Medium.ttf'],
     },
   })
 }

@@ -52,23 +52,39 @@ onMounted(async () => {
     var msg = "log:" + res.id;
     socket.send(msg);
     console.log(res.id);
+
+    // // 在连接打开后，立即发送第一次心跳消息
+    // sendHeartbeat();
+    // // 设置心跳定时器，在指定间隔时间后发送心跳消息
+    // heartbeatTimer = setInterval(sendHeartbeat, heartbeatInterval);
   });
 
   // 监听 WebSocket 接收到消息事件
   socket.addEventListener('message', (event) => {
     console.log('接收到消息：', event.data);
+    // socket.close();
+    console.log(JSON.parse(event.data));
+    const res = JSON.parse(event.data);
+
+    if(res.oid) {
+      localStorage.setItem("userStatus", 200);
+      localStorage.setItem("oid", res.oid);
+      socket.close();
+      window.location.href = '/pages/user-profile/profile'
+      // router.push('/pages/user-profile/profile');
+    }
   });
 
   // 监听 WebSocket 关闭连接事件
-  socket.addEventListener('close', () => {
+  socket.addEventListener('close', (event) => {
     console.log('WebSocket 连接已关闭');
+    console.log('WebSocket closed:',event);
   });
 
   // 监听 WebSocket 错误事件
   socket.addEventListener('error', (error) => {
     console.error('WebSocket 错误：', error);
   });
-
 
 
 });

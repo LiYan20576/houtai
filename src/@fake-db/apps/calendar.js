@@ -14,17 +14,17 @@ const calculateLastWeek = () => {
   const currentMonth = currentDate.getMonth();
   const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const lastDayDate = new Date(currentYear, currentMonth, lastDayOfMonth);
-  const lastDayOfWeek = lastDayDate.getDay();
+  var lastDayOfWeek = lastDayDate.getDay();
+  if(lastDayOfWeek!=0){
+    lastDayOfWeek +=6
+  }
+  console.log(lastDayOfWeek)
   const lastWeekStart = new Date(lastDayDate);
   lastWeekStart.setDate(lastDayDate.getDate() - lastDayOfWeek);
   const lastWeekEnd = new Date(lastWeekStart);
   lastWeekEnd.setDate(lastWeekStart.getDate() + 6);
-  if(Number(formatDateday(lastWeekEnd))<10){
-    day=Number(formatDateday(lastWeekStart))- 6
-  }else{
+ 
     day=Number(formatDateday(lastWeekStart))
-  }
-  console.log(day, 'xxxxxxxx')
  
 }
 // const formatDate = (date) => {

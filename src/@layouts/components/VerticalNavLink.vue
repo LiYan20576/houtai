@@ -27,6 +27,13 @@ const handleMouseOver = () => {
 const handleMouseLeave = () => {
   isHovering.value = false
 }
+// const avatarUrl = ref("");
+
+// onMounted(async () => {
+  
+//   avatarUrl.value = JSON.parse(localStorage.getItem('userData')).avatar;
+//   console.log(avatarUrl.value)
+// });
 
 </script>
 
@@ -51,8 +58,12 @@ const handleMouseLeave = () => {
       /> -->
 
       <!-- :src="item.icon.url" -->
-      <img class="nav-item-icon" :src="isHovering ? item.hoverIcon.url : item.icon.url" style="width:19px;height:19px;">
+      <!-- v-if="!item.type||!avatarUrl" -->
+      <img  class="nav-item-icon" :src="isNavLinkActive(item, $router) ? item.hoverIcon.url : item.icon.url" style="width:24px;height:24px;padding: 0;margin: 0 auto;">
       
+      <!-- <img v-else class="nav-item-icon" :src="avatarUrl" style="width:19px;height:19px;"> -->
+      
+
       <TransitionGroup name="transition-slide-x">
         <!-- 👉 Title -->
         <Component

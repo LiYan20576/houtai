@@ -37,9 +37,9 @@ const props = defineProps({
 
 const refNav = ref()
 const { width: windowWidth } = useWindowSize()
-const isHovered = useElementHover(refNav)
+// const isHovered = useElementHover(refNav)
 
-provide(injectionKeyIsVerticalNavHovered, isHovered)
+// provide(injectionKeyIsVerticalNavHovered, isHovered)
 
 const {
   isVerticalNavCollapsed: isCollapsed,
@@ -48,7 +48,7 @@ const {
   isAppRtl,
 } = useLayouts()
 
-const hideTitleAndIcon = isVerticalNavMini(windowWidth, isHovered)
+// const hideTitleAndIcon = isVerticalNavMini(windowWidth, isHovered)
 
 const resolveNavItemComponent = item => {
   if ('heading' in item)
@@ -80,10 +80,10 @@ const handleNavScroll = evt => {
     class="layout-vertical-nav"
     :class="[
       {
-        'overlay-nav': isLessThanOverlayNavBreakpoint(windowWidth),
-        'hovered': isHovered,
-        'visible': isOverlayNavActive,
-        'scrolled': isVerticalNavScrolled,
+        // 'overlay-nav': isLessThanOverlayNavBreakpoint(windowWidth),
+        // 'hovered': isHovered,
+        // 'visible': isOverlayNavActive,
+        // 'scrolled': isVerticalNavScrolled,
       },
     ]"
   >
@@ -111,12 +111,14 @@ const handleNavScroll = evt => {
       name="nav-items"
       :update-is-vertical-nav-scrolled="updateIsVerticalNavScrolled"
     >
+    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;height: 100vh;">
       <PerfectScrollbar
         :key="isAppRtl"
         tag="ul"
         class="nav-items"
         :options="{ wheelPropagation: false }"
         @ps-scroll-y="handleNavScroll"
+        style="height: auto;"
       >
         <Component
           :is="resolveNavItemComponent(item)"
@@ -125,6 +127,8 @@ const handleNavScroll = evt => {
           :item="item"
         />
       </PerfectScrollbar>
+    </div>
+      
     </slot>
   </Component>
 </template>

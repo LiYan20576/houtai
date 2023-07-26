@@ -19,22 +19,10 @@ const shallRenderIcon = isVerticalNavMini(windowWidth)
   <li
     v-if="can(item.action, item.subject)"
     class="nav-section-title"
+    style="margin-bottom: 23px;"
   >
     <div class="title-wrapper">
-      <Transition
-        name="vertical-nav-section-title"
-        mode="out-in"
-      >
-        <!-- eslint-disable vue/no-v-text-v-html-on-component -->
-        <Component
-          :is="shallRenderIcon ? config.app.iconRenderer : config.app.enableI18n ? 'i18n-t' : 'span'"
-          :key="shallRenderIcon"
-          :class="shallRenderIcon ? 'placeholder-icon' : 'title-text'"
-          v-bind="{ ...config.icons.sectionTitlePlaceholder, ...dynamicI18nProps(item.heading, 'span') }"
-          v-text="!shallRenderIcon ? item.heading : null"
-        />
-        <!-- eslint-enable vue/no-v-text-v-html-on-component -->
-      </Transition>
+      <img src="https://www.uesg.org.cn/icon/0726/分割符.svg" style="width: 24px;height: 24px;margin-inline-start: 0.3rem;">
     </div>
   </li>
 </template>

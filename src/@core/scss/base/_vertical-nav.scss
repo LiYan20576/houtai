@@ -23,11 +23,13 @@
 
     // 👉 Nav header
     .nav-header {
-      overflow: hidden;
-      padding: variables.$vertical-nav-header-padding;
-      margin-inline: variables.$vertical-nav-header-inline-spacing;
-      min-block-size: variables.$vertical-nav-header-height;
-      padding-top: 40px !important;
+      // overflow: hidden;
+      // padding: variables.$vertical-nav-header-padding;
+      // margin-inline: variables.$vertical-nav-header-inline-spacing;
+      // min-block-size: variables.$vertical-nav-header-height;
+      padding-left: 20px !important;
+      padding-top: 50px !important;
+      // padding-bottom: 50px !important;
 
       // TEMPLATE: Check if we need to move this to master
       .app-logo {

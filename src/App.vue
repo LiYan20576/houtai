@@ -45,6 +45,17 @@ handleSkinChanges()
 </template>
 
 <style>
+  @font-face {
+    font-family: 'DINRegular';
+    src: url('https://www.uesg.org.cn/font/0725/D-DIN-PRO-400-Regular.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'DINMedium';
+    src: url('https://www.uesg.org.cn/font/0725/D-DIN-PRO-500-Medium.ttf') format('truetype');
+  }
+  *{
+    font-family: 'DINRegular';
+  }
 
   .layout-wrapper {
     background: rgb(var(--v-theme-surface)) !important;

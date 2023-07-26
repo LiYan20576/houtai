@@ -5,6 +5,23 @@ const props = defineProps({
     required: true,
   },
 })
+
+const userData = ref("");
+
+onMounted(async () => {
+  
+  const userInfo = JSON.parse(localStorage.getItem("userData"));
+  console.log(userInfo,'xxxxxxxxxxxxxxxxxxxxxxx');
+
+  userData.value = [
+    { property: '姓名', value: userInfo.nickname, icon: 'tabler-user' },
+    { property: '状态', value: '已注册', icon: 'tabler-check' },
+    { property: '身份', value: '普通用户', icon: 'tabler-star' },
+    { property: '语言', value: '中文', icon: 'tabler-language' },
+  ]
+  
+});
+
 </script>
 
 <template>
@@ -16,7 +33,7 @@ const props = defineProps({
 
       <VList class="card-list text-medium-emphasis">
         <VListItem
-          v-for="item in props.data.about"
+          v-for="item in userData"
           :key="item.property"
         >
           <template #prepend>

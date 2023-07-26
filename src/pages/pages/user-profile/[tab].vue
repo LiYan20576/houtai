@@ -88,4 +88,6 @@ const tabs = [
 <route lang="yaml">
 meta:
   navActiveLink: pages-user-profile-tab
+  check: true
 </route>
+

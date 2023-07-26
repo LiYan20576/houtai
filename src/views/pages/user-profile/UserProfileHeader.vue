@@ -1,6 +1,7 @@
 <script setup>
 import axios from '@axios'
 import { useRouter } from "vue-router";
+import { getInfo } from "@/api/index"
 
 const router = useRouter();
 
@@ -13,8 +14,36 @@ const fetchHeaderData = () => {
 }
 
 const logout = () => {
-  router.push("/loginv1")
+  localStorage.removeItem("oid");
+  localStorage.removeItem("userStatus");
+  localStorage.removeItem("userData");
+  window.location.href = '/loginv1'
+  // router.push("/loginv1");
 }
+
+const avatarUrl = ref(""); 
+
+const nickname = ref("");
+
+onMounted(async () => {
+  const unionid = localStorage.getItem("oid");
+
+  const { data:res } = await getInfo(unionid);
+  console.log(res);
+  nickname.value = res.nickname;
+
+  avatarUrl.value = "https://weixin.uesg.cn/account/avator?unionID=" + unionid;
+  console.log(avatarUrl.value);
+
+  const userData = {
+    avatar: avatarUrl.value,
+    nickname: nickname.value
+  };
+
+  const userDataJSON = JSON.stringify(userData);
+  localStorage.setItem("userData", userDataJSON);
+
+});
 
 fetchHeaderData()
 </script>
@@ -33,14 +62,14 @@ fetchHeaderData()
         <VAvatar
           rounded
           size="120"
-          :image="profileHeaderData.profileImg"
+          :image="avatarUrl"
           class="user-profile-avatar mx-auto"
         />
       </div>
 
       <div class="user-profile-info w-100 mt-16 pt-6 pt-sm-0 mt-sm-0">
         <h6 class="text-h6 text-center text-sm-start font-weight-medium mb-3" style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">
-          {{ profileHeaderData?.fullName }}
+          {{ nickname }}
         </h6>
 
         <div class="d-flex align-center justify-center justify-sm-space-between flex-wrap gap-4">

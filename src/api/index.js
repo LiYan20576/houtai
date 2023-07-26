@@ -79,7 +79,16 @@ export const getDetail = (index) => {
     return requests.get("https://lovemedicine.cn/public/uesg/6.13/news/01/" + index + ".json");
 };
 
+// https://weixin.uesg.cn
 export const getWxCode = () => {
     return requests.get("https://weixin.uesg.cn/account/getid");
 };
+
+// "/acount/avator?unionID=oym-u6Z5ccaI-Z018tm icoxPaa"
+export const getInfo = (unionId) => {
+    return requests.post("https://weixin.uesg.cn/account/get_info", {
+        unionID:unionId
+    });
+};
+
 
