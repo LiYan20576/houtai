@@ -36,7 +36,7 @@ const { dynamicI18nProps } = useLayouts()
       v-bind="getComputedNavLinkToProp(item)"
       :class="{ 'router-link-active router-link-exact-active-new': isNavLinkActive(item, $router) }"
     >
-      <!-- <Component
+      <Component
         :is="config.app.iconRenderer || 'div'"
         class="nav-item-icon"
         v-bind="item.icon || config.verticalNav.defaultNavItemIconProps"
@@ -47,9 +47,7 @@ const { dynamicI18nProps } = useLayouts()
         v-bind="dynamicI18nProps(item.title, 'span')"
       >
         {{ item.title }}
-      </Component> -->
-      <img  class="nav-item-icon" :src="isNavLinkActive(item, $router) ? item.hoverIcon.url : item.icon.url" style="width:24px;height:24px;padding: 0;margin: 0 auto;">
-
+      </Component>
     </Component>
   </li>
 </template>

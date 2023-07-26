@@ -1,25 +1,19 @@
 <script setup>
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { VNodeRenderer } from './VNodeRenderer'
-import {
-  injectionKeyIsVerticalNavHovered,
-  useLayouts,
-} from '@layouts'
+import { PerfectScrollbar } from "vue3-perfect-scrollbar";
+import { VNodeRenderer } from "./VNodeRenderer";
+import { injectionKeyIsVerticalNavHovered, useLayouts } from "@layouts";
 import {
   VerticalNavGroup,
   VerticalNavLink,
   VerticalNavSectionTitle,
-} from '@layouts/components'
-import { config } from '@layouts/config'
+} from "@layouts/components";
+import { config } from "@layouts/config";
 
 const props = defineProps({
   tag: {
-    type: [
-      String,
-      null,
-    ],
+    type: [String, null],
     required: false,
-    default: 'aside',
+    default: "aside",
   },
   navItems: {
     type: null,
@@ -33,10 +27,10 @@ const props = defineProps({
     type: Function,
     required: true,
   },
-})
+});
 
-const refNav = ref()
-const { width: windowWidth } = useWindowSize()
+const refNav = ref();
+const { width: windowWidth } = useWindowSize();
 // const isHovered = useElementHover(refNav)
 
 // provide(injectionKeyIsVerticalNavHovered, isHovered)
@@ -46,31 +40,33 @@ const {
   isLessThanOverlayNavBreakpoint,
   isVerticalNavMini,
   isAppRtl,
-} = useLayouts()
+} = useLayouts();
 
 // const hideTitleAndIcon = isVerticalNavMini(windowWidth, isHovered)
 
-const resolveNavItemComponent = item => {
-  if ('heading' in item)
-    return VerticalNavSectionTitle
-  if ('children' in item)
-    return VerticalNavGroup
-  
-  return VerticalNavLink
-}
+const resolveNavItemComponent = (item) => {
+  if ("heading" in item) return VerticalNavSectionTitle;
+  if ("children" in item) return VerticalNavGroup;
 
-const route = useRoute()
+  return VerticalNavLink;
+};
 
-watch(() => route.name, () => {
-  props.toggleIsOverlayNavActive(false)
-})
+const route = useRoute();
 
-const isVerticalNavScrolled = ref(false)
-const updateIsVerticalNavScrolled = val => isVerticalNavScrolled.value = val
+watch(
+  () => route.name,
+  () => {
+    props.toggleIsOverlayNavActive(false);
+  }
+);
 
-const handleNavScroll = evt => {
-  isVerticalNavScrolled.value = evt.target.scrollTop > 0
-}
+const isVerticalNavScrolled = ref(false);
+const updateIsVerticalNavScrolled = (val) =>
+  (isVerticalNavScrolled.value = val);
+
+const handleNavScroll = (evt) => {
+  isVerticalNavScrolled.value = evt.target.scrollTop > 0;
+};
 </script>
 
 <template>
@@ -86,50 +82,69 @@ const handleNavScroll = evt => {
         // 'scrolled': isVerticalNavScrolled,
       },
     ]"
+    style="display: flex; width: 100%; align-items: center;justify-content: center;position: fixed;height: 84px;"
   >
-    <!-- 👉 Header -->
-    <div class="nav-header">
-      <slot name="nav-header">
-        <RouterLink
-          to="/"
-          class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
-        >
-          <VNodeRenderer :nodes="config.app.slogo" v-show="!hideTitleAndIcon"/>
+    <div style="max-width: 1200px;display: flex;align-items: center;justify-content: center;width: 100%;position: relative;">
+      <!-- 👉 Header -->
+      <div class="nav-header" style="position: absolute;left: 0;">
+        <slot name="nav-header">
+          <RouterLink
+            to="/"
+            class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
+          >
+            <VNodeRenderer
+              :nodes="config.app.slogo"
+              v-show="!hideTitleAndIcon"
+            />
 
-          <VNodeRenderer :nodes="config.app.slogo" v-show="hideTitleAndIcon"/>
-          
-        </RouterLink>
-        <!-- 👉 Vertical nav actions -->
-        <!-- Show toggle collapsible in >md and close button in <md -->
-       
+            <VNodeRenderer
+              :nodes="config.app.slogo"
+              v-show="hideTitleAndIcon"
+            />
+          </RouterLink>
+          <!-- 👉 Vertical nav actions -->
+          <!-- Show toggle collapsible in >md and close button in <md -->
+        </slot>
+      </div>
+      <!-- <slot name="before-nav-items">
+        <div class="vertical-nav-items-shadow" />
+      </slot> -->
+      <slot
+        name="nav-items"
+        :update-is-vertical-nav-scrolled="updateIsVerticalNavScrolled"
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+          "
+        >
+          <PerfectScrollbar
+            :key="isAppRtl"
+            tag="ul"
+            class="nav-items"
+            :options="{ wheelPropagation: false }"
+            @ps-scroll-y="handleNavScroll"
+            style="
+              height: auto;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+            "
+          >
+            <Component
+              :is="resolveNavItemComponent(item)"
+              v-for="(item, index) in navItems"
+              :key="index"
+              :item="item"
+            />
+          </PerfectScrollbar>
+        </div>
       </slot>
     </div>
-    <slot name="before-nav-items">
-      <div class="vertical-nav-items-shadow" />
-    </slot>
-    <slot
-      name="nav-items"
-      :update-is-vertical-nav-scrolled="updateIsVerticalNavScrolled"
-    >
-    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;height: 100vh;">
-      <PerfectScrollbar
-        :key="isAppRtl"
-        tag="ul"
-        class="nav-items"
-        :options="{ wheelPropagation: false }"
-        @ps-scroll-y="handleNavScroll"
-        style="height: auto;"
-      >
-        <Component
-          :is="resolveNavItemComponent(item)"
-          v-for="(item, index) in navItems"
-          :key="index"
-          :item="item"
-        />
-      </PerfectScrollbar>
-    </div>
-      
-    </slot>
   </Component>
 </template>
 
@@ -139,16 +154,17 @@ const handleNavScroll = evt => {
 
 // 👉 Vertical Nav
 .layout-vertical-nav {
-  position: fixed;
+  // position: fixed;
   z-index: variables.$layout-vertical-nav-z-index;
-  display: flex;
-  flex-direction: column;
-  block-size: 100%;
-  inline-size: variables.$layout-vertical-nav-width;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  transition: transform 0.25s ease-in-out, inline-size 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
-  will-change: transform, inline-size;
+  // display: flex;
+  // flex-direction: column;
+  // block-size: 100%;
+  // inline-size: variables.$layout-vertical-nav-width;
+  // inset-block-start: 0;
+  // inset-inline-start: 0;
+  transition: transform 0.25s ease-in-out, inline-size 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out;
+  // will-change: transform, inline-size;
 
   .nav-header {
     display: flex;

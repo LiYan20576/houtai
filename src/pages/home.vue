@@ -110,16 +110,50 @@ onMounted(() => {
 
 <template>
   <VRow>
-    <!-- 👉 Popular Uses Of The Internet -->
-    <div style="padding: 12px">
-      <img
-        src="https://www.uesg.org.cn/img/0725/1.jpeg"
-        style="width: 100%; border-radius: 6px; display: block"
-        alt=""
-      />
-    </div>
+    <!-- 👉 Website analytics -->
+    <VCol
+      cols="12"
+      md="6"
+    >
+        <img
+          src="https://www.uesg.org.cn/img/0725/1.jpeg"
+          style="width: 100%; border-radius: 6px; display: block;height: 444px; "
+          alt=""
+        />
+    </VCol>
 
-    <VCol cols="12" md="4" sm="6" v-for="(item, index) in news" :key="index">
+    <!-- 👉 Sales Overview -->
+    <VCol
+      cols="12"
+      md="3"
+      sm="6"
+    >
+      <VCard>
+        <img src="https://www.uesg.org.cn/img/0725/2.jpeg" style="width: 100%;border-radius: 6px;height: 240px;"/>
+
+        <VCardItem>
+          <div class="tag" style="margin: 25px;">
+            科普
+          </div>
+          <VCardTitle class="cardTitle" style=" font-family: 'DINMedium';">ESG的含义。</VCardTitle>
+          <div class="time" >2023.07.23</div>
+        </VCardItem>
+
+      </VCard>
+    </VCol>
+
+    <!-- 👉 Statistics Vertical -->
+    <!-- <VCol
+      cols="12"
+      md="3"
+      sm="6"
+    >
+      <CardStatisticsVertical v-bind="statisticsVertical" />
+    </VCol> -->
+    <!-- 👉 Popular Uses Of The Internet -->
+    
+
+    <!-- <VCol cols="12" md="4" sm="6" v-for="(item, index) in news" :key="index">
       <VCard v-if="item.type == 'news'">
         <VImg :src="item.img" style="border-radius: 6px;"/>
 
@@ -246,7 +280,7 @@ onMounted(() => {
           </div>
         </VExpandTransition>
       </VCard>
-    </VCol>
+    </VCol> -->
   </VRow>
 </template>
 

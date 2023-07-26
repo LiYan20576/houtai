@@ -19,7 +19,6 @@ const shallRenderIcon = isVerticalNavMini(windowWidth)
   <li
     v-if="can(item.action, item.subject)"
     class="nav-section-title"
-    style="margin-bottom: 23px;"
   >
     <div class="title-wrapper">
       <img src="https://www.uesg.org.cn/icon/0726/分割符.svg" style="width: 24px;height: 24px;margin-inline-start: 0.3rem;">

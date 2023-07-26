@@ -27,8 +27,8 @@
       // padding: variables.$vertical-nav-header-padding;
       // margin-inline: variables.$vertical-nav-header-inline-spacing;
       // min-block-size: variables.$vertical-nav-header-height;
-      padding-left: 20px !important;
-      padding-top: 50px !important;
+      // padding-left: 20px !important;
+      // padding-top: 50px !important;
       // padding-bottom: 50px !important;
 
       // TEMPLATE: Check if we need to move this to master
@@ -93,10 +93,10 @@
       @extend %vertical-nav-item;
       @extend %vertical-nav-section-title;
 
-      margin-block-end: variables.$vertical-nav-section-title-mb;
+      // margin-block-end: variables.$vertical-nav-section-title-mb;
 
       &:not(:first-child) {
-        margin-block-start: variables.$vertical-nav-section-title-mt;
+        // margin-block-start: variables.$vertical-nav-section-title-mt;
       }
 
       .placeholder-icon {

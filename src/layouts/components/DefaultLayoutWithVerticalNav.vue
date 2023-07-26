@@ -50,7 +50,7 @@ const { width: windowWidth } = useWindowSize()
     </template> -->
 
     <!-- 👉 Pages -->
-    <RouterView v-slot="{ Component }" :key="router.fullPath">
+    <RouterView v-slot="{ Component }" :key="router.fullPath" style="margin-top: 84px;">
       <Transition
         :name="appRouteTransition"
         mode="out-in"

@@ -60,9 +60,9 @@ handleSkinChanges()
   .layout-wrapper {
     background: rgb(var(--v-theme-surface)) !important;
   }
-  .layout-page-content{
+  /* .layout-page-content{
     max-inline-size:1600px !important;
-  }
+  } */
   .navbar-content-container,.horizontal-nav-content-container {
     max-inline-size:1600px !important;
   }
