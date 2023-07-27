@@ -40,14 +40,13 @@ onMounted(() => {
 
 });
 
-
+const url = ref("https://www.gjtool.cn/pdfh5/test.pdf");
 </script>
 
 
 
 <template>
   <VRow style=" height: 100vh;margin: 0;background-color: #FFFFFFFF !important;box-shadow: 0px 5px 10px 0px #F0EFF2 !important;border-radius: 12px !important;">
-
 
     <div style="width: 100%;height: 100%;scale: 0.8;display: flex;align-items: center;justify-content: center;">
       <div style="width: 500px;height: 641px;background-image: url(https://www.uesg.org.cn/img/loginv1.jpg);background-size: 100% 100%;">
@@ -63,9 +62,11 @@ onMounted(() => {
         <div style="font-size: 17px;line-height: 50px;color: #5C5A68;">
           微信扫码关注公众号进行登录
         </div> -->
+        <img src="https://weixin.uesg.cn/order/CreatePayCode" >
       </div>
     </div>
    
+    <!-- <iframe src="http://www.gjtool.cn/pdfh5/pdf.html?file=//www.gjtool.cn/pdfh5/test.pdf" width="100%" height="600"></iframe> -->
   </VRow>
 </template>
 

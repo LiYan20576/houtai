@@ -84,9 +84,9 @@ const handleNavScroll = (evt) => {
     ]"
     style="display: flex; width: 100%; align-items: center;justify-content: center;position: fixed;height: 84px;"
   >
-    <div style="max-width: 1200px;display: flex;align-items: center;justify-content: center;width: 100%;position: relative;">
+    <div style="max-width: 980px;display: flex;align-items: center;justify-content: center;width: 100%;position: relative;">
       <!-- 👉 Header -->
-      <div class="nav-header" style="position: absolute;left: 0;">
+      <div class="nav-header" style="position: absolute;left: 24px;">
         <slot name="nav-header">
           <RouterLink
             to="/"
@@ -190,6 +190,7 @@ const handleNavScroll = (evt) => {
   }
 
   .nav-item-title {
+    display: none !important;
     overflow: hidden;
     margin-inline-end: auto;
     text-overflow: ellipsis;
@@ -214,4 +215,6 @@ const handleNavScroll = (evt) => {
     }
   }
 }
+
+
 </style>

@@ -123,6 +123,7 @@ export default defineComponent({
     min-block-size: calc(var(--vh, 1vh) * 100);
     transition: padding-inline-start 0.2s ease-in-out;
     will-change: padding-inline-start;
+    background-color: #F8F7FAFF !important;
   }
 
   .layout-navbar {
@@ -205,5 +206,9 @@ export default defineComponent({
       }
     }
   }
+}
+
+.layout-nav-type-vertical .layout-vertical-nav {
+  box-shadow: none !important;
 }
 </style>

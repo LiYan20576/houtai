@@ -337,6 +337,7 @@ declare module '@vue/runtime-core' {
     I18n: typeof import('./src/@core/components/I18n.vue')['default']
     MoreBtn: typeof import('./src/@core/components/MoreBtn.vue')['default']
     Notifications: typeof import('./src/@core/components/Notifications.vue')['default']
+    PdfViewer: typeof import('./src/components/PdfViewer.vue')['default']
     PricingPlanDialog: typeof import('./src/components/dialogs/PricingPlanDialog.vue')['default']
     ReferAndEarnDialog: typeof import('./src/components/dialogs/ReferAndEarnDialog.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

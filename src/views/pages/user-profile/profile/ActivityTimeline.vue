@@ -1,5 +1,24 @@
 <script setup>
 import avatar2 from '@images/avatars/avatar-seven.jpg'
+
+const props = defineProps({
+  data: {
+    type: null,
+    required: true,
+  },
+})
+
+// const avatar = ref("");
+// const nickname = ref("");
+
+// onMounted(async () => {
+  
+//   const userInfo = JSON.parse(localStorage.getItem("userData"));
+//   console.log(userInfo,'xxxxxxxxxxxxxxxxxxxxxxx');
+//   avatar.value = userInfo.avatar;
+//   nickname.value = userInfo.nickname;
+ 
+// });
 </script>
 
 <template>
@@ -11,7 +30,7 @@ import avatar2 from '@images/avatars/avatar-seven.jpg'
 
       <VCardTitle style="color: #000000FF;font-weight: 500;font-size: 17px;line-height: 24px;">用户轨迹</VCardTitle>
 
-      <template #append>
+      <!-- <template #append>
         <div>
           <MoreBtn
             :menu-list="[
@@ -21,7 +40,7 @@ import avatar2 from '@images/avatars/avatar-seven.jpg'
             ]"
           />
         </div>
-      </template>
+      </template> -->
     </VCardItem>
  
     <VCardText>
@@ -49,14 +68,14 @@ import avatar2 from '@images/avatars/avatar-seven.jpg'
             <VAvatar
               size="38"
               class="me-3"
-              :image="avatar2"
+              :image="props.data.avatar"
             />
             <div>
               <h6 class="text-sm font-weight-medium mb-n1">
-                微信用户(司总)
+                {{ props.data.nickname }}
               </h6>
               <span class="app-timeline-meta">
-                CEO of UESG
+                普通用户
               </span>
             </div>
           </div>

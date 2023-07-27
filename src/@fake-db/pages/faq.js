@@ -2,108 +2,81 @@ import mock from '@/@fake-db/mock'
 
 const database = [
   {
-    faqTitle: 'Payment',
+    faqTitle: '考证前',
     faqIcon: 'tabler-credit-card',
-    faqSubtitle: 'Get help with payment',
+    faqSubtitle: '获得考证前帮助',
     faqs: [
       {
-        question: 'When is payment taken for my order?',
-        answer: 'Payment is taken during the checkout process when you pay for your order. The order number that appears on the confirmation screen indicates payment has been successfully processed.',
+        question: 'UESG是什么单位？',
+        answer: 'UESG是考证机构。',
       },
       {
-        question: 'How do I pay for my order?',
-        answer: 'We accept Visa®, MasterCard®, American Express®, and PayPal®. Our servers encrypt all information submitted to them, so you can be confident that your credit card information will be kept safe and secure.',
+        question: 'UESG是否提供课程培训？',
+        answer: '不做培训，我们有很多合作的培训机构，可以帮您就近推荐。',
       },
       {
-        question: 'What should I do if I\'m having trouble placing an order?',
-        answer: 'For any technical difficulties you are experiencing with our website, please contact us at our support portal, or you can call us toll-free at 1-000-000-000, or email us at order@companymail.com',
+        question: '什么是UESG的ESG考试?',
+        answer: '我们有完整的ESG职业生涯规划证书，详情请见<a href="https://lovemedicine.cn/public/uesg/pdfh5-master/pdf.html?file=https://lovemedicine.cn/public/uesg/pdf/UESG%E8%AE%A4%E8%AF%81%E4%BD%93%E7%B3%BB.pdf">官网</>。',
       },
       {
-        question: 'Which license do I need for an end product that is only accessible to paying users?',
-        answer: 'If you have paying users or you are developing any SaaS products then you need an Extended License. For each products, you need a license. You can get free lifetime updates as well.',
+        question: '考生能报考多个级别吗?',
+        answer: '需具备国际通用 ESG 基础分析师认证资格后，便可考取其他级别证书',
       },
       {
-        question: 'Does my subscription automatically renew?',
-        answer: 'No, This is not subscription based item.Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps.',
+        question: '报名名额是否有限制?',
+        answer: '限额报名，先到先得。考位容量有限，根据各考点的容量报名，报满为止。',
       },
+      {
+        question: '考试费用是多少?支付方式是什么?',
+        answer: '证书级别不一对应考证费用不同，针对在校学生有七折教育优惠。',
+      },
+      {
+        question: '如何报名参加考试?',
+        answer: '需提供个人实名信息，详情请咨询UESG官方客服人员。',
+      },
+      {
+        question: 'UESG的ESG考试每年举办几次?',
+        answer: '每月一次，详情请咨询UESG的官方客服',
+      },
+      {
+        question: '需要具备什么样的条件才能报名考试？',
+        answer: '报名没有年龄、行业、地区、国籍等限制，UESG提供完整的ESG认证体系，并且适合不同人群的各个阶段。',
+      },
+      
     ],
   },
   {
-    faqTitle: 'Delivery',
+    faqTitle: '关于考证',
     faqIcon: 'tabler-shopping-cart',
-    faqSubtitle: 'Get help with delivery',
+    faqSubtitle: '获得关于考证帮助',
     faqs: [
       {
-        question: 'How would you ship my order?',
-        answer: 'For large products, we deliver your product via a third party logistics company offering you the “room of choice” scheduled delivery service. For small products, we offer free parcel delivery.',
+        question: '考试方式可以只选择线上吗？',
+        answer: 'UESG的证书可以选择线上，TUV证书必须线下。',
       },
       {
-        question: 'What is the delivery cost of my order?',
-        answer: 'The cost of scheduled delivery is $69 or $99 per order, depending on the destination postal code. The parcel delivery is free.',
-      },
-      {
-        question: 'What to do if my product arrives damaged?',
-        answer: 'We will promptly replace any product that is damaged in transit. Just contact our support team, to notify us of the situation within 48 hours of product arrival.',
+        question: '各个级别的证书有没有期限？',
+        answer: 'UESG的各个级别国际通用 ESG资格证书终身有效。',
       },
     ],
   },
   {
-    faqTitle: 'Cancellation',
+    faqTitle: '考证后',
     faqIcon: 'tabler-refresh',
-    faqSubtitle: 'Get help with cancellation & return',
+    faqSubtitle: '获得考证后帮助',
     faqs: [
       {
-        question: 'Can I cancel my order?',
-        answer: 'Scheduled delivery orders can be cancelled 72 hours prior to your selected delivery date for full refund. Parcel delivery orders cannot be cancelled, however a free return label can be provided upon request.',
+        question: '考试通过后颁发什么证书？',
+        answer: '根据考生所选证书性质，颁发相应的UESG或TUV的国际证照。',
       },
       {
-        question: 'Can I return my product?',
-        answer: 'You can return your product within 15 days of delivery, by contacting our support team, All merchandise returned must be in the original packaging with all original items.',
+        question: '如未通过考试，何时可复考？',
+        answer: '五天后可以再次预约。',
       },
       {
-        question: 'Where can I view status of return?',
-        answer: 'Locate the item from Your Orders. Select Return/Refund status',
-      },
-    ],
-  },
-  {
-    faqTitle: 'My Orders',
-    faqIcon: 'tabler-archive',
-    faqSubtitle: 'Order details',
-    faqs: [
-      {
-        question: 'Has my order been successful?',
-        answer: `All successful order transactions will receive an order confirmation email once the order has been processed. If you have not received your order confirmation email within 24 hours, check your junk email or spam folder.
-        Alternatively, log in to your account to check your order summary. If you do not have a account, you can contact our Customer Care Team on 1-000-000-000.
-        `,
-      },
-      {
-        question: 'My Promotion Code is not working, what can I do?',
-        answer: 'If you are having issues with a promotion code, please contact us at 1 000 000 000 for assistance.',
-      },
-      {
-        question: 'How do I track my Orders?',
-        answer: 'If you have an account just sign into your account from here and select “My Orders”. If you have a a guest account track your order from here using the order number and the email address.',
-      },
-    ],
-  },
-  {
-    faqTitle: 'Services',
-    faqIcon: 'tabler-settings',
-    faqSubtitle: 'Get help with product & services',
-    faqs: [
-      {
-        question: 'Will I be notified once my order has shipped?',
-        answer: 'Yes, We will send you an email once your order has been shipped. This email will contain tracking and order information.',
-      },
-      {
-        question: 'Where can I find warranty information?',
-        answer: 'We are committed to quality products. For information on warranty period and warranty services, visit our Warranty section here.',
-      },
-      {
-        question: 'How can I purchase additional warranty coverage?',
-        answer: 'For the peace of your mind, we offer extended warranty plans that add additional year(s) of protection to the standard manufacturer’s warranty provided by us. To purchase or find out more about the extended warranty program, visit Extended Warranty section here.',
-      },
+        question: '考试通过后，多长时间拿到证书',
+        answer: 'UESG证书为电子版，一个工作日左右颁发；TUV证书为纸质版，由TUV总部颁发，一个月左右时间由TUV总部发至UESG，可自取或快递。',
+      }
     ],
   },
 ]

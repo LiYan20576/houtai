@@ -14,14 +14,13 @@ const length = ref("");
 const index1 = ref("");
 
 const aaa = (i) => {
-  if(i===index1.value) {
-    index1.value = ''
+  if (i === index1.value) {
+    index1.value = "";
   } else {
     index1.value = i;
-    console.log(index1.value,"xxxxxxxxx");
+    console.log(index1.value, "xxxxxxxxx");
   }
-  
-}
+};
 
 const getData = async () => {
   const { data: res } = await getIndexData();
@@ -36,61 +35,79 @@ const info = (index) => {
 
 const news = ref([
   {
-    type: "news",
-    img: "https://www.uesg.org.cn/img/0725/2.jpeg",
-    title: "ESG的含义。",
+    type: "type1",
+    img: "https://www.uesg.org.cn/img/0727/%E5%B9%BF%E5%91%8A01.jpeg",
+    title: 'ESG的含义为"环境"、"社会"和"治理"。',
     tag: "科普",
-    time: "2023.07.23",
-    views: "9K+",
-    desc: "ESG解释为“Environmental环境”、“Social社会”和“Governance治理”。",
+    time: "2023年7月23日",
   },
   {
-    type: "news",
+    type: "type1",
     img: "https://www.uesg.org.cn/img/0725/3.jpeg",
-    title: "中国特色的ESG。",
+    title: "中国市场需要有自身特色的ESG。",
     tag: "科普",
-    time: "2023.07.23",
-    views: "9K+",
-    desc: "中国是世界上最大、最有活力的经济体之一，中国企业更是中国经济发展的重要动力。以对环境友好、对社会负责任的方式促进中国和世界繁荣。",
+    time: "2023年7月20日",
   },
   {
-    type: "news",
+    type: "type1",
     img: "https://www.uesg.org.cn/img/0725/4.jpeg",
-    title: "ESG对企业的作用。",
-    tag: "科普",
-    time: "2023.07.23",
-    views: "9K+",
-    desc: "全球气候危机当前，每个国家、每个企业乃至每个人都责无旁贷。企业应不断完善脱碳策略和举措，减少企业运营和价值链对环境的影响，引领企业绿色转型。",
+    title: "ESG就业一片蓝海，未来三年将涌现出数百万ESG岗位。",
+    tag: "数据",
+    time: "2023年7月20日",
   },
   {
-    type: "report",
+    type: "type2",
+    card1: {
+      img: "https://www.uesg.org.cn/img/0726/type2-1.jpg",
+      title: "特斯拉可与清洁能源世界。",
+      tag: "ESG企业",
+      time: "2023年7月20日",
+    },
+    card2: {
+      img: "https://www.uesg.org.cn/img/0726/type2-2%20.png",
+      title: "负责人的科技，可持续的未来。",
+      tag: "ESG企业",
+      time: "2023年7月20日",
+    },
+  },
+  {
+    type: "type2",
+    card1: {
+      img: "https://www.uesg.org.cn/img/0726/type2-1.jpg",
+      title: "特斯拉可与清洁能源世界。",
+      tag: "ESG企业",
+      time: "2023年7月20日",
+    },
+    card2: {
+      img: "https://www.uesg.org.cn/img/0726/type2-2%20.png",
+      title: "负责人的科技，可持续的未来。",
+      tag: "ESG企业",
+      time: "2023年7月20日",
+    },
+  },
+  {
+    type: "type2",
+    card1: {
+      img: "https://www.uesg.org.cn/img/0726/type2-1.jpg",
+      title: "特斯拉可与清洁能源世界。",
+      tag: "ESG企业",
+      time: "2023年7月20日",
+    },
+    card2: {
+      img: "https://www.uesg.org.cn/img/0726/type2-2%20.png",
+      title: "负责人的科技，可持续的未来。",
+      tag: "ESG企业",
+      time: "2023年7月20日",
+    },
+  },
+  {
+    type: "type1",
     img: "https://www.uesg.org.cn/img/0725/5.jpeg",
-    title: "负责人的科技，可持续的未来。",
-    tag: "倡导ESG的企业",
-    time: "2023.07.23",
-    views: "9K+",
-    desc: "变化之中也有不变，这正是我们始终的坚持。ESG将成为控股集团与业务集团的治理纽带和价值纽带，推动阿里巴巴持续做“好公司”，成为可持续发展领域的领军者。",
-  },
-  {
-    type: "report",
-    img: "https://www.uesg.org.cn/img/0725/6.jpeg",
-    title: "三管齐下，齐头并进。",
-    tag: "倡导ESG的企业",
-    time: "2023.07.23",
-    views: "9K+",
-    desc: "过去一年中，腾讯在环境、社会及管治（ESG）方面均取得稳步进展。腾讯于本周发布其2022年度ESG报告，全面阐述了自身的举措与成果，包括推进碳中和发展，保护生物多样性，提升多元、平等与共融（DEI），推动可持续社会价值创新。",
-  },
-  {
-    type: "report",
-    img: "https://www.uesg.org.cn/img/0725/7.jpeg",
-    title: "为用户、员工、乃至全人类提供支持。",
-    tag: "倡导ESG的企业",
-    time: "2023.07.23",
-    views: "9K+",
-    desc: "小米作为一家以智能手机、智能硬件和IoT平台为核心的消费电子及智能制造公司，努力凭借公司在规模和运作效率上的优势，不断促进可持续经济的发展，为我们的用户、员工、公司本身乃至全人类提供支持。",
+    title: "全球气候危机当前，每个国家、每个企业乃至每个人都责无旁贷。",
+    tag: "科普",
+    time: "2023年7月23日",
   },
 ]);
-
 
 onMounted(() => {
   // 在页面加载时执行的方法
@@ -109,195 +126,229 @@ onMounted(() => {
 </script>
 
 <template>
-  <VRow>
-    <!-- 👉 Website analytics -->
-    <VCol
-      cols="12"
-      md="6"
-    >
-        <img
-          src="https://www.uesg.org.cn/img/0725/1.jpeg"
-          style="width: 100%; border-radius: 6px; display: block;height: 444px; "
-          alt=""
-        />
-    </VCol>
-
-    <!-- 👉 Sales Overview -->
-    <VCol
-      cols="12"
-      md="3"
-      sm="6"
-    >
-      <VCard>
-        <img src="https://www.uesg.org.cn/img/0725/2.jpeg" style="width: 100%;border-radius: 6px;height: 240px;"/>
-
-        <VCardItem>
-          <div class="tag" style="margin: 25px;">
-            科普
-          </div>
-          <VCardTitle class="cardTitle" style=" font-family: 'DINMedium';">ESG的含义。</VCardTitle>
-          <div class="time" >2023.07.23</div>
-        </VCardItem>
-
-      </VCard>
-    </VCol>
-
-    <!-- 👉 Statistics Vertical -->
-    <!-- <VCol
-      cols="12"
-      md="3"
-      sm="6"
-    >
-      <CardStatisticsVertical v-bind="statisticsVertical" />
-    </VCol> -->
-    <!-- 👉 Popular Uses Of The Internet -->
-    
-
-    <!-- <VCol cols="12" md="4" sm="6" v-for="(item, index) in news" :key="index">
-      <VCard v-if="item.type == 'news'">
-        <VImg :src="item.img" style="border-radius: 6px;"/>
-
-        <VCardItem>
-          <VCardTitle class="cardTitle" style=" font-family: 'DINMedium';">{{ item.title }}</VCardTitle>
-          <div class="tools">
-            <div class="left">
-              <span class="tag" >
-                {{ item.tag }}
-              </span>
-              <span style="padding: 0 5px;font-size: 13px;line-height: 18px;color: #00000040;">|</span>
-              <span class="time" >{{ item.time }}</span>
-            </div>
-
-            <div class="right">
-              <img
-                src="https://www.uesg.org.cn/icon/0725/view_%E7%94%BB%E6%9D%BF%201.svg"
-                style="width: 20px; height: 15px"
-              />
-              <span style="font-size: 12px; color: rgba(47, 43, 61, 0.42)" >
-                {{ item.views }}
-              </span>
-            </div>
-          </div>
-        </VCardItem>
-
-        <VCardText>
-          {{ item.desc }}
-        </VCardText>
-
-        <VCardActions>
-          <VBtn @click="aaa(index)">
-            查看更多
-          </VBtn>
-
-          <VSpacer />
-
-          <VBtn
-            icon
-            size="small"
-            @click="aaa(index)"
+  <div>
+    <VRow>
+      <VCol cols="12">
+        <VCard
+          style="
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 32px 50px;
+            margin-bottom: 26px;
+          "
+        >
+          <div
+            style="
+              font-family: 'DINMedium';
+              font-size: 17px;
+              line-height: 20px;
+              color: #1d1d1f;
+              position: absolute;
+              left: 50px;
+            "
           >
-            <VIcon
-              :icon="
-                index === index1
-                  ? 'tabler-chevron-up'
-                  : 'tabler-chevron-down'
-              "
-            />
-          </VBtn>
-        </VCardActions>
-
-        <VExpandTransition>
-          <div v-show="index === index1">
-            <VDivider />
-            <VCardText>
-              {{ item.desc }}
-            </VCardText>
+            Newsroom
           </div>
-        </VExpandTransition>
-      </VCard>
-      <VCard v-else>
-        <VImg :src="item.img" style="border-radius: 6px;"/>
-
-        <VCardItem>
-          <VCardTitle class="cardTitle">{{ item.title }}</VCardTitle>
-          <div class="tools">
-            <div class="left">
-              <span class="tag1">
-                {{ item.tag }}
-              </span>
-              <span style="padding: 0 5px;font-size: 13px;line-height: 18px;color: #00000040;font-family: 'DINRegular';">|</span>
-              <span class="time">{{ item.time }}</span>
-            </div>
-
-            <div class="right">
+          <div style="font-size: 15px; color: #1d1d1f; line-height: 21px">
+            UESG Newsroom 需要您关注UESG官方公众号了解更多最新资讯。
+            <span
+              style="
+                font-family: 'DINMedium';
+                color: #0066cc;
+                line-height: 21px;
+                font-size: 15px;
+              "
+              >立刻关注 ></span
+            >
+          </div>
+        </VCard>
+      </VCol>
+    </VRow>
+    <VRow>
+      <!-- 👉 banner -->
+      <VCol cols="12" md="8">
+        <VCard>
+          <img
+            src="https://www.uesg.org.cn/img/0727/%E5%B9%BF%E5%91%8A01.jpeg"
+            style="width: 100%; height: 305px;border-radius: 6px; display: block"
+          />
+          <div style="">
+            在全球范围传播 ESG 理念
+            <br>
+            培养与认证 ESG 人才
+          </div>
+        </VCard>
+      </VCol>
+      <template v-for="(item,index) in news" :key="index">
+        <!-- 👉 type1 -->
+        <VCol v-if="item.type == 'type1'" cols="12" md="4" sm="6">
+          <VCard style="height: 305px;">
+            <div class="card">
               <img
-                src="https://www.uesg.org.cn/icon/0725/view_%E7%94%BB%E6%9D%BF%201.svg"
-                style="width: 20px; height: 15px"
+                :src="item.img"
+                class="card-img "
               />
-              <span style="font-size: 12px; color: rgba(47, 43, 61, 0.42)">
-                {{ item.views }}
-              </span>
+              <div class="card-desc">
+                <div class="box-top">
+                  <div class="card-tag">{{ item.tag }}</div>
+                  <div class="card-title">
+                    {{ item.title }}
+                  </div>
+                </div>
+                <div class="card-time">
+                  {{ item.time }}
+                </div>
+              </div>
             </div>
+          </VCard>
+        </VCol>
+        <!-- 👉 type2 -->
+        <VCol v-else cols="12" md="4" sm="6">
+          <div class="card-wrap">
+            <VCard>
+              <div class="card-type2" style="border-radius: 6px;">
+                <img :src="item.card1.img" class="card-type2-img"/>
+                <div class="card-type2-right">
+                  <div>
+                    <div class="card-type2-tag">
+                      {{ item.card1.tag }}
+                    </div>
+                    <div class="card-title">
+                      {{ item.card1.title }}
+                    </div>
+                  </div>
+
+                  <div class="card-time">
+                    {{ item.card1.time }}
+                  </div>
+                </div>
+              </div>
+            </VCard>
+            <VCard>
+              <div class="card-type2" style="border-radius: 6px;">
+                <img :src="item.card2.img" class="card-type2-img"/>
+                <div class="card-type2-right">
+                  <div>
+                    <div class="card-type2-tag">
+                      {{ item.card1.tag }}
+                    </div>
+                    <div class="card-title">
+                      {{ item.card1.title }}
+                    </div>
+                  </div>
+
+                  <div class="card-time">
+                    {{ item.card1.time }}
+                  </div>
+                </div>
+              </div>
+            </VCard>
           </div>
-        </VCardItem>
-
-        <VCardText>
-          {{ item.desc }}
-        </VCardText>
-
-        <VCardActions v-if="item.type == 'news'">
-          <VBtn @click="isCardDetailsVisible = !isCardDetailsVisible">
-            查看更多
-          </VBtn>
-
-          <VSpacer />
-
-          <VBtn
-            icon
-            size="small"
-            @click="isCardDetailsVisible = !isCardDetailsVisible"
-          >
-            <VIcon
-              :icon="
-                isCardDetailsVisible
-                  ? 'tabler-chevron-up'
-                  : 'tabler-chevron-down'
-              "
-            />
-          </VBtn>
-        </VCardActions>
-        <VCardText v-else>
-          <VBtn size="small"> 查看报告 </VBtn>
-        </VCardText>
-
-
-        <VExpandTransition>
-          <div v-show="isCardDetailsVisible">
-            <VDivider />
-            <VCardText>
-              {{ item.desc }}
-            </VCardText>
-          </div>
-        </VExpandTransition>
-      </VCard>
-    </VCol> -->
-  </VRow>
+        </VCol>
+      </template>
+      
+    </VRow>
+  </div>
 </template>
 
 <style>
-  @font-face {
-    font-family: 'DINRegular';
-    src: url('https://www.uesg.org.cn/font/0725/D-DIN-PRO-400-Regular.ttf') format('truetype');
-  }
-  @font-face {
-    font-family: 'DINMedium';
-    src: url('https://www.uesg.org.cn/font/0725/D-DIN-PRO-500-Medium.ttf') format('truetype');
-  }
+@font-face {
+  font-family: "DINRegular";
+  src: url("https://www.uesg.org.cn/font/0725/D-DIN-PRO-400-Regular.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "DINMedium";
+  src: url("https://www.uesg.org.cn/font/0725/D-DIN-PRO-500-Medium.ttf")
+    format("truetype");
+}
 </style>
 
 <style>
-.v-card,.v-card-item__content {
-  overflow:unset !important;
+/* type1 */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.card-img {
+  height: 50%;
+  width: 100%;
+  border-radius: 6px;
+}
+.card-desc {
+  padding: 16px;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card-tag {
+  color: #6236ffff;
+  font-size: 13px;
+  line-height: 18px;
+  font-family: 'DINMedium';
+  margin-bottom: 8px;
+}
+.card-title {
+  font-family: 'DINMedium';
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 17px;
+  line-height: 24px;
+  /* margin-bottom: 25px; */
+}
+.card-time {
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* type2 */
+.card-wrap {
+  background-color: transparent;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-type2 {
+  background-color: #fff;
+  width: 100%;
+  /* margin-bottom: 24px; */
+  padding: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.card-type2-img {
+  width: 160px;
+  height: 160px;
+  /* border: 1px dashed #333; */
+  margin-right: 25px;
+}
+.card-type2-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card-type2-tag {
+  font-size: 15px;
+  color: #5bb439;
+  line-height: 21px;
+  font-family: 'DINMedium';
+  margin-bottom: 15px;
+}
+
+
+
+.v-card,
+.v-card-item__content {
+  overflow: unset !important;
 }
 .cardTitle {
   font-size: 20px !important ;
@@ -308,7 +359,7 @@ onMounted(() => {
   padding-bottom: 4px !important;
 }
 .tools {
-  display: flex; 
+  display: flex;
   justify-content: space-between;
 }
 .tag {
@@ -319,13 +370,13 @@ onMounted(() => {
   font-weight: 500;
 }
 .tag::before {
-  content: '';
+  content: "";
   position: absolute;
   display: inline-block;
   margin-right: 10px;
   width: 3px;
   height: 14px;
-  background-color: #30D158FF;
+  background-color: #30d158ff;
   vertical-align: middle;
   margin-bottom: 1px;
   left: -24px;
@@ -333,19 +384,19 @@ onMounted(() => {
 }
 .tag1 {
   position: relative;
-  color: #7367F0FF;
+  color: #7367f0ff;
   font-size: 13px;
   line-height: 18px;
   font-weight: 500;
 }
 .tag1::before {
-  content: '';
+  content: "";
   position: absolute;
   display: inline-block;
   margin-right: 10px;
   width: 3px;
   height: 14px;
-  background-color: #7367F0FF;
+  background-color: #7367f0ff;
   vertical-align: middle;
   margin-bottom: 1px;
   left: -24px;

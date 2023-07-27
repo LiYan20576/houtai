@@ -35,7 +35,7 @@ defineOptions({ inheritAttrs: false })
       <!-- 👉 Search Input -->
       <AppTextField
         v-bind="$attrs"
-        placeholder="Search a question..."
+        placeholder="搜索问题..."
         class="search-header-input mx-auto my-3"
         density="comfortable"
       >

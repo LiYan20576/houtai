@@ -5,15 +5,38 @@ import axios from '@axios'
 const router = useRoute()
 const teamData = ref([])
 
+const teams = ref([
+    {
+      extraMembers: 25,
+      title: 'UESG Fundamental Analyst',
+      avatar: 'https://weixin.uesg.cn/account/avator?unionID=oym-u6fj5Q2asA4RTIRlAmus1340',
+      // avatarGroup: [
+      //   { avatar: 'https://weixin.uesg.cn/account/avator?unionID=oym-u6fj5Q2asA4RTIRlAmus1340', name: 'Vinnie Mostowy' },
+      // ],
+      description: '通用 ESG 标准｜基础分析师',
+      // chips: [
+      //   {
+      //     title: 'React',
+      //     color: 'primary',
+      //   },
+      //   {
+      //     title: 'MUI',
+      //     color: 'info',
+      //   },
+      // ],
+    },
+])
+
 const fetchTeamData = () => {
   if (router.params.tab === 'teams') {
-    axios.get('/pages/profile', { params: { tab: router.params.tab } }).then(response => {
-      teamData.value = response.data
-    })
+    // axios.get('/pages/profile', { params: { tab: router.params.tab } }).then(response => {
+    //   teamData.value = response.data
+    // })
+    // teamData.value = teams.value
   }
 }
 
-watch(router, fetchTeamData, { immediate: true })
+// watch(router, fetchTeamData, { immediate: true })
 
 const moreList = [
   {
@@ -41,9 +64,9 @@ const moreList = [
 </script>
 
 <template>
-  <VRow v-if="teamData">
+  <VRow v-if="teams">
     <VCol
-      v-for="team in teamData"
+      v-for="team in teams"
       :key="team.title"
       cols="12"
       md="6"

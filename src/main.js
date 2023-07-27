@@ -33,7 +33,7 @@ app.use(abilitiesPlugin, ability, {
 })
 // 使用 resizeRedirect 插件，并传入相关配置
 app.use(resizeRedirect, {
-  mobileBreakpoint: 1280, // 当窗口宽度小于等于 768px 时认为是移动端
+  mobileBreakpoint: 768, // 当窗口宽度小于等于 768px 时认为是移动端
   mobileURL: '/mobile', // 移动端页面的 URL，可以根据实际情况修改
 });
 

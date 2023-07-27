@@ -66,10 +66,21 @@ handleSkinChanges()
   .navbar-content-container,.horizontal-nav-content-container {
     max-inline-size:1600px !important;
   }
-  .layout-content-width-boxed.layout-wrapper.layout-nav-type-vertical .layout-navbar, .layout-content-width-boxed.layout-wrapper.layout-nav-type-vertical .layout-footer {
+  /* .layout-content-width-boxed.layout-wrapper.layout-nav-type-vertical .layout-navbar, .layout-content-width-boxed.layout-wrapper.layout-nav-type-vertical .layout-footer {
     inline-size: 100%;
     margin-inline: auto;
     max-inline-size:1600px !important;
+} */
+.layout-content-width-boxed.layout-wrapper.layout-nav-type-vertical .layout-footer {
+  max-inline-size:100% !important;
+  padding: 0 !important;
+  background-color: #fff;
+}
+.layout-footer-sticky.layout-wrapper.layout-nav-type-vertical .layout-footer .footer-content-container {
+  max-inline-size:1200px !important;
+  margin: 0 auto;
+  box-shadow: unset !important;
+  padding: 0 40px !important;
 }
 
   /* .layout-content-width-boxed .layout-page-content,.layout-content-width-boxed.layout-wrapper.layout-nav-type-horizontal .navbar-content-container, .layout-content-width-boxed.layout-wrapper.layout-nav-type-horizontal .layout-footer .footer-content-container, .layout-content-width-boxed .layout-horizontal-nav .horizontal-nav-content-container {

@@ -13,7 +13,7 @@ const fetchFaqs = () => {
   })
 }
 
-const activeTab = ref('Payment')
+const activeTab = ref('考证前')
 const activeQuestion = ref(0)
 
 watch(activeTab, () => activeQuestion.value = 0)
@@ -22,13 +22,13 @@ watch(faqSearchQuery, fetchFaqs, { immediate: true })
 const contactUs = [
   {
     icon: 'tabler-phone',
-    via: '+ (810) 2548 2568',
-    tagLine: 'We are always happy to help!',
+    via: '+ (86) xxxx xxxx',
+    tagLine: '我们总是乐于助人！',
   },
   {
     icon: 'tabler-mail',
-    via: 'hello@help.com',
-    tagLine: 'Best way to get answer faster!',
+    via: 'xxx@xxx.com',
+    tagLine: '更快得到答案的最佳方式！',
   },
 ]
 </script>
@@ -38,8 +38,8 @@ const contactUs = [
     <!-- 👉 Search -->
     <AppSearchHeader
       v-model="faqSearchQuery"
-      title="Hello, how can we help?"
-      subtitle="or select a category to quickly find the help you require"
+      title="你好，我们能帮忙吗？"
+      subtitle="或者选择一个类别以快速找到您需要的帮助"
       custom-class="mb-7"
     />
 
@@ -73,11 +73,7 @@ const contactUs = [
             {{ faq.faqTitle }}
           </VTab>
         </VTabs>
-        <VImg
-          :width="245"
-          :src="sittingGirlWithLaptop"
-          class="d-none d-sm-block mt-10 mx-auto"
-        />
+        
       </VCol>
 
       <VCol
@@ -124,9 +120,18 @@ const contactUs = [
               <VExpansionPanel
                 v-for="item in faq.faqs"
                 :key="item.question"
+              >
+                <VExpansionPanelTitle>{{ item.question }}</VExpansionPanelTitle>
+                <VExpansionPanelText>
+                  <div v-html="item.answer"> </div>
+                </VExpansionPanelText>
+              </VExpansionPanel>
+              <!-- <VExpansionPanel
+                v-for="item in faq.faqs"
+                :key="item.question"
                 :title="item.question"
                 :text="item.answer"
-              />
+              /> -->
             </VExpansionPanels>
           </VWindowItem>
         </VWindow>
@@ -156,14 +161,14 @@ const contactUs = [
         size="small"
         class="mb-2"
       >
-        QUESTION?
+        问题？
       </VChip>
 
       <h5 class="text-h5 mb-2">
-        You still have a question?
+        你还有问题吗？
       </h5>
       <p>
-        If you can't find question in our FAQ, you can contact us. We'll answer you shortly!
+        如果您在我们的常见问题解答中找不到问题，您可以联系我们。我们很快就会回答您！
       </p>
 
       <!-- contacts -->

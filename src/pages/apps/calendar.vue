@@ -44,7 +44,7 @@ const checkAll = computed({
 </script>
 
 <template>
-  <div style="width:80vw;">
+  <div>
     <VCard>
       <!-- `z-index: 0` Allows overlapping vertical nav on calendar -->
       <VLayout style="z-index: 0;">
@@ -112,13 +112,27 @@ const checkAll = computed({
         </VMain>
       </VLayout>
     </VCard>
-    <CalendarEventHandler
+
+    <VDialog
+      :model-value="isEventHandlerSidebarActive"
+      max-width="500"
+    >
+      <!-- 👉 Dialog close btn -->
+      <DialogCloseBtn @click="isEventHandlerSidebarActive = false" />
+
+      <VCard class="share-project-dialog pa-5 pa-sm-8">
+        <h4 style="margin: 0 auto;">确认预约</h4>
+
+      </VCard>
+    </VDialog>
+
+    <!-- <CalendarEventHandler
       v-model:isDrawerOpen="isEventHandlerSidebarActive"
       :event="event"
       @add-event="addEvent"
       @update-event="updateEvent"
       @remove-event="removeEvent"
-    />
+    /> -->
   </div>
 </template>
 
