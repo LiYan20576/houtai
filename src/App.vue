@@ -43,15 +43,23 @@ handleSkinChanges()
     </VApp>
   </VLocaleProvider>
 </template>
-
+<style>
+  .footer-link:hover {
+    text-decoration: underline !important;
+  }
+</style>
 <style>
   @font-face {
+    font-family: 'DINSemiBold';
+    src: url('https://www.uesg.org.cn/font/0727/PublicSans-Bold-600.otf') format('truetype');
+  }
+  @font-face {
     font-family: 'DINRegular';
-    src: url('https://www.uesg.org.cn/font/0725/D-DIN-PRO-400-Regular.ttf') format('truetype');
+    src: url('https://www.uesg.org.cn/font/0727/PublicSans-Regular-400.otf') format('truetype');
   }
   @font-face {
     font-family: 'DINMedium';
-    src: url('https://www.uesg.org.cn/font/0725/D-DIN-PRO-500-Medium.ttf') format('truetype');
+    src: url('https://www.uesg.org.cn/font/0727/PublicSans-Medium-500.otf') format('truetype');
   }
   *{
     font-family: 'DINRegular';
@@ -76,12 +84,32 @@ handleSkinChanges()
   padding: 0 !important;
   background-color: #fff;
 }
+.layout-footer-sticky.layout-wrapper.layout-nav-type-vertical .layout-footer {
+  background-color: #F3F3F3FF !important;
+}
 .layout-footer-sticky.layout-wrapper.layout-nav-type-vertical .layout-footer .footer-content-container {
-  max-inline-size:1200px !important;
+  max-inline-size:980px !important;
   margin: 0 auto;
   box-shadow: unset !important;
-  padding: 0 40px !important;
+  padding: 0 24px !important;
+  background-color: #F3F3F3FF !important;
 }
+.layout-nav-type-vertical .layout-vertical-nav .nav-section-title {
+  block-size: unset !important;
+}
+.layout-nav-type-vertical .layout-vertical-nav .nav-link > :first-child {
+  margin-inline: unset !important;
+  padding-inline: 24px !important;
+}
+.layout-nav-type-vertical .layout-vertical-nav .nav-link > a:hover::before {
+  opacity: 0 !important;
+}
+.layout-page-content {
+    padding-block: 0;
+  }
+  .layout-footer {
+    position: static !important;
+  }
 
   /* .layout-content-width-boxed .layout-page-content,.layout-content-width-boxed.layout-wrapper.layout-nav-type-horizontal .navbar-content-container, .layout-content-width-boxed.layout-wrapper.layout-nav-type-horizontal .layout-footer .footer-content-container, .layout-content-width-boxed .layout-horizontal-nav .horizontal-nav-content-container {
     inline-size: 100%;

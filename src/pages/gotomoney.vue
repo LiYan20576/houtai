@@ -28,9 +28,19 @@ const qrUrl = ref("");
 
 const dig = ref(false);
 
+const Education = ref(false);
+
+const inputValue = ref("")
+
+const sale = (event) => {
+  inputValue.value = event.target.value;
+  if(!event.target.value) {
+    Education.value = false
+  } 
+};
+
 const pay = () => {
   dig.value = true
-  startTimer();
 
   const socket = new WebSocket("wss://weixin.uesg.cn/wss");
   // 监听 WebSocket 打开连接事件
@@ -39,8 +49,9 @@ const pay = () => {
     const unionid = localStorage.getItem('oid');
     console.log("unionid为",unionid);
     
-    const arr = JSON.stringify([{id:unionid,qty:1}])
-    var msg = "items:" + arr;
+    // const arr = JSON.stringify([{id:unionid,qty:1}])
+    // var msg = "items:" + arr;
+    var msg = "log:" + unionid
     console.log("发送的消息为",msg);
     socket.send(msg);
   });
@@ -73,7 +84,6 @@ const pay = () => {
 
 const close = () => {
   dig.value = false;
-  stopTimer();
 }
 
 onMounted(async () => {
@@ -99,209 +109,175 @@ onMounted(async () => {
 });
 
 
-const paymentDeadline = 5 * 60; // 5 minutes in seconds
-const remainingTime = ref(paymentDeadline);
-let timer;
-
-const updateRemainingTime = () => {
-  remainingTime.value = Math.max(remainingTime.value - 1, 0);
-};
-
-const remainingTimeMinutes = computed(() => Math.floor(remainingTime.value / 60));
-const remainingTimeSeconds = computed(() => remainingTime.value % 60);
-
-const formattedMinutes = computed(() => remainingTimeMinutes.value.toString().padStart(2, '0'));
-const formattedSeconds = computed(() => remainingTimeSeconds.value.toString().padStart(2, '0'));
-
-const isTimerRunning = ref(false);
-
-const startTimer = () => {
-  isTimerRunning.value = true;
-  timer = setInterval(() => {
-    updateRemainingTime();
-    if (remainingTime.value === 0) {
-      stopTimer();
-    }
-  }, 1000);
-};
-
-const stopTimer = () => {
-  dig.value = false
-  isTimerRunning.value = false;
-  clearInterval(timer);
-  remainingTime.value = paymentDeadline;
-};
-
-onBeforeUnmount(() => {
-  clearInterval(timer);
-});
 </script>
 
 <template>
   <div>
-    <VDialog
-      :model-value="dig"
-      max-width="800"
-      @update:model-value="dialogVisibleUpdate"
-    >
-      <!-- 👉 Dialog close btn -->
-      <DialogCloseBtn @click="close" />
-
-      <VCard class="share-project-dialog pa-5 pa-sm-8">
-        <div style="margin-bottom: 20px;font-size: 30px;line-height: 50px;text-align: center;color: #000;">请在 {{ formattedMinutes  }}:{{ formattedSeconds }} 内完成支付</div>
-        <img src="https://weixin.uesg.cn/order/CreatePayCode" style="display: block;width: 300px;height: 300px;margin: 0 auto;">
-      </VCard>
-    </VDialog>
-
-    <VRow>
-      <VCol cols="12">
-        <VCard
+    <div>
+      <div style="width: 100%;">
+        <div
           style="
+            background-color: #FFFFFFFF;
+            border-radius: 12px;
             position: relative;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 32px 50px;
-            margin-bottom: 38px;
+            padding: 16px 64px;
+            margin-bottom: 32px;
+            margin-top: 32px;
           "
         >
-          <div
-            style="
-              font-family: 'DINMedium';
-              font-size: 17px;
-              line-height: 20px;
-              color: #1d1d1f;
-              position: absolute;
-              left: 50px;
-            "
+          <div style="font-size: 13px; color: #1D1D1FFF; line-height: 18px">
+            完成支付后即刻使用 UESG 服务，开启您的 ESG 职场。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <VDialog
+      :model-value="dig"
+      max-width="500"
+      @update:model-value="dialogVisibleUpdate"
+    >
+      <!-- 👉 Dialog close btn -->
+      <DialogCloseBtn @click="close" />
+
+        <div style="background-color: #fff;padding: 82px 0;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+          <div style="font-family: DINMedium;font-size: 25px;line-height: 36px;color: #000000D9;text-align: center;margin-bottom: 32px;">
+            微信扫码支付
+          </div>
+          <div style="width: 200px;height: 200px;border-radius: 12px;border: 2px solid rgba(0,0,0,0.5);">
+            <img src="https://weixin.uesg.cn/order/CreatePayCode" style="display: block;width: 100%;height: 100%;padding: 16px;">
+          </div>
+          <VBtn
+            color="#0066CCFF"
+            @click="close"
+            style="height: 42px; padding: 9px 58px;margin-top: 32px;"
           >
-            确认订单  
-          </div>
-          <div style="font-size: 15px; color: #1d1d1f; line-height: 21px">
-            请使用微信扫码完成付款。
-          </div>
-        </VCard>
-      </VCol>
-    </VRow>
+            <span
+              style="
+                color: #fff;
+                font-size: 17px;
+                font-family: DINMedium;
+                line-height: 24px;
+              "
+            >
+              已完成支付
+            </span>
+          </VBtn>
+        </div>
+        
+        <!-- <div style="margin-bottom: 20px;font-size: 30px;line-height: 50px;text-align: center;color: #000;">请在 {{ formattedMinutes  }}:{{ formattedSeconds }} 内完成支付</div> -->
+    </VDialog>
 
     <div
       style="
-        /* max-width: 1300px; */
         border-radius: 12px;
         background-color: #ffffff;
         margin: auto;
       "
     >
-      <div style="padding-top: 50px; padding-left: 190px">
-        <div style="font-family: DINMedium; font-size: 35px; line-height: 50px">
-          UESG Fundamental Analyst certificate services
+      <div style="padding: 64px;">
+        <div style="font-family: DINMedium; font-size: 31px; line-height: 42px;color: #000000D9;margin-bottom: 32px;">
+          UESG Fundamental Analyst 
+          <br>
+          certificate services
         </div>
         <div
           style="
             font-family: DINMedium;
-            font-size: 20px;
+            font-size: 17px;
             line-height: 24px;
-            margin-top: 25px;
             display: flex;
+            padding-bottom: 32px;
+            color: #000000FF;
+            border-bottom: 1px solid #00000080;
           "
         >
           <img
             src="https://www.uesg.org.cn/icon/0725/%E7%BB%BF%E8%89%B2%E5%A5%96%E7%89%8C_%E7%94%BB%E6%9D%BF%201.svg"
             alt=""
-            style="width: 24px; height: 24px; margin-right: 10px"
+            style="width: 24px; height: 24px; margin-right: 10px;"
           />通用 ESG 标准基础分析师｜认证服务
         </div>
-        <div
-          style="
-            font-family: DINMedium;
-            font-size: 20px;
-            line-height: 24px;
-            margin-top: 25px;
-            display: flex;
-          "
-        >
-          <img
-            src="https://www.uesg.org.cn/icon/0725/%E7%BB%BF%E8%89%B2%E5%A5%96%E7%89%8C_%E7%94%BB%E6%9D%BF%201.svg"
-            alt=""
-            style="width: 24px; height: 24px; margin-right: 10px"
-          />共计<text style="color: #0066ccff; margin: 0 5px">2</text>项服务
-        </div>
-        <div
-          style="
-            margin-top: 25px;
-            width: 1000px;
-            height: 150px;
-            border: 1px solid #00000080;
-            border-radius: 12px;
-          "
-        >
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              height: 100%;
-              position: relative;
-            "
-          >
-            <img
-              src="https://www.uesg.org.cn/icon/0725/%E7%BB%BF%E8%89%B2%E5%A5%96%E7%89%8C_%E7%94%BB%E6%9D%BF%201.svg"
-              alt=""
-              style="width: 24px; height: 24px; position: absolute; right: 50px"
-            />
-            <img
-              src="https://www.uesg.org.cn/img/0725/auth3.jpg"
-              alt=""
-              style="width: 78px; height: 100px; margin: 0 46px"
-            />
-            <div style="font-family: DINMedium; color: #00000080">
-              <div>
-                48 Hours UESG Fundamental Analyst Online Learning Services
-              </div>
-              <div>48 小时UESG基础分析师在线学习服务</div>
-              <div><text style="color: #0066ccff"> RMB 0 </text>/ RMB 1250</div>
-            </div>
-          </div>
-        </div>
-        <div
-          style="
-            margin-top: 25px;
-            width: 1000px;
-            height: 150px;
-            border: 1px solid #00000080;
-            border-radius: 12px;
-          "
-        >
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              height: 100%;
-              position: relative;
-            "
-          >
-            <img
-              src="https://www.uesg.org.cn/icon/0725/%E7%BB%BF%E8%89%B2%E5%A5%96%E7%89%8C_%E7%94%BB%E6%9D%BF%201.svg"
-              alt=""
-              style="width: 24px; height: 24px; position: absolute; right: 50px"
-            />
 
+        <!-- 清单 -->
+        <div
+          style="
+            margin-top: 32px;
+            height: 150px;
+            border: 1px solid #00000080;
+            border-radius: 12px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              height: 100%;
+              position: relative;
+            "
+          >
             <img
-              src="https://www.uesg.org.cn/img/0725/auth3.jpg"
+              src="https://www.uesg.org.cn/icon/0725/%E7%BB%BF%E8%89%B2%E5%A5%96%E7%89%8C_%E7%94%BB%E6%9D%BF%201.svg"
               alt=""
-              style="width: 78px; height: 100px; margin: 0 46px"
+              style="width: 24px; height: 24px; position: absolute; right: 50px"
             />
-            <div style="font-family: DINMedium; color: #00000080">
-              <div>UESG Fundamental Analyst Certificate Services</div>
-              <div>UESG基础分析师认证服务</div>
-              <div style="color: #0066ccff">RMB 3250</div>
+            <img
+              src="https://www.uesg.org.cn/icon/0727/%E4%B8%8B%E5%8D%95-%E4%B9%A6%E6%9C%AC_%E7%94%BB%E6%9D%BF%201.svg"
+              alt=""
+              style="width: 78px; height: 100px; margin: 0 48px"
+            />
+            <div style="font-family: DINMedium; color: #000000D9">
+              <div style="font-size: 21px;line-height: 29px;">UESG 基础分析师课程</div>
+              <div style="font-size: 21px;line-height: 29px;color: #00000040;" >
+                <text style="color: #0066ccff"> RMB 0 </text>
+                <span>/ <text style="text-decoration: line-through;">RMB 1250</text></span>
+              </div>
             </div>
           </div>
         </div>
         <div
           style="
-            margin: 50px 0;
-            width: 1000px;
+            margin-top: 32px;
+            height: 150px;
+            border: 1px solid #00000080;
+            border-radius: 12px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              height: 100%;
+              position: relative;
+            "
+          >
+            <img
+              src="https://www.uesg.org.cn/icon/0725/%E7%BB%BF%E8%89%B2%E5%A5%96%E7%89%8C_%E7%94%BB%E6%9D%BF%201.svg"
+              alt=""
+              style="width: 24px; height: 24px; position: absolute; right: 50px"
+            />
+            <img
+              src="https://www.uesg.org.cn/icon/0727/%E5%B0%8F%E8%AF%81%E4%B9%A6-%E7%BB%BF%E8%89%B2.jpeg"
+              alt=""
+              style="width: 78px; height: 100px; margin: 0 48px"
+            />
+            <div style="font-family: DINMedium; color: #000000D9">
+              <div style="font-size: 21px;line-height: 29px;">UESG 基础分析师认证</div>
+              <div style="font-size: 21px;line-height: 29px;color: #00000040;">
+                <text style="color: #0066ccff"> RMB 3250 </text>
+                <span v-show="Education">/ <text style="text-decoration: line-through;">RMB 1250</text></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin: 32px 0;
             height: 1px;
             background-color: #00000080;
           "
@@ -309,7 +285,6 @@ onBeforeUnmount(() => {
         <div
           style="
             display: flex;
-            max-width: 1000px;
             justify-content: space-between;
           "
         >
@@ -322,31 +297,33 @@ onBeforeUnmount(() => {
             "
           >
             <img
-              src="https://www.uesg.org.cn/icon/0725/%E7%BB%BF%E8%89%B2%E5%A5%96%E7%89%8C_%E7%94%BB%E6%9D%BF%201.svg"
+              src="https://www.uesg.org.cn/icon/0727/%E8%B4%A6%E5%8D%95_%E7%94%BB%E6%9D%BF%201.svg"
               alt=""
               style="width: 24px; height: 24px; margin-right: 10px"
             />
             <ul class="gotomoneyUl">
-              <li>账单明细</li>
-              <li style="display: flex; justify-content: space-between">
-                <div>Online Learning Services</div>
-                <div style="color: #0066ccff">RMB 0</div>
+              <li style="margin-bottom: 32px;">账单明细</li>
+              <li style="display: flex; justify-content: space-between;margin-bottom: 16px;">
+                <div style="font-family: DINMedium ;">基础分析师课程</div>
+                <div style="color: #0066ccff">RMB 0 <span style="text-decoration: line-through;color: #00000040;">/ RMB 1250</span></div>
+                
               </li>
-              <li style="display: flex; justify-content: space-between">
-                <div>Certificate Services</div>
-                <div style="color: #0066ccff">RMB 3250</div>
+              <li style="display: flex; justify-content: space-between;margin-bottom: 32px;">
+                <div style="font-family: DINMedium ;">基础分析师认证</div>
+                <div style="color: #0066ccff">RMB 3250 <span v-show="Education" style="text-decoration: line-through;color: #00000040;">/ RMB 3275</span></div>
               </li>
               <div
                 style="
                   width: 318px;
                   height: 1px;
                   background-color: #00000080;
-                  margin-bottom: 25px;
+                  margin-bottom: 32px;
                 "
               ></div>
               <li style="display: flex; justify-content: space-between">
-                <div>Total</div>
-                <div style="color: #0066ccff">RMB 3250</div>
+                <div style="font-family: DINMedium ;">合计</div>
+                <div style="color: #0066ccff" v-if="!Education">RMB 3250</div>
+                <div style="color: #0066ccff" v-else>RMB 2275</div>
               </li>
               <li style="margin-top: 50px">
                 <button
@@ -368,35 +345,38 @@ onBeforeUnmount(() => {
             </ul>
           </div>
           <div>
-            <div style="margin-top: 90px" class="gotomoneyinput">
-              <input
-                type="text"
-                placeholder="粘贴教育优惠代码"
-                style="
-                  color: #979797ff;
-                  border-radius: 6px;
-                  border: 1px solid #979797ff;
-                  text-align: center;
-                  width: 250px;
-                  height: 42px;
-                  line-height: 42px;
-                  font-size: 17px;
-                "
-              />
+            <div style="margin-top: 56px;display: flex;justify-content: space-between;" class="gotomoneyinput">
+              <div style="display: flex;flex-direction: column;align-items: center;">
+                <input
+                  @input="sale"
+                  type="text"
+                  placeholder="输入教育优惠代码"
+                  :value="inputValue"
+                  style="
+                    color: #979797ff;
+                    border-radius: 6px;
+                    border: 1px solid #979797ff;
+                    text-align: center;
+                    width: 200px;
+                    height: 42px;
+                    line-height: 42px;
+                    font-size: 17px;
+                  "
+                />
+                <div v-if="!Education" style="font-size: 15px;line-height: 21px;color:#0066CCFF;margin-top: 16px;">
+                  获取育优惠代码
+                </div>
+                <div v-else style="font-size: 15px;line-height: 21px;color:#000000D9;margin-top: 16px;">
+                  教育优惠已生效
+                </div>
+              </div>
+              
               <button
-                style="
-                  width: 134px;
-                  height: 42px;
-                  background-color: #e1f6e8ff;
-                  border-radius: 6px;
-                  font-size: 17px;
-                  line-height: 24px;
-                  color: #27c670ff;
-                  font-family: DINMedium;
-                  margin-left: 25px;
-                "
+                :disabled="Education"
+                :class="!Education ? 'btn-submit' : 'btn-disabled'"
+                @click="Education = !Education"
               >
-                提交代码
+                提交
               </button>
             </div>
           </div>
@@ -410,14 +390,39 @@ onBeforeUnmount(() => {
 .gotomoneyUl {
   li {
     list-style-type: none;
-    font-size: 20px;
+    font-size: 17px;
     line-height: 24px;
-    margin-bottom: 25px;
-    font-family: DINMedium;
+    color: #000000D9;
+    font-family: DINMedium ;
   }
 }
 .gotomoneyinput input:focus-visible {
   border: 1px solid #979797ff !important;
 }
+.btn-submit {
+  width: 134px;
+  height: 42px;
+  background-color: #e1f6e8ff;
+  border-radius: 6px;
+  font-size: 17px;
+  line-height: 24px;
+  color: #27c670ff;
+  font-family: DINMedium;
+  margin-left: 25px;
+}
+.btn-disabled {
+  width: 134px;
+  height: 42px;
+  background-color: #0000000D;
+  border-radius: 6px;
+  font-size: 17px;
+  line-height: 24px;
+  color: #00000040;
+  font-family: DINMedium;
+  margin-left: 25px;
+}
 </style>
-
+<route lang="yaml">
+meta:
+  check: true
+</route>

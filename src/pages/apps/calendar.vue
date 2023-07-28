@@ -41,11 +41,53 @@ const checkAll = computed({
       store.selectedCalendars = []
   },
 })
+
+// const refCalendar = ref(null);
+
+onMounted(() => {
+  // 滚动到底部
+  console.log(refCalendar.value.scrollTop);
+  refCalendar.value.scrollTop = refCalendar.value.scrollHeight;
+});
 </script>
 
 <template>
-  <div>
-    <VCard>
+  <div class="rili">
+    <div>
+      <div style="width: 100%;">
+        <div
+          style="
+            background-color: #FFFFFFFF;
+            border-radius: 12px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 64px;
+            margin-bottom: 32px;
+            margin-top: 32px;
+          "
+        >
+          <div style="font-size: 13px; color: #1D1D1FFF; line-height: 18px">
+            关注“UESG优世界”官方公众号了解更多最新资讯。
+            <span
+              @click="gotoLogin"
+              style="
+                font-family: DINMedium;
+                color: #0066cc;
+                line-height: 18px;
+                font-size: 13px;
+                cursor: pointer;
+              "
+              >立刻关注 ></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background-color: #fff;border-radius: 12px;">
       <!-- `z-index: 0` Allows overlapping vertical nav on calendar -->
       <VLayout style="z-index: 0;">
         <!-- 👉 Navigation drawer -->
@@ -103,15 +145,15 @@ const checkAll = computed({
         </VNavigationDrawer> -->
 
         <VMain>
-          <VCard flat>
+          <div flat>
             <FullCalendar
               ref="refCalendar"
               :options="calendarOptions"
             />
-          </VCard>
+          </div>
         </VMain>
       </VLayout>
-    </VCard>
+    </div>
 
     <VDialog
       :model-value="isEventHandlerSidebarActive"
@@ -137,6 +179,9 @@ const checkAll = computed({
 </template>
 
 <style>
+  .v-application .fc .fc-view-harness {
+    min-block-size: 0 !important;
+  }
   button[title="month view"] {
     display: none !important;
   }

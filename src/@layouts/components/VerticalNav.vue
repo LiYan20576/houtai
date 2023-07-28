@@ -8,6 +8,7 @@ import {
   VerticalNavSectionTitle,
 } from "@layouts/components";
 import { config } from "@layouts/config";
+const { y } = useWindowScroll()
 
 const props = defineProps({
   tag: {
@@ -64,6 +65,15 @@ const isVerticalNavScrolled = ref(false);
 const updateIsVerticalNavScrolled = (val) =>
   (isVerticalNavScrolled.value = val);
 
+const isNav = ref(false)
+const nav = (a) => {
+  if(a > 84) {
+    return true
+  } else {
+    return false
+  }
+}
+
 const handleNavScroll = (evt) => {
   isVerticalNavScrolled.value = evt.target.scrollTop > 0;
 };
@@ -76,13 +86,14 @@ const handleNavScroll = (evt) => {
     class="layout-vertical-nav"
     :class="[
       {
+        'tarn-nav': nav(y)
         // 'overlay-nav': isLessThanOverlayNavBreakpoint(windowWidth),
         // 'hovered': isHovered,
         // 'visible': isOverlayNavActive,
         // 'scrolled': isVerticalNavScrolled,
       },
     ]"
-    style="display: flex; width: 100%; align-items: center;justify-content: center;position: fixed;height: 84px;"
+    style="display: flex; width: 100%; align-items: center;justify-content: center;position: fixed;height: 64px;"
   >
     <div style="max-width: 980px;display: flex;align-items: center;justify-content: center;width: 100%;position: relative;">
       <!-- 👉 Header -->
@@ -147,6 +158,14 @@ const handleNavScroll = (evt) => {
     </div>
   </Component>
 </template>
+
+<style>
+.tarn-nav {
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(20px) !important;
+  background-color: hsla(0,0%,100%,.8) !important;
+}
+</style>
 
 <style lang="scss">
 @use "@configured-variables" as variables;

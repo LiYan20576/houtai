@@ -97,64 +97,13 @@ onMounted(async () => {
 
 
 <template>
-  <div>
-
-    <div>
-      <div style="width: 100%;">
-        <div
-          style="
-            background-color: #FFFFFFFF;
-            border-radius: 12px;
-            position: relative;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px 64px;
-            margin-bottom: 32px;
-            margin-top: 32px;
-          "
-        >
-          <div style="font-size: 13px; color: #1D1D1FFF; line-height: 18px">
-            UESG 需要您微信扫码关注“UESG优世界”官方公众号使用本平台更多功能。
-          </div>
+  <div style="display: flex;align-items: center;justify-content: center;height: 100vh;">
+    <div style="display: flex;align-items: center;">
+        <img src="https://lovemedicine.cn/public/uesg/7.23/%E9%A6%96%E9%A1%B5/%E6%84%9F%E5%8F%B9%E5%8F%B7-icon.svg" style="width: 24px;height: 24px;">
+        <div style="font-size: 20px;line-height: 30px;color: #000;">
+            请在pc端中打开
         </div>
-      </div>
     </div>
-
-    <div>
-
-      <div
-        style="
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        "
-      >
-        <div style="position: relative;">
-          <img src="https://www.uesg.org.cn/icon/0727/%E7%99%BB%E5%BD%95.png" style="width: 100%;">
-          <div style="position: absolute; right: 145px;top: 147px;"> 
-            <div style="font-size: 25px;line-height: 36px;color:#000000D9;text-align: center;margin-bottom: 16px;font-family: DINMedium;">
-              微信扫码登录
-            </div>
-            <div style="border: 2px solid #00000080;width: 200px;height: 200px;border-radius: 12px;">
-              <img :src="qrUrl" style="width: 100%; height: 100%;padding: 16px;" />
-            </div>
-            <div style="display: flex;align-items: center;justify-content: center;margin-top: 16px;">
-              <img src="https://www.uesg.org.cn/icon/0727/%E6%89%AB%E7%A0%81.svg" style="width:18px;height: 21px;margin-left: 8px;">
-              <span style="font-size: 15px;line-height: 21px;color: #5C5A68FF;">
-                微信扫码关注公众号登录
-              </span>
-              
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-
   </div>
 </template>
 
@@ -163,35 +112,10 @@ onMounted(async () => {
 .layout-content-wrapper {
   background-color: #fdfcfdff !important;
 }
-/* .page-content-container {
-  background-color: #FFFFFFFF !important;
-  box-shadow: 0px 5px 10px 0px #F0EFF2 !important;
-  border-radius: 12px !important;
-  margin-bottom: 30px;
-  margin-top: 10px;
-} */
+
 </style>
-<style lang="scss" scoped>
-.avatar-center {
-  position: absolute;
-  border: 3px solid rgb(var(--v-theme-surface));
-  inset-block-start: -2rem;
-  inset-inline-start: 1rem;
-}
 
-// membership pricing
-.member-pricing-bg {
-  position: relative;
-  background-color: rgba(var(--v-theme-on-surface), var(--v-hover-opacity));
-}
-
-.membership-pricing {
-  sup {
-    inset-block-start: 9px;
-  }
-}
-
-.v-btn {
-  transform: none;
-}
-</style>
+<route lang="yaml">
+    meta:
+        layout: blank
+</route>

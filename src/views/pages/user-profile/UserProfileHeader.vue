@@ -17,7 +17,7 @@ const logout = () => {
   localStorage.removeItem("oid");
   localStorage.removeItem("userStatus");
   localStorage.removeItem("userData");
-  window.location.href = '/loginv1'
+  window.location.href = '/login'
   // router.push("/loginv1");
 }
 

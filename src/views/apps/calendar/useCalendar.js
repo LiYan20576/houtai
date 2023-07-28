@@ -170,6 +170,7 @@ export const useCalendar = (event, isEventHandlerSidebarActive, isLeftSidebarOpe
   const calendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin],
     initialView: 'dayGridMonth',
+    height: 450,
     locale: 'zh',
     headerToolbar: {
       start: 'drawerToggler,prev,next title',

@@ -24,125 +24,129 @@ watch(activeTab, fetchHelpCenterArticlesData, { immediate: true })
 </script>
 
 <template>
-  <VRow v-if="activeArticle && apiData">
-    <VCol
-      cols="12"
-      md="4"
-    >
-      <h6 class="text-base mb-3">
-        {{ apiData.title }}
-      </h6>
+  <div style="margin-top: 32px;">
 
-      <VTabs
-        v-model="activeTab"
-        direction="vertical"
-        class="v-tabs-pill"
+    <VRow v-if="activeArticle && apiData">
+      <VCol
+        cols="12"
+        md="4"
       >
-        <VTab
-          v-for="data in apiData.articles"
-          :key="data.slug"
-          :value="data.slug"
-          :to="{
-            name: 'pages-help-center-category-subcategory-article',
-            params: {
-              category: route.params.category,
-              subcategory: route.params.subcategory,
-              article: data.slug,
-            },
-          }"
+        <!-- <h6 class="text-base mb-3">
+          {{ apiData.title }}
+        </h6> -->
+
+        <VTabs
+          v-model="activeTab"
+          direction="vertical"
+          class="v-tabs-pill"
         >
-          <span class="text-wrap">
-            {{ data.title }}
-          </span>
-        </VTab>
-      </VTabs>
-    </VCol>
+          <VTab
+            v-for="data in apiData.articles"
+            :key="data.slug"
+            :value="data.slug"
+            :to="{
+              name: 'pages-help-center-category-subcategory-article',
+              params: {
+                category: route.params.category,
+                subcategory: route.params.subcategory,
+                article: data.slug,
+              },
+            }"
+          >
+            <span class="text-wrap">
+              {{ data.title }}
+            </span>
+          </VTab>
+        </VTabs>
+      </VCol>
 
-    <VCol
-      cols="12"
-      md="8"
-    >
-      <VWindow class="disable-tab-transition">
-        <VWindowItem>
-          <VCard>
-            <VCardText class="pb-0">
-              <VBtn
-                variant="tonal"
-                :to="{
-                  name: 'pages-help-center-category-subcategory',
-                  params: { category: route.params.category, subcategory: route.params.subcategory },
-                }"
-              >
-                <VIcon
-                  icon="tabler-chevron-left"
-                  class="flip-in-rtl"
-                />
-                <span>Back to categories</span>
-              </VBtn>
-            </VCardText>
-
-            <VCardItem>
-              <template #prepend>
-                <VAvatar
-                  color="primary"
+      <VCol
+        cols="12"
+        md="8"
+      >
+        <VWindow class="disable-tab-transition">
+          <VWindowItem>
+            <VCard style="box-shadow: none !important;">
+              <VCardText class="pb-0">
+                <VBtn
                   variant="tonal"
-                  rounded
+                  :to="{
+                    name: 'pages-help-center-category-subcategory',
+                    params: { category: route.params.category, subcategory: route.params.subcategory },
+                  }"
                 >
-                  <VIcon icon="tabler-currency-dollar" />
-                </VAvatar>
-              </template>
-              <VCardTitle>{{ activeArticle.title }}</VCardTitle>
-            </VCardItem>
+                  <VIcon
+                    icon="tabler-chevron-left"
+                    class="flip-in-rtl"
+                  />
+                  <span>返回上一层</span>
+                </VBtn>
+              </VCardText>
 
-            <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
-            <VCardText
-              class="help-center-article-content"
-              v-html="activeArticle.content"
-            />
-            <!-- eslint-enable vue/no-v-html vue/no-v-text-v-html-on-component -->
+              <VCardItem>
+                <!-- <template #prepend>
+                  <VAvatar
+                    color="primary"
+                    variant="tonal"
+                    rounded
+                  >
+                    <VIcon icon="tabler-currency-dollar" />
+                  </VAvatar>
+                </template> -->
+                <VCardTitle>{{ activeArticle.title }}</VCardTitle>
+              </VCardItem>
 
-            <VDivider />
+              <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
+              <VCardText
+                class="help-center-article-content"
+                v-html="activeArticle.content"
+              />
+              <!-- eslint-enable vue/no-v-html vue/no-v-text-v-html-on-component -->
 
-            <VCardText>
-              <div class="d-flex justify-space-between flex-wrap mb-2">
-                <div class="article-info">
-                  <h6 class="text-h6 mb-1">
-                    {{ activeArticle.title }}
+              <VDivider />
+
+              <VCardText>
+                <div class="d-flex justify-space-between flex-wrap mb-2">
+                  <div class="article-info">
+                    <h6 class="text-h6 mb-1">
+                      {{ activeArticle.title }}
+                    </h6>
+                    <!-- <p class="mb-1">
+                      55 People found this helpful
+                    </p> -->
+                  </div>
+                  <h6 class="text-h6">
+                    还需要帮助吗？
+                    <a href="javascript:void(0);">联系我们</a>
                   </h6>
-                  <p class="mb-1">
-                    55 People found this helpful
-                  </p>
                 </div>
-                <h6 class="text-h6">
-                  Still need help?
-                  <a href="javascript:void(0);">Contact us?</a>
-                </h6>
-              </div>
 
-              <div class="article-votes d-flex align-center gap-3">
-                <VAvatar
-                  color="primary"
-                  variant="tonal"
-                  rounded
-                  size="30"
-                >
-                  <VIcon icon="tabler-thumb-up" />
-                </VAvatar>
-                <VAvatar
-                  color="primary"
-                  variant="tonal"
-                  rounded
-                  size="30"
-                >
-                  <VIcon icon="tabler-thumb-down" />
-                </VAvatar>
-              </div>
-            </VCardText>
-          </VCard>
-        </VWindowItem>
-      </VWindow>
-    </VCol>
-  </VRow>
+                <div class="article-votes d-flex align-center gap-3">
+                  <VAvatar
+                    color="primary"
+                    variant="tonal"
+                    rounded
+                    size="30"
+                  >
+                    <VIcon icon="tabler-thumb-up" />
+                  </VAvatar>
+                  <VAvatar
+                    color="primary"
+                    variant="tonal"
+                    rounded
+                    size="30"
+                  >
+                    <VIcon icon="tabler-thumb-down" />
+                  </VAvatar>
+                </div>
+              </VCardText>
+            </VCard>
+          </VWindowItem>
+        </VWindow>
+      </VCol>
+    </VRow>
+  </div>
+  
 </template>
 
 <route lang="yaml">

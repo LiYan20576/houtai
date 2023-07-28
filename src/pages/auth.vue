@@ -15,27 +15,83 @@ const gotoPay = () => {
   // router.push('/wizard-examples/checkout')
   window.location.href = "/gotomoney";
 };
+
+const contentContainer = ref(null);
+
+const scrollToBottom = () => {
+  isCardDetailsVisible.value = !isCardDetailsVisible.value
+  if(isCardDetailsVisible.value){
+    setTimeout(() => {
+      const contentHeight = contentContainer.value.scrollHeight;
+      window.scrollTo(
+        {
+          top:contentHeight-500,
+          left:0,
+          behavior: "smooth"
+        }
+      );
+    }, 200);
+  }
+  
+};
+
+const contentContainer1 = ref(null);
+
+const scrollToBottom1 = () => {
+  isCardDetailsVisible1.value = !isCardDetailsVisible1.value
+  if(isCardDetailsVisible1.value){
+    // 延迟 1000 毫秒后滚动
+    setTimeout(() => {
+      const contentHeight = contentContainer1.value.scrollHeight;
+      window.scrollTo({
+        top:4000,
+        left:0,
+        behavior: "smooth"
+      });
+    }, 200);
+  }
+  
+};
 </script>
 
 <template>
   <div>
-    <VRow>
-      <VCol
-        cols="12"
-      >
-        <VCard style="position: relative;;width: 100%;display: flex;justify-content: center; align-items: center;padding: 32px 50px;margin-bottom: 50px;">
-          <div style="font-family: 'DINMedium';font-size: 17px;line-height: 20px;color: #1D1D1F;position: absolute;left: 50px;">
-            认证服务
+    <div>
+      <div style="width: 100%;">
+        <div
+          style="
+            background-color: #FFFFFFFF;
+            border-radius: 12px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 64px;
+            margin-bottom: 32px;
+            margin-top: 32px;
+          "
+        >
+          <div style="font-size: 13px; color: #1D1D1FFF; line-height: 18px">
+            UESG 提供两种 ESG 资格认证，分别对应不同的可持续发展岗位。
+            <span
+              @click="gotoLogin"
+              style="
+                font-family: DINMedium;
+                color: #0066cc;
+                line-height: 18px;
+                font-size: 13px;
+                cursor: pointer;
+              "
+              >了解岗位薪酬 ></span
+            >
           </div>
-          <div style="font-size: 15px;color: #1D1D1F;line-height: 21px;">
-            UESG 针对18岁以上在校学生提供教育优惠，在官网价格的基础上7折提供服务。
-            <span style="font-family: 'DINMedium';color: #0066CC;line-height: 21px;font-size: 15px;">了解详情 ></span>
-          </div>
-        </VCard>
-      </VCol>
-    </VRow>
+        </div>
+      </div>
+    </div>
     
-    <VRow
+    <div
+      ref="contentContainer"
       class="cardWrap"
       style="
         display: flex;
@@ -44,37 +100,39 @@ const gotoPay = () => {
         margin-bottom: 50px !important;
         padding-top: 0;
         margin-top: 0;
+        box-shadow: none !important;
+        scroll-behavior: smooth !important;
       "
     >
-      <div style=" width: 75%; display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; margin-top: 50px;">
+      <div style="width: 100%;padding-top: 64px;padding-left: 64px;padding-right: 64px;display: flex; justify-content: space-between; margin-bottom: 48px;">
         <div style="display: flex; justify-content: center;flex-direction: column;" >
           <div
             style="
               font-family: DINMedium;
-              color: #000000;
-              font-size: 35px;
-              line-height: 50px;
-              margin-bottom: 25px;
+              color: #000000D9;
+              font-size: 31px;
+              line-height: 42px;
+              margin-bottom: 32px;
             "
           >
             UESG Fundamental Analyst
           </div>
-          <div style=" display: flex; align-items: center; margin-bottom: 25px;" >
+          <div style=" display: flex; align-items: center; margin-bottom: 16px;" >
             <img
-              src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-              style="width: 24px; height: 24px; margin-right: 10px"
+              src="https://www.uesg.org.cn/icon/0727/%E8%AF%81%E4%B9%A6%E7%BB%BF%E8%89%B2.svg"
+              style="width: 24px; height: 24px; margin-right: 8px"
             />
-            <span style="font-size: 20px;color: #000000;line-height: 24px;font-family: DINMedium;">
+            <span style="font-size: 17px;color: #000000FF;line-height: 24px;font-family: DINMedium;">
               通用 ESG 标准｜基础分析师
             </span>
             
           </div>
           <div style=" display: flex; align-items: center; " >
             <img
-              src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-              style="width: 24px; height: 24px; margin-right: 10px"
+              src="https://www.uesg.org.cn/icon/0727/%E6%89%93%E6%8B%9B%E5%91%BC%E7%9A%84%E4%BA%BA_%E7%94%BB%E6%9D%BF%201.svg"
+              style="width: 24px; height: 24px; margin-right: 8px"
             />
-            <span style="font-size: 20px;color: #000000;line-height: 24px;font-family: DINMedium;">
+            <span style="font-size: 17px;color: #000000;line-height: 24px;font-family: DINMedium;">
               适用 ESG 行业新晋人员
             </span>
           </div>
@@ -82,15 +140,15 @@ const gotoPay = () => {
         <div>
           <VBtn
             color="#0066CCFF"
-            @click="isCardDetailsVisible = !isCardDetailsVisible"
-            style="height: 42px; padding: 11px 34px"
+            @click="scrollToBottom "
+            style="height: 42px; padding: 9px 32px"
           >
             <span
               style="
                 color: #fff;
                 font-size: 17px;
                 font-family: DINMedium;
-                line-height: 20px;
+                line-height: 24px;
               "
             >
               了解详情
@@ -101,148 +159,147 @@ const gotoPay = () => {
       <!-- 证书图片 -->
       <div
         style="
-          width: 75%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 44px;
+          width: 100%;
+          margin-bottom: 58px;
+          padding: 0 64px;
         "
       >
-        <img
-          src="https://www.uesg.org.cn/img/0725/auth3.jpg"
-          style="width: auto; height: 413px"
-        />
-        <img
-          src="https://www.uesg.org.cn/img/0725/auth4.jpg"
-          style="width: auto; height: 413px"
-        />
+        <img src="https://www.uesg.org.cn/icon/0727/%E5%A4%A7%E8%AF%81%E4%B9%A6-%E7%BB%BF%E8%89%B2.png" style="width: 100%;">
       </div>
       <VExpandTransition >
         <div v-show="isCardDetailsVisible" style="width: 100%;">
-          <div style="width: 75%; margin: 0 auto;border-bottom: 1px solid #00000080; margin-bottom: 50px;"></div>
-          <div style="width: 75%; margin: 0 auto;">
-            <div style="display: flex;margin-bottom: 50px;">
-              <img
-                src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-                style="width: 28px; height: 28px; margin-right: 6px"
-              />
-              <div>
-                <div
-                  style="
-                    font-size: 20px;
-                    font-family: DINMedium;
-                    color: #000000D9;
-                    line-height: 28px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  学习方式
-                </div>
-                <div
-                  style="
-                    font-size: 17px;
-                    color: #00000080;
-                    line-height: 24px;
-                  "
-                >
-                  登录“UESG”中文版官网进行在线ESG课程学习。
-                  <br>
-                  基础分析师认证学习时长48小时。
-                  <span
+          <div style="width: 100%;padding: 0 64px;">
+            <div style="width: 100%; margin: 0 auto;border-bottom: 1px solid #00000080; margin-bottom: 50px;"></div>
+            <div style="width: 100%; margin: 0 auto;">
+              <div style="display: flex;margin-bottom: 32px;">
+                <img
+                  src="https://www.uesg.org.cn/icon/0727/%E8%AF%BE%E7%A8%8B01.svg"
+                  style="width: 28px; height: 28px; margin-right: 6px"
+                />
+                <div>
+                  <div
                     style="
-                      font-family: DINMedium;
-                      color: #0066CCFF;
                       font-size: 17px;
+                      font-family: DINMedium;
+                      color: #000000D9;
                       line-height: 24px;
-                      text-decoration: underline;
+                      margin-bottom: 8px;
                     "
-                    >查看课纲</span
-                  >。
+                  >
+                    学习方式
+                  </div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      color: #000000D9;
+                      line-height: 24px;
+                    "
+                  >
+                    登录 UESG 中国官网进行线上 ESG 课程学习。
+                    <br>
+                    基础分析师认证学习时长 48 小时。
+                    <br>
+                    <span
+                      style="
+                        font-family: DINMedium;
+                        color: #0066CCFF;
+                        font-size: 17px;
+                        line-height: 24px;
+                        cursor: pointer;
+                      "
+                      >查看课纲</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div style="display: flex;margin-bottom: 50px;">
-              <img
-                src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-                style="width: 28px; height: 28px; margin-right: 6px"
-              />
-              <div>
-                <div
-                  style="
-                    font-size: 20px;
-                    font-family: DINMedium;
-                    color: #000000D9;
-                    line-height: 28px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  认证方式
-                </div>
-                <div
-                  style="
-                    font-size: 17px;
-                    color: #00000080;
-                    line-height: 24px;
-                  "
-                >
-                  每月一次2小时线上机考，机考形式为100项选择题。
-                  <br>
-                  准确率超过80%即通过认证。
+
+              <div style="display: flex;margin-bottom: 32px;">
+                <img
+                  src="https://www.uesg.org.cn/icon/0727/%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F.svg"
+                  style="width: 28px; height: 28px; margin-right: 6px"
+                />
+                <div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      font-family: DINMedium;
+                      color: #000000D9;
+                      line-height: 24px;
+                      margin-bottom: 8px;
+                    "
+                  >
+                    认证方式
+                  </div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      color: #000000D9;
+                      line-height: 24px;
+                    "
+                  >
+                    每月一次 2 小时线上机考，机考形式为 100 项选择题。
+                    <br>
+                    准确率超过 80% 即通过认证。
+                    <br>
+                    <span
+                      style="
+                        font-family: DINMedium;
+                        color: #0066CCFF;
+                        font-size: 17px;
+                        line-height: 24px;
+                        cursor: pointer;
+                      "
+                      >模拟考试</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div style="display: flex;margin-bottom: 50px;">
-              <img
-                src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-                style="width: 28px; height: 28px; margin-right: 6px"
-              />
-              <div>
-                <div
-                  style="
-                    font-size: 20px;
-                    font-family: DINMedium;
-                    color: #000000D9;
-                    line-height: 28px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  证书派发
-                </div>
-                <div
-                  style="
-                    font-size: 17px;
-                    color: #00000080;
-                    line-height: 24px;
-                  "
-                >
-                  通过认证后可通过“UESG”官网下载电子版本证书。
-                  <br>
-                  “UESG”将于30日内通过EMS邮寄纸质证书。
+
+              <div style="display: flex;margin-bottom: 32px;">
+                <img
+                  src="https://www.uesg.org.cn/icon/0727/%E8%AF%81%E4%B9%A6%E6%B4%BE%E5%8F%91.svg"
+                  style="width: 28px; height: 28px; margin-right: 6px"
+                />
+                <div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      font-family: DINMedium;
+                      color: #000000D9;
+                      line-height: 24px;
+                      margin-bottom: 8px;
+                    "
+                  >
+                    证书派发
+                  </div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      color: #000000D9;
+                      line-height: 24px;
+                    "
+                  >
+                    通过认证后可通过 UESG 中国官网下载电子版本证书。
+                    <br>
+                    UESG 将于 30 日内通过 EMS 邮寄纸质证书。
+                    <br>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div style=" width: 100%;background: #f7f7f7;box-shadow: 0px 2px 4px 0px #f7f6f7;border-radius: 0px 0px 24px 24px;">
-            <div style="width: 75%; padding: 49px 0 60px; margin: 0 auto">
-              <div
-                style="
-                  font-size: 25px;
-                  font-family: DINMedium;
-                  color: rgba(0,0,0,0.85);
-                  line-height: 36px;
-                  margin-bottom: 25px;
-                "
-              >
-                学习与认证费用
+          
+          <div style=" width: 100%;background: #F3F3F3FF;box-shadow: 0px 2px 4px 0px #f7f6f7;border-radius: 0px 0px 12px 12px;">
+            <div style="padding: 49px 64px 60px; margin: 0 auto">
+              <div style="display: flex; margin-bottom: 16px;align-items: center;">
+                <img src="https://www.uesg.org.cn/icon/0727/%E8%B4%B9%E7%94%A8_%E7%94%BB%E6%9D%BF%201.svg" style="width: 24px;height: 24px;margin-right: 8px;">
+                <div style=" font-size: 17px; font-family: DINMedium; color: #000000D9; line-height: 24px; " > 服务费 </div>
               </div>
               <div
                 style="
                   font-family: DINMedium;
                   font-size: 35px;
-                  font-weight: bold;
                   color: #0066CCFF;
                   line-height: 50px;
-                  margin-bottom: 25px;
+                  margin-bottom: 16px;
                 "
               >
                 RMB 3250
@@ -257,7 +314,7 @@ const gotoPay = () => {
                 <div style="display: flex; align-items: center">
                   <VBtn
                     color="#0066CCFF"
-                    style="margin-right: 25px; padding: 9px 54px; height: 44px"
+                    style="margin-right: 16px; padding: 9px 54px; height: 44px"
                     @click="gotoPay"
                   >
                     <span
@@ -274,19 +331,20 @@ const gotoPay = () => {
                   <span
                     style="
                       font-family: DINMedium;
-                      font-size: 17px;
-                      line-height: 24px;
-                      color: #5C5A68;
-                      margin-right: 20px;
+                      font-size: 15px;
+                      line-height: 21px;
+                      color: #5C5A68FF;
+                      margin-right: 8px;
                     "
                   >
                     学生优惠 RMB 2275
                   </span>
-                  
+                  <span style="color: #0066CCFF;font-size: 15px;line-height: 21px;">
+                    如何获取
+                  </span>
                 </div>
                 <div
                   style="
-                    text-decoration: underline;
                     font-size: 17px;
                     line-height: 24px;
                     color: rgba(0,0,0,0.85);
@@ -294,16 +352,17 @@ const gotoPay = () => {
                   "
                   @click="isCardDetailsVisible = !isCardDetailsVisible"
                 >
-                  收起
+                  <img src="https://www.uesg.org.cn/icon/0727/%E7%AE%AD%E5%A4%B4-%E5%90%91%E4%B8%8A_%E7%94%BB%E6%9D%BF%201.svg" style="width: 24px;height: 24px;">
                 </div>
               </div>
             </div>
           </div>
         </div>
       </VExpandTransition>
-    </VRow>
+    </div>
 
-    <VRow
+    <div
+      ref="contentContainer1"
       class="cardWrap"
       style="
         display: flex;
@@ -312,53 +371,55 @@ const gotoPay = () => {
         margin-bottom: 50px !important;
         padding-top: 0;
         margin-top: 0;
+        box-shadow: none !important;
+        scroll-behavior: smooth !important;
       "
     >
-      <div style=" width: 75%; display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; margin-top: 50px;">
+      <div style="width: 100%;padding-top: 64px;padding-left: 64px;padding-right: 64px;display: flex; justify-content: space-between; margin-bottom: 48px;">
         <div style="display: flex; justify-content: center;flex-direction: column;" >
           <div
             style="
               font-family: DINMedium;
-              color: #000000;
-              font-size: 35px;
-              line-height: 50px;
-              margin-bottom: 25px;
+              color: #000000D9;
+              font-size: 31px;
+              line-height: 42px;
+              margin-bottom: 32px;
             "
           >
             UESG Advanced Analyst
           </div>
-          <div style=" display: flex; align-items: center; margin-bottom: 25px;" >
+          <div style=" display: flex; align-items: center; margin-bottom: 16px;" >
             <img
-              src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-              style="width: 24px; height: 24px; margin-right: 10px"
+              src="https://www.uesg.org.cn/icon/0727/%E8%AF%81%E4%B9%A6%E8%93%9D%E8%89%B2.svg"
+              style="width: 24px; height: 24px; margin-right: 8px"
             />
-            <span style="font-size: 20px;color: #000000;line-height: 24px;font-family: DINMedium;">
-              通用 ESG 标准｜基础分析师
+            <span style="font-size: 17px;color: #000000FF;line-height: 24px;font-family: DINMedium;">
+              通用 ESG 标准｜高级分析师
             </span>
             
           </div>
           <div style=" display: flex; align-items: center; " >
             <img
-              src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-              style="width: 24px; height: 24px; margin-right: 10px"
+              src="https://www.uesg.org.cn/icon/0727/%E6%89%93%E6%8B%9B%E5%91%BC%E7%9A%84%E4%BA%BA_%E7%94%BB%E6%9D%BF%201.svg"
+              style="width: 24px; height: 24px; margin-right: 8px"
             />
-            <span style="font-size: 20px;color: #000000;line-height: 24px;font-family: DINMedium;">
-              适用 ESG 行业新晋人员
+            <span style="font-size: 17px;color: #000000;line-height: 24px;font-family: DINMedium;">
+              适用 ESG 行业进阶人员
             </span>
           </div>
         </div>
         <div>
           <VBtn
             color="#0066CCFF"
-            @click="isCardDetailsVisible1 = !isCardDetailsVisible1"
-            style="height: 42px; padding: 11px 34px"
+            @click="scrollToBottom1"
+            style="height: 42px; padding: 9px 32px"
           >
             <span
               style="
                 color: #fff;
                 font-size: 17px;
                 font-family: DINMedium;
-                line-height: 20px;
+                line-height: 24px;
               "
             >
               了解详情
@@ -369,148 +430,147 @@ const gotoPay = () => {
       <!-- 证书图片 -->
       <div
         style="
-          width: 75%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 44px;
+          width: 100%;
+          margin-bottom: 58px;
+          padding: 0 64px;
         "
       >
-        <img
-          src="https://www.uesg.org.cn/img/0725/auth2.jpg"
-          style="width: auto; height: 413px"
-        />
-        <img
-          src="https://www.uesg.org.cn/img/0725/auth1.jpg"
-          style="width: auto; height: 413px"
-        />
+        <img src="https://www.uesg.org.cn/icon/0727/%E5%A4%A7%E8%AF%81%E4%B9%A6-%E8%93%9D%E8%89%B2.png" style="width: 100%;">
       </div>
       <VExpandTransition >
         <div v-show="isCardDetailsVisible1" style="width: 100%;">
-          <div style="width: 75%; margin: 0 auto;border-bottom: 1px solid #00000080; margin-bottom: 50px;"></div>
-          <div style="width: 75%; margin: 0 auto;">
-            <div style="display: flex;margin-bottom: 50px;">
-              <img
-                src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-                style="width: 28px; height: 28px; margin-right: 6px"
-              />
-              <div>
-                <div
-                  style="
-                    font-size: 20px;
-                    font-family: DINMedium;
-                    color: #000000D9;
-                    line-height: 28px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  学习方式
-                </div>
-                <div
-                  style="
-                    font-size: 17px;
-                    color: #00000080;
-                    line-height: 24px;
-                  "
-                >
-                  登录“UESG”中文版官网进行在线ESG课程学习。
-                  <br>
-                  基础分析师认证学习时长60小时。
-                  <span
+          <div style="width: 100%;padding: 0 64px;">
+            <div style="width: 100%; margin: 0 auto;border-bottom: 1px solid #00000080; margin-bottom: 50px;"></div>
+            <div style="width: 100%; margin: 0 auto;">
+              <div style="display: flex;margin-bottom: 32px;">
+                <img
+                  src="https://www.uesg.org.cn/icon/0727/%E8%AF%BE%E7%A8%8B01.svg"
+                  style="width: 28px; height: 28px; margin-right: 6px"
+                />
+                <div>
+                  <div
                     style="
-                      font-family: DINMedium;
-                      color: #0066CCFF;
                       font-size: 17px;
+                      font-family: DINMedium;
+                      color: #000000D9;
                       line-height: 24px;
-                      text-decoration: underline;
+                      margin-bottom: 8px;
                     "
-                    >查看课纲</span
-                  >。
+                  >
+                    学习方式
+                  </div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      color: #000000D9;
+                      line-height: 24px;
+                    "
+                  >
+                    登录 UESG 中国官网进行线上 ESG 课程学习。
+                    <br>
+                    基础分析师认证学习时长 60 小时。
+                    <br>
+                    <span
+                      style="
+                        font-family: DINMedium;
+                        color: #0066CCFF;
+                        font-size: 17px;
+                        line-height: 24px;
+                        cursor: pointer;
+                      "
+                      >查看课纲</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div style="display: flex;margin-bottom: 50px;">
-              <img
-                src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-                style="width: 28px; height: 28px; margin-right: 6px"
-              />
-              <div>
-                <div
-                  style="
-                    font-size: 20px;
-                    font-family: DINMedium;
-                    color: #000000D9;
-                    line-height: 28px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  认证方式
-                </div>
-                <div
-                  style="
-                    font-size: 17px;
-                    color: #00000080;
-                    line-height: 24px;
-                  "
-                >
-                  每月一次2小时线上机考，机考形式为100项选择题。
-                  <br>
-                  准确率超过80%即通过认证。
+
+              <div style="display: flex;margin-bottom: 32px;">
+                <img
+                  src="https://www.uesg.org.cn/icon/0727/%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F.svg"
+                  style="width: 28px; height: 28px; margin-right: 6px"
+                />
+                <div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      font-family: DINMedium;
+                      color: #000000D9;
+                      line-height: 24px;
+                      margin-bottom: 8px;
+                    "
+                  >
+                    认证方式
+                  </div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      color: #000000D9;
+                      line-height: 24px;
+                    "
+                  >
+                    每月一次 2 小时线上机考，机考形式为 100 项选择题。
+                    <br>
+                    准确率超过 80% 即通过认证。
+                    <br>
+                    <span
+                      style="
+                        font-family: DINMedium;
+                        color: #0066CCFF;
+                        font-size: 17px;
+                        line-height: 24px;
+                        cursor: pointer;
+                      "
+                      >模拟考试</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div style="display: flex;margin-bottom: 50px;">
-              <img
-                src="https://www.uesg.org.cn/icon/0725/绿色奖牌_画板 1.svg"
-                style="width: 28px; height: 28px; margin-right: 6px"
-              />
-              <div>
-                <div
-                  style="
-                    font-size: 20px;
-                    font-family: DINMedium;
-                    color: #000000D9;
-                    line-height: 28px;
-                    margin-bottom: 10px;
-                  "
-                >
-                  证书派发
-                </div>
-                <div
-                  style="
-                    font-size: 17px;
-                    color: #00000080;
-                    line-height: 24px;
-                  "
-                >
-                  通过认证后可通过“UESG”官网下载电子版本证书。
-                  <br>
-                  “UESG”将于30日内通过EMS邮寄纸质证书。
+
+              <div style="display: flex;margin-bottom: 32px;">
+                <img
+                  src="https://www.uesg.org.cn/icon/0727/%E8%AF%81%E4%B9%A6%E6%B4%BE%E5%8F%91.svg"
+                  style="width: 28px; height: 28px; margin-right: 6px"
+                />
+                <div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      font-family: DINMedium;
+                      color: #000000D9;
+                      line-height: 24px;
+                      margin-bottom: 8px;
+                    "
+                  >
+                    证书派发
+                  </div>
+                  <div
+                    style="
+                      font-size: 17px;
+                      color: #000000D9;
+                      line-height: 24px;
+                    "
+                  >
+                    通过认证后可通过 UESG 中国官网下载电子版本证书。
+                    <br>
+                    UESG 将于 30 日内通过 EMS 邮寄纸质证书。
+                    <br>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div style=" width: 100%;background: #f7f7f7;box-shadow: 0px 2px 4px 0px #f7f6f7;border-radius: 0px 0px 24px 24px;">
-            <div style="width: 75%; padding: 49px 0 60px; margin: 0 auto">
-              <div
-                style="
-                  font-size: 25px;
-                  font-family: DINMedium;
-                  color: rgba(0,0,0,0.85);
-                  line-height: 36px;
-                  margin-bottom: 25px;
-                "
-              >
-                学习与认证费用
+          
+          <div style=" width: 100%;background: #F3F3F3FF;box-shadow: 0px 2px 4px 0px #f7f6f7;border-radius: 0px 0px 12px 12px;">
+            <div style="padding: 49px 64px 60px; margin: 0 auto">
+              <div style="display: flex; margin-bottom: 16px;align-items: center;">
+                <img src="https://www.uesg.org.cn/icon/0727/%E8%B4%B9%E7%94%A8_%E7%94%BB%E6%9D%BF%201.svg" style="width: 24px;height: 24px;margin-right: 8px;">
+                <div style=" font-size: 17px; font-family: DINMedium; color: #000000D9; line-height: 24px; " > 服务费 </div>
               </div>
               <div
                 style="
                   font-family: DINMedium;
                   font-size: 35px;
-                  font-weight: bold;
                   color: #0066CCFF;
                   line-height: 50px;
-                  margin-bottom: 25px;
+                  margin-bottom: 16px;
                 "
               >
                 RMB 5350
@@ -525,7 +585,7 @@ const gotoPay = () => {
                 <div style="display: flex; align-items: center">
                   <VBtn
                     color="#0066CCFF"
-                    style="margin-right: 25px; padding: 9px 54px; height: 44px"
+                    style="margin-right: 16px; padding: 9px 54px; height: 44px"
                     @click="gotoPay"
                   >
                     <span
@@ -542,19 +602,20 @@ const gotoPay = () => {
                   <span
                     style="
                       font-family: DINMedium;
-                      font-size: 17px;
-                      line-height: 24px;
-                      color: #5C5A68;
-                      margin-right: 20px;
+                      font-size: 15px;
+                      line-height: 21px;
+                      color: #5C5A68FF;
+                      margin-right: 8px;
                     "
                   >
                     学生优惠 RMB 3745
                   </span>
-                  
+                  <span style="color: #0066CCFF;font-size: 15px;line-height: 21px;">
+                    如何获取
+                  </span>
                 </div>
                 <div
                   style="
-                    text-decoration: underline;
                     font-size: 17px;
                     line-height: 24px;
                     color: rgba(0,0,0,0.85);
@@ -562,14 +623,14 @@ const gotoPay = () => {
                   "
                   @click="isCardDetailsVisible1 = !isCardDetailsVisible1"
                 >
-                  收起
+                  <img src="https://www.uesg.org.cn/icon/0727/%E7%AE%AD%E5%A4%B4-%E5%90%91%E4%B8%8A_%E7%94%BB%E6%9D%BF%201.svg" style="width: 24px;height: 24px;">
                 </div>
               </div>
             </div>
           </div>
         </div>
       </VExpandTransition>
-    </VRow>
+    </div>
 
   </div>
 </template>

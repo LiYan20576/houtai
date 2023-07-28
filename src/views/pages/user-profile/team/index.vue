@@ -5,26 +5,28 @@ import axios from '@axios'
 const router = useRoute()
 const teamData = ref([])
 
+const avatarUrl = ref("")
+
 const teams = ref([
-    {
-      extraMembers: 25,
-      title: 'UESG Fundamental Analyst',
-      avatar: 'https://weixin.uesg.cn/account/avator?unionID=oym-u6fj5Q2asA4RTIRlAmus1340',
-      // avatarGroup: [
-      //   { avatar: 'https://weixin.uesg.cn/account/avator?unionID=oym-u6fj5Q2asA4RTIRlAmus1340', name: 'Vinnie Mostowy' },
-      // ],
-      description: '通用 ESG 标准｜基础分析师',
-      // chips: [
-      //   {
-      //     title: 'React',
-      //     color: 'primary',
-      //   },
-      //   {
-      //     title: 'MUI',
-      //     color: 'info',
-      //   },
-      // ],
-    },
+    // {
+    //   extraMembers: 25,
+    //   title: 'UESG Fundamental Analyst',
+    //   avatar: avatarUrl.value,
+    //   // avatarGroup: [
+    //   //   { avatar: 'https://weixin.uesg.cn/account/avator?unionID=oym-u6fj5Q2asA4RTIRlAmus1340', name: 'Vinnie Mostowy' },
+    //   // ],
+    //   description: '通用 ESG 标准｜基础分析师',
+    //   // chips: [
+    //   //   {
+    //   //     title: 'React',
+    //   //     color: 'primary',
+    //   //   },
+    //   //   {
+    //   //     title: 'MUI',
+    //   //     color: 'info',
+    //   //   },
+    //   // ],
+    // },
 ])
 
 const fetchTeamData = () => {
@@ -61,6 +63,12 @@ const moreList = [
     class: 'text-error',
   },
 ]
+
+// onMounted(async () => {
+//   const unionid = localStorage.getItem("oid");
+//   avatarUrl.value = "https://weixin.uesg.cn/account/avator?unionID=" + unionid;
+
+// });
 </script>
 
 <template>

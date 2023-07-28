@@ -21,7 +21,7 @@ const shallRenderIcon = isVerticalNavMini(windowWidth)
     class="nav-section-title"
   >
     <div class="title-wrapper">
-      <img src="https://www.uesg.org.cn/icon/0726/分割符.svg" style="width: 24px;height: 24px;margin-inline-start: 0.3rem;">
+      <img src="https://www.uesg.org.cn/icon/0727/%E5%88%86%E5%89%B2%E7%AC%A6.svg" style="width: 24px;height: 24px;margin-inline-start: 0.3rem;">
     </div>
   </li>
 </template>

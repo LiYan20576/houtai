@@ -3,7 +3,7 @@ import mock from '@/@fake-db/mock'
 const database = [
   {
     faqTitle: '考证前',
-    faqIcon: 'tabler-credit-card',
+    // faqIcon: 'tabler-credit-card',
     faqSubtitle: '获得考证前帮助',
     faqs: [
       {
@@ -47,7 +47,7 @@ const database = [
   },
   {
     faqTitle: '关于考证',
-    faqIcon: 'tabler-shopping-cart',
+    // faqIcon: 'tabler-shopping-cart',
     faqSubtitle: '获得关于考证帮助',
     faqs: [
       {
@@ -62,7 +62,7 @@ const database = [
   },
   {
     faqTitle: '考证后',
-    faqIcon: 'tabler-refresh',
+    // faqIcon: 'tabler-refresh',
     faqSubtitle: '获得考证后帮助',
     faqs: [
       {

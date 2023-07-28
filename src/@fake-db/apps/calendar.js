@@ -13,18 +13,18 @@ const calculateLastWeek = () => {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
   const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const lastDayDate = new Date(currentYear, currentMonth, lastDayOfMonth);
-  var lastDayOfWeek = lastDayDate.getDay();
-  if(lastDayOfWeek!=0){
-    lastDayOfWeek +=6
-  }
-  console.log(lastDayOfWeek)
-  const lastWeekStart = new Date(lastDayDate);
-  lastWeekStart.setDate(lastDayDate.getDate() - lastDayOfWeek);
-  const lastWeekEnd = new Date(lastWeekStart);
-  lastWeekEnd.setDate(lastWeekStart.getDate() + 6);
+  // const lastDayDate = new Date(currentYear, currentMonth, lastDayOfMonth);
+  // var lastDayOfWeek = lastDayDate.getDay();
+  // if(lastDayOfWeek!=0){
+  //   lastDayOfWeek +=6
+  // }
+  console.log(lastDayOfMonth)
+  // const lastWeekStart = new Date(lastDayDate);
+  // lastWeekStart.setDate(lastDayDate.getDate() - lastDayOfWeek);
+  // const lastWeekEnd = new Date(lastWeekStart);
+  // lastWeekEnd.setDate(lastWeekStart.getDate() + 6);
  
-    day=Number(formatDateday(lastWeekStart))
+    day=Number(lastDayOfMonth)-6
  
 }
 // const formatDate = (date) => {
@@ -59,17 +59,17 @@ const data = {
         calendar: 'ETC',
       },
     },
-    {
-      id: '2',
-      url: '',
-      title: '预约',
-      start: new Date(date.getFullYear(), date.getMonth(), (day)),
-      end: new Date(date.getFullYear(), date.getMonth(), (day)),
-      allDay: true,
-      extendedProps: {
-        calendar: 'Family',
-      },
-    },
+    // {
+    //   id: '2',
+    //   url: '',
+    //   title: '预约',
+    //   start: new Date(date.getFullYear(), date.getMonth(), (day)),
+    //   end: new Date(date.getFullYear(), date.getMonth(), (day)),
+    //   allDay: true,
+    //   extendedProps: {
+    //     calendar: 'Family',
+    //   },
+    // },
     {
       id: '3',
       url: '',
@@ -81,17 +81,17 @@ const data = {
         calendar: 'ETC',
       },
     },
-    {
-      id: '4',
-      url: '',
-      title: '预约',
-      start: new Date(date.getFullYear(), date.getMonth(), (day+1)),
-      end: new Date(date.getFullYear(), date.getMonth(), (day+1)),
-      allDay: true,
-      extendedProps: {
-        calendar: 'Family',
-      },
-    },
+    // {
+    //   id: '4',
+    //   url: '',
+    //   title: '预约',
+    //   start: new Date(date.getFullYear(), date.getMonth(), (day+1)),
+    //   end: new Date(date.getFullYear(), date.getMonth(), (day+1)),
+    //   allDay: true,
+    //   extendedProps: {
+    //     calendar: 'Family',
+    //   },
+    // },
     {
       id: '5',
       url: '',
@@ -103,17 +103,17 @@ const data = {
         calendar: 'ETC',
       },
     },
-    {
-      id: '6',
-      url: '',
-      title: '预约',
-      start: new Date(date.getFullYear(), date.getMonth(), (day+2)),
-      end: new Date(date.getFullYear(), date.getMonth(), (day+2)),
-      allDay: true,
-      extendedProps: {
-        calendar: 'Family',
-      },
-    },
+    // {
+    //   id: '6',
+    //   url: '',
+    //   title: '预约',
+    //   start: new Date(date.getFullYear(), date.getMonth(), (day+2)),
+    //   end: new Date(date.getFullYear(), date.getMonth(), (day+2)),
+    //   allDay: true,
+    //   extendedProps: {
+    //     calendar: 'Family',
+    //   },
+    // },
     {
       id: '7',
       url: '',
@@ -125,17 +125,17 @@ const data = {
         calendar: 'ETC',
       },
     },
-    {
-      id: '8',
-      url: '',
-      title: '预约',
-      start: new Date(date.getFullYear(), date.getMonth(), (day+3)),
-      end: new Date(date.getFullYear(), date.getMonth(), (day+3)),
-      allDay: true,
-      extendedProps: {
-        calendar: 'Family',
-      },
-    },
+    // {
+    //   id: '8',
+    //   url: '',
+    //   title: '预约',
+    //   start: new Date(date.getFullYear(), date.getMonth(), (day+3)),
+    //   end: new Date(date.getFullYear(), date.getMonth(), (day+3)),
+    //   allDay: true,
+    //   extendedProps: {
+    //     calendar: 'Family',
+    //   },
+    // },
     {
       id: '9',
       url: '',
@@ -147,17 +147,17 @@ const data = {
         calendar: 'ETC',
       },
     },
-    {
-      id: '10',
-      url: '',
-      title: '预约',
-      start: new Date(date.getFullYear(), date.getMonth(), (day+4)),
-      end: new Date(date.getFullYear(), date.getMonth(), (day+4)),
-      allDay: true,
-      extendedProps: {
-        calendar: 'Family',
-      },
-    },
+    // {
+    //   id: '10',
+    //   url: '',
+    //   title: '预约',
+    //   start: new Date(date.getFullYear(), date.getMonth(), (day+4)),
+    //   end: new Date(date.getFullYear(), date.getMonth(), (day+4)),
+    //   allDay: true,
+    //   extendedProps: {
+    //     calendar: 'Family',
+    //   },
+    // },
     {
       id: '11',
       url: '',
@@ -169,17 +169,17 @@ const data = {
         calendar: 'ETC',
       },
     },
-    {
-      id: '12',
-      url: '',
-      title: '预约',
-      start: new Date(date.getFullYear(), date.getMonth(), (day+5)),
-      end: new Date(date.getFullYear(), date.getMonth(), (day+5)),
-      allDay: true,
-      extendedProps: {
-        calendar: 'Family',
-      },
-    },
+    // {
+    //   id: '12',
+    //   url: '',
+    //   title: '预约',
+    //   start: new Date(date.getFullYear(), date.getMonth(), (day+5)),
+    //   end: new Date(date.getFullYear(), date.getMonth(), (day+5)),
+    //   allDay: true,
+    //   extendedProps: {
+    //     calendar: 'Family',
+    //   },
+    // },
     {
       id: '13',
       url: '',
@@ -191,17 +191,17 @@ const data = {
         calendar: 'ETC',
       },
     },
-    {
-      id: '14',
-      url: '',
-      title: '预约',
-      start: new Date(date.getFullYear(), date.getMonth(), (day+6)),
-      end: new Date(date.getFullYear(), date.getMonth(), (day+6)),
-      allDay: true,
-      extendedProps: {
-        calendar: 'Family',
-      },
-    },
+    // {
+    //   id: '14',
+    //   url: '',
+    //   title: '预约',
+    //   start: new Date(date.getFullYear(), date.getMonth(), (day+6)),
+    //   end: new Date(date.getFullYear(), date.getMonth(), (day+6)),
+    //   allDay: true,
+    //   extendedProps: {
+    //     calendar: 'Family',
+    //   },
+    // },
     // {
     //   id: '3',
     //   url: '',

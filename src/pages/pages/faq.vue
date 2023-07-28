@@ -31,14 +31,53 @@ const contactUs = [
     tagLine: '更快得到答案的最佳方式！',
   },
 ]
+
+
+
 </script>
 
 <template>
-  <section>
+  
+  <section class="faq">
+    <div>
+      <div style="width: 100%;">
+        <div
+          style="
+            background-color: #FFFFFFFF;
+            border-radius: 12px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 64px;
+            margin-bottom: 32px;
+            margin-top: 32px;
+          "
+        >
+          <div
+            style="
+              font-family: 'DINMedium';
+              font-size: 13px;
+              line-height: 18px;
+              color: #1d1d1f;
+              position: absolute;
+              left: 50px;
+            "
+          >
+            常见问题
+          </div>
+          <div style="font-size: 13px; color: #1D1D1FFF; line-height: 18px">
+            若“常见问题”处理指南未能帮您解决问题，请联系微信公众号在线客服处理。
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 👉 Search -->
     <AppSearchHeader
       v-model="faqSearchQuery"
-      title="你好，我们能帮忙吗？"
+      title="你好，请输入关键字检索帮助。"
       subtitle="或者选择一个类别以快速找到您需要的帮助"
       custom-class="mb-7"
     />
@@ -65,11 +104,11 @@ const contactUs = [
             :value="faq.faqTitle"
             class="text-high-emphasis"
           >
-            <VIcon
+            <!-- <VIcon
               :icon="faq.faqIcon"
               :size="20"
               start
-            />
+            /> -->
             {{ faq.faqTitle }}
           </VTab>
         </VTabs>
@@ -92,7 +131,7 @@ const contactUs = [
             :value="faq.faqTitle"
           >
             <div class="d-flex align-center mb-6">
-              <VAvatar
+              <!-- <VAvatar
                 rounded
                 color="primary"
                 variant="tonal"
@@ -103,7 +142,7 @@ const contactUs = [
                   :size="32"
                   :icon="faq.faqIcon"
                 />
-              </VAvatar>
+              </VAvatar> -->
 
               <div>
                 <h6 class="text-h6">
@@ -153,56 +192,7 @@ const contactUs = [
       </VCol>
     </VRow>
 
-    <!-- 👉 You still have a question? -->
-    <div class="text-center pt-15">
-      <VChip
-        label
-        color="primary"
-        size="small"
-        class="mb-2"
-      >
-        问题？
-      </VChip>
-
-      <h5 class="text-h5 mb-2">
-        你还有问题吗？
-      </h5>
-      <p>
-        如果您在我们的常见问题解答中找不到问题，您可以联系我们。我们很快就会回答您！
-      </p>
-
-      <!-- contacts -->
-      <VRow class="mt-4">
-        <VCol
-          v-for="contact in contactUs"
-          :key="contact.icon"
-          sm="6"
-          cols="12"
-        >
-          <VCard
-            flat
-            class="bg-var-theme-background"
-          >
-            <VCardText>
-              <VAvatar
-                rounded
-                color="primary"
-                variant="tonal"
-                class="me-3"
-              >
-                <VIcon :icon="contact.icon" />
-              </VAvatar>
-            </VCardText>
-            <VCardText>
-              <h6 class="text-h6 mb-2">
-                {{ contact.via }}
-              </h6>
-              <span>{{ contact.tagLine }}</span>
-            </VCardText>
-          </VCard>
-        </VCol>
-      </VRow>
-    </div>
+    
   </section>
 </template>
 
@@ -211,5 +201,8 @@ const contactUs = [
   .v-window__container {
     z-index: 0;
   }
+}
+.faq .v-expansion-panel__shadow {
+ box-shadow: none !important;
 }
 </style>

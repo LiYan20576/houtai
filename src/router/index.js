@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
     } else {
       // 用户未登录，跳转到登录页，并保存目标路由的信息
       next({
-        name: 'loginv1',
+        name: 'login',
         query: to.query, // 通过 query 参数保存目标路由的完整路径
       });
     }

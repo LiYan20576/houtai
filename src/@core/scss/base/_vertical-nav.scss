@@ -135,7 +135,7 @@
 
       > .router-link-exact-active::before {
         // @extend %nav-link-active;
-        opacity: calc(var(--v-hover-opacity) * var(--v-theme-overlay-multiplier)) !important;
+        // opacity: calc(var(--v-hover-opacity) * var(--v-theme-overlay-multiplier)) !important;
       }
 
       > a {

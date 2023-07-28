@@ -24,14 +24,7 @@ fetchHelpCenterData()
       custom-class="rounded-0"
     />
 
-    <!-- 👉 Popular Articles -->
-    <VCardText class="py-12">
-      <h5 class="text-h3 text-center my-6">
-        Popular Articles
-      </h5>
-
-      <HelpCenterLandingArticlesOverview :articles="apiData.popularArticles" />
-    </VCardText>
+    
 
     <!-- 👉 Knowledge Base -->
     <div>
@@ -44,16 +37,6 @@ fetchHelpCenterData()
       </VCardText>
     </div>
 
-    <!-- 👉 Keep Learning -->
-    <VCardText class="py-12">
-      <h5 class="text-h3 text-center my-6">
-        Keep Learning
-      </h5>
-
-      <HelpCenterLandingArticlesOverview :articles="apiData.keepLearning" />
-    </VCardText>
-
-    <!-- 👉 Still need help? -->
-    <HelpCenterLandingFooter />
+    
   </VCard>
 </template>

@@ -36,78 +36,71 @@ const info = (index) => {
 const news = ref([
   {
     type: "type1",
-    img: "https://www.uesg.org.cn/img/0727/%E5%B9%BF%E5%91%8A01.jpeg",
-    title: 'ESG的含义为"环境"、"社会"和"治理"。',
+    img: "https://www.uesg.org.cn/img/0727/广告2.jpg",
+    title: 'ESG的含义为“环境”、“社会”和“治理”。',
     tag: "科普",
-    time: "2023年7月23日",
+    time: "2023 年 07 月 23 日",
   },
   {
     type: "type1",
-    img: "https://www.uesg.org.cn/img/0725/3.jpeg",
-    title: "中国市场需要有自身特色的ESG。",
+    img: "https://www.uesg.org.cn/img/0727/广告4.jpg",
+    title: "中国特色的ESG。",
     tag: "科普",
-    time: "2023年7月20日",
+    time: "2023 年 07 月 20 日",
+  },
+  {
+    type: "type2",
+    card1: {
+      img: "https://www.uesg.org.cn/img/0727/广告05.jpeg",
+      title: "特斯拉可与清洁能源世界。",
+      tag: "企业",
+      time: "12 小时",
+    },
+    card2: {
+      img: "https://www.uesg.org.cn/img/0727/广告06.jpeg",
+      title: "负责人的科技，可持续的未来。",
+      tag: "企业",
+      time: "9 小时",
+    },
+  },
+  {
+    type: "type2",
+    card1: {
+      img: "https://www.uesg.org.cn/img/0727/广告7.jpg",
+      title: "每一步，都有ESG创新。",
+      tag: "企业",
+      time: "12 小时",
+    },
+    card2: {
+      img: "https://www.uesg.org.cn/img/0727/广告6.jpg",
+      title: "ESG是双碳的基石。",
+      tag: "企业",
+      time: "12 小时",
+    },
   },
   {
     type: "type1",
-    img: "https://www.uesg.org.cn/img/0725/4.jpeg",
-    title: "ESG就业一片蓝海，未来三年将涌现出数百万ESG岗位。",
+    img: "https://www.uesg.org.cn/img/0727/广告3.jpg",
+    title: "中国特色的ESG。",
     tag: "数据",
-    time: "2023年7月20日",
-  },
-  {
-    type: "type2",
-    card1: {
-      img: "https://www.uesg.org.cn/img/0726/type2-1.jpg",
-      title: "特斯拉可与清洁能源世界。",
-      tag: "ESG企业",
-      time: "2023年7月20日",
-    },
-    card2: {
-      img: "https://www.uesg.org.cn/img/0726/type2-2%20.png",
-      title: "负责人的科技，可持续的未来。",
-      tag: "ESG企业",
-      time: "2023年7月20日",
-    },
-  },
-  {
-    type: "type2",
-    card1: {
-      img: "https://www.uesg.org.cn/img/0726/type2-1.jpg",
-      title: "特斯拉可与清洁能源世界。",
-      tag: "ESG企业",
-      time: "2023年7月20日",
-    },
-    card2: {
-      img: "https://www.uesg.org.cn/img/0726/type2-2%20.png",
-      title: "负责人的科技，可持续的未来。",
-      tag: "ESG企业",
-      time: "2023年7月20日",
-    },
-  },
-  {
-    type: "type2",
-    card1: {
-      img: "https://www.uesg.org.cn/img/0726/type2-1.jpg",
-      title: "特斯拉可与清洁能源世界。",
-      tag: "ESG企业",
-      time: "2023年7月20日",
-    },
-    card2: {
-      img: "https://www.uesg.org.cn/img/0726/type2-2%20.png",
-      title: "负责人的科技，可持续的未来。",
-      tag: "ESG企业",
-      time: "2023年7月20日",
-    },
+    time: "12 小时",
   },
   {
     type: "type1",
-    img: "https://www.uesg.org.cn/img/0725/5.jpeg",
-    title: "全球气候危机当前，每个国家、每个企业乃至每个人都责无旁贷。",
+    img: "https://www.uesg.org.cn/img/0727/广告5.jpg",
+    title: "全球气候危机。",
     tag: "科普",
-    time: "2023年7月23日",
+    time: "2023 年 07 月 23 日",
   },
 ]);
+
+const gotoLogin = () => {
+  window.location.href = '/loginv1'
+}
+
+const gotoDetail = () => {
+  router.push('/newsDetail')
+}
 
 onMounted(() => {
   // 在页面加载时执行的方法
@@ -126,75 +119,82 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <VRow>
-      <VCol cols="12">
-        <VCard
+  <div style="padding-bottom: 64px;">
+    <div>
+      <div style="width: 100%;">
+        <div
           style="
+            background-color: #FFFFFFFF;
+            border-radius: 12px;
             position: relative;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 32px 50px;
-            margin-bottom: 26px;
+            padding: 16px 64px;
+            margin-bottom: 32px;
+            margin-top: 32px;
           "
         >
-          <div
-            style="
-              font-family: 'DINMedium';
-              font-size: 17px;
-              line-height: 20px;
-              color: #1d1d1f;
-              position: absolute;
-              left: 50px;
-            "
-          >
-            Newsroom
-          </div>
-          <div style="font-size: 15px; color: #1d1d1f; line-height: 21px">
-            UESG Newsroom 需要您关注UESG官方公众号了解更多最新资讯。
+          <div style="font-family: DINMedium;font-size: 13px; color: #1D1D1FFF; line-height: 18px">
+            关注“UESG优世界”官方公众号了解更多最新资讯。
             <span
+              @click="gotoLogin"
               style="
-                font-family: 'DINMedium';
+                font-family: DINMedium;
                 color: #0066cc;
-                line-height: 21px;
-                font-size: 15px;
+                line-height: 18px;
+                font-size: 13px;
+                cursor: pointer;
               "
               >立刻关注 ></span
             >
           </div>
-        </VCard>
-      </VCol>
-    </VRow>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size: 30px;line-height: 42px;color: #1D1D1FFF;font-family: DINMedium;margin-bottom: 32px;">
+      最新消息
+    </div>
+
     <VRow>
       <!-- 👉 banner -->
-      <VCol cols="12" md="8">
-        <VCard>
+      <VCol cols="12">
+        <div style="position: relative;" @click="gotoDetail">
           <img
-            src="https://www.uesg.org.cn/img/0727/%E5%B9%BF%E5%91%8A01.jpeg"
-            style="width: 100%; height: 305px;border-radius: 6px; display: block"
+            src="https://www.uesg.org.cn/img/0727/广告1.jpeg"
+            style="width: 100%;display: block;border-radius: 12px;"
           />
-          <div style="">
-            在全球范围传播 ESG 理念
-            <br>
-            培养与认证 ESG 人才
+          <div style="position: absolute;left: 32px;bottom: 32px;">
+            <div style="font-size: 11px;line-height: 16px;color: #FFFFFFFF;font-family: DINMedium;margin-bottom: 8px;">
+              愿景
+            </div>
+            <div style="font-family: DINSemiBold;color: #FFFFFFFF;font-size: 31px;line-height: 44px;font-weight: bold;">
+              在全球范围传播 ESG 理念
+              <br>
+              培养与认证 ESG 人才
+            </div>
+            <div style="font-size: 13px;line-height: 18px;color: #FFFFFFFF;font-family: DINMedium;margin-top: 8px;">
+              2023 年 07 月 23 日
+            </div>
           </div>
-        </VCard>
+        </div>
       </VCol>
       <template v-for="(item,index) in news" :key="index">
         <!-- 👉 type1 -->
         <VCol v-if="item.type == 'type1'" cols="12" md="4" sm="6">
-          <VCard style="height: 305px;">
+          <!-- height: 305px; -->
+          <div style="background-color: #FFFFFFFF;border-radius: 12px;">
             <div class="card">
               <img
                 :src="item.img"
                 class="card-img "
               />
               <div class="card-desc">
-                <div class="box-top">
+                <div class="box-top" style="margin-bottom: 10px;">
                   <div class="card-tag">{{ item.tag }}</div>
-                  <div class="card-title">
+                  <div class="card-title" style="min-height: 52px;">
                     {{ item.title }}
                   </div>
                 </div>
@@ -203,16 +203,16 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-          </VCard>
+          </div>
         </VCol>
         <!-- 👉 type2 -->
         <VCol v-else cols="12" md="4" sm="6">
           <div class="card-wrap">
-            <VCard>
+            <div style="border-radius: 12px;">
               <div class="card-type2" style="border-radius: 6px;">
                 <img :src="item.card1.img" class="card-type2-img"/>
                 <div class="card-type2-right">
-                  <div>
+                  <div style="margin-bottom: 12px;">
                     <div class="card-type2-tag">
                       {{ item.card1.tag }}
                     </div>
@@ -226,26 +226,26 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-            </VCard>
-            <VCard>
+            </div>
+            <div style="border-radius: 12px;">
               <div class="card-type2" style="border-radius: 6px;">
                 <img :src="item.card2.img" class="card-type2-img"/>
                 <div class="card-type2-right">
-                  <div>
+                  <div style="margin-bottom: 12px;">
                     <div class="card-type2-tag">
-                      {{ item.card1.tag }}
+                      {{ item.card2.tag }}
                     </div>
                     <div class="card-title">
-                      {{ item.card1.title }}
+                      {{ item.card2.title }}
                     </div>
                   </div>
 
                   <div class="card-time">
-                    {{ item.card1.time }}
+                    {{ item.card2.time }}
                   </div>
                 </div>
               </div>
-            </VCard>
+            </div>
           </div>
         </VCol>
       </template>
@@ -255,30 +255,18 @@ onMounted(() => {
 </template>
 
 <style>
-@font-face {
-  font-family: "DINRegular";
-  src: url("https://www.uesg.org.cn/font/0725/D-DIN-PRO-400-Regular.ttf")
-    format("truetype");
-}
-@font-face {
-  font-family: "DINMedium";
-  src: url("https://www.uesg.org.cn/font/0725/D-DIN-PRO-500-Medium.ttf")
-    format("truetype");
-}
-</style>
-
-<style>
 /* type1 */
 .card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  border-radius: 12px;
 }
 .card-img {
   height: 50%;
   width: 100%;
-  border-radius: 6px;
+  border-radius:12px 12px 0 0 ;
 }
 .card-desc {
   padding: 16px;
@@ -288,23 +276,28 @@ onMounted(() => {
   justify-content: space-between;
 }
 .card-tag {
-  color: #6236ffff;
-  font-size: 13px;
-  line-height: 18px;
-  font-family: 'DINMedium';
+  color: #00000080;
+  font-size: 11px;
+  line-height: 16px;
+  font-family: DINMedium;
   margin-bottom: 8px;
 }
 .card-title {
-  font-family: 'DINMedium';
+  font-family: DINMedium;
   color: rgba(0, 0, 0, 0.85);
-  font-size: 17px;
-  line-height: 24px;
+  font-size: 19px;
+  line-height: 26px;
   /* margin-bottom: 25px; */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .card-time {
+  font-family: DINMedium;
   font-size: 13px;
   line-height: 18px;
-  color: rgba(0, 0, 0, 0.5);
+  color: #00000080;
 }
 
 /* type2 */
@@ -320,16 +313,16 @@ onMounted(() => {
   background-color: #fff;
   width: 100%;
   /* margin-bottom: 24px; */
-  padding: 25px;
+  padding: 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 .card-type2-img {
-  width: 160px;
-  height: 160px;
+  width: 90px;
+  height: 90px;
   /* border: 1px dashed #333; */
-  margin-right: 25px;
+  margin-right: 16px;
 }
 .card-type2-right {
   display: flex;
@@ -337,11 +330,11 @@ onMounted(() => {
   justify-content: space-between;
 }
 .card-type2-tag {
-  font-size: 15px;
-  color: #5bb439;
-  line-height: 21px;
-  font-family: 'DINMedium';
-  margin-bottom: 15px;
+  font-size: 11px;
+  color: #00000080;
+  line-height: 18px;
+  font-family: DINMedium;
+  margin-bottom: 8px;
 }
 
 

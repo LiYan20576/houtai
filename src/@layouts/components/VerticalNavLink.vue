@@ -59,7 +59,10 @@ const handleMouseLeave = () => {
 
       <!-- :src="item.icon.url" -->
       <!-- v-if="!item.type||!avatarUrl" -->
-      <img  class="nav-item-icon" :src="isNavLinkActive(item, $router) ? item.hoverIcon.url : item.icon.url" style="width:24px;height:24px;padding: 0;margin: 0 auto;">
+      <span style="font-size: 13px;line-height: 18px;color: #000000D9;font-family: DINMedium;">
+        {{ item.title }}
+      </span>
+      <!-- <img  class="nav-item-icon" :src="isNavLinkActive(item, $router) ? item.hoverIcon.url : item.icon.url" style="width:24px;height:24px;padding: 0;margin: 0 auto;"> -->
       
       <!-- <img v-else class="nav-item-icon" :src="avatarUrl" style="width:19px;height:19px;"> -->
       

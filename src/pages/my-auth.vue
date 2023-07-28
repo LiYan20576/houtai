@@ -46,27 +46,36 @@ const url = ref("https://www.gjtool.cn/pdfh5/test.pdf");
 
 
 <template>
-  <VRow style=" height: 100vh;margin: 0;background-color: #FFFFFFFF !important;box-shadow: 0px 5px 10px 0px #F0EFF2 !important;border-radius: 12px !important;">
-
-    <div style="width: 100%;height: 100%;scale: 0.8;display: flex;align-items: center;justify-content: center;">
-      <div style="width: 500px;height: 641px;background-image: url(https://www.uesg.org.cn/img/loginv1.jpg);background-size: 100% 100%;">
-        
-      </div>
-      <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;width: 500px;height: 641px;background-image: url(https://www.uesg.org.cn/img/loginbg.jpg);background-size: 100% 100%;">
-        <!-- <div style="font-size: 35px;line-height: 50px;color: #5C5A68;font-weight: 500;margin-bottom: 30px;">
-          微信扫码登录
+  <VRow>
+    <VCol cols="12">
+      <VCard
+        style="
+          position: relative;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 16px 64px;
+          margin-bottom: 32px;
+        "
+      >
+        <div
+          style="
+            font-family: 'DINMedium';
+            font-size: 13px;
+            line-height: 18px;
+            color: #1d1d1f;
+            position: absolute;
+            left: 50px;
+          "
+        >
+          我的证书
         </div>
-        <div style="width: 210px;height: 210px;border-radius: 12px;border: 4px solid #E6E6E6;margin-bottom: 30px;">
-
+        <div style="font-size: 13px; color: #1d1d1f; line-height: 18px">
+          您还未取得任何证书。
         </div>
-        <div style="font-size: 17px;line-height: 50px;color: #5C5A68;">
-          微信扫码关注公众号进行登录
-        </div> -->
-        <img src="https://weixin.uesg.cn/order/CreatePayCode" >
-      </div>
-    </div>
-   
-    <!-- <iframe src="http://www.gjtool.cn/pdfh5/pdf.html?file=//www.gjtool.cn/pdfh5/test.pdf" width="100%" height="600"></iframe> -->
+      </VCard>
+    </VCol>
   </VRow>
 </template>
 
